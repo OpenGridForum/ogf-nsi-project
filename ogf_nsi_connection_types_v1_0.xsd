@@ -535,9 +535,9 @@
          </xsd:documentation>
       </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="startTime"    type="xsd:dateTime" minOccurs="0" />
+            <xsd:element name="startTime"    type="tns:DateTimeType" minOccurs="0" />
             <xsd:choice minOccurs="0">
-                <xsd:element name="endTime"  type="xsd:dateTime" />
+                <xsd:element name="endTime"  type="tns:DateTimeType" />
                 <xsd:element name="duration" type="xsd:duration" />
             </xsd:choice>
         </xsd:sequence>
@@ -886,6 +886,23 @@
         </xsd:annotation>
         <xsd:restriction base="xsd:anyURI">
             <xsd:pattern value="urn:uuid:[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DateTimeType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                The time zone support of W3C XML Schema is quite controversial
+                and needs some additional constraints to avoid comparison
+                problems. These patterns can be kept relatively simple since
+                the syntax of the datetime is already checked by the schema
+                validator and only simple additional checks need to be added.
+                This type definition checks that the time part ends with a "Z"
+                or contains a sign.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:dateTime">
+            <xsd:pattern value=".+T.+(Z|[+-].+)"/>
         </xsd:restriction>
     </xsd:simpleType>
 
