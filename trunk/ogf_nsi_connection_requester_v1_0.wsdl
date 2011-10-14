@@ -21,7 +21,7 @@
     
     This document is the SOAP endpoint definition for a requester NSA and
     holds definitions for messages the requester NSA will receive.  For the
-    reservation, provision, release, and terminate message sets the requester
+    reserve, provision, release, and terminate message sets the requester
     will receive confirmed and failed messages only.  For the query operation
     a requester NSA must support request, confirmed, and failed messages due
     to the possibility that a child provider NSA may query the requester for
@@ -37,6 +37,7 @@
     Version: 0.07 Draft, 2011/07/29, John MacAuley
     Version: 0.08 Draft, 2011/08/02, John MacAuley
     Version: 0.09 Draft, 2011/08/06, John MacAuley
+    Version: 0.10 Draft, 2011/10/14, John MacAuley
 -->
 <wsdl:definitions name="ogf_nsi_connection_requester_v1_0"
     targetNamespace="http://schemas.ogf.org/nsi/2011/07/connection/requester"
@@ -53,29 +54,29 @@
         (response), and fault (error response) messages. -->
     <wsdl:portType name="ConnectionRequesterPort">
         
-        <!-- ********** Reservation operation set *********** -->
+        <!-- ********** Reserve operation set *********** -->
 
-        <wsdl:operation name="reservationConfirmed">
+        <wsdl:operation name="reserveConfirmed">
             <wsdl:documentation>
-                This reservationConfirmed message is sent from a Provider NSA to
+                This reserveConfirmed message is sent from a Provider NSA to
                 Requester NSA as an indication of a successful reservation. This
-                is in response to an original reservation request from the
+                is in response to an original reserve request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="reservationConfirmed"     message="interface:NSI_reservationConfirmed" />
-            <wsdl:output name="reservationConfirmedACK"  message="interface:NSI_acknowledgment" />
+            <wsdl:input  name="reserveConfirmed"     message="interface:NSI_reserveConfirmed" />
+            <wsdl:output name="reserveConfirmedACK"  message="interface:NSI_acknowledgment" />
             <wsdl:fault  name="serviceException"         message="interface:NSI_serviceException" />
         </wsdl:operation>
         
-        <wsdl:operation name="reservationFailed">
+        <wsdl:operation name="reserveFailed">
             <wsdl:documentation>
-                This reservationFailed message is sent from a Provider NSA to
-                Requester NSA as an indication of a reservation failure. This
-                is in response to an original reservation request from the
+                This reserveFailed message is sent from a Provider NSA to
+                Requester NSA as an indication of a reserve failure. This
+                is in response to an original reserve request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="reservationFailed"     message="interface:NSI_reservationFailed" />
-            <wsdl:output name="reservationFailedACK"  message="interface:NSI_acknowledgment" />
+            <wsdl:input  name="reserveFailed"     message="interface:NSI_reserveFailed" />
+            <wsdl:output name="reserveFailedACK"  message="interface:NSI_acknowledgment" />
             <wsdl:fault  name="serviceException"      message="interface:NSI_serviceException" />
         </wsdl:operation>
         
@@ -216,11 +217,11 @@
     <wsdl:binding name="ConnectionServiceRequesterSoapBinding" type="tns:ConnectionRequesterPort">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 
-        <!-- ********** Requester NSA reservation operation set ********** -->
+        <!-- ********** Requester NSA reserve operation set ********** -->
 
-        <wsdl:operation name="reservationConfirmed">
+        <wsdl:operation name="reserveConfirmed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/07/connection/service/reservationConfirmed"
+                soapAction="http://schemas.ogf.org/nsi/2011/07/connection/service/reserveConfirmed"
                 style="document" />
             <wsdl:input><soap:body use="literal" /></wsdl:input>
             <wsdl:output><soap:body use="literal" /></wsdl:output>
@@ -229,9 +230,9 @@
             </wsdl:fault>
         </wsdl:operation>
 
-        <wsdl:operation name="reservationFailed">
+        <wsdl:operation name="reserveFailed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/07/connection/service/reservationFailed"
+                soapAction="http://schemas.ogf.org/nsi/2011/07/connection/service/reserveFailed"
                 style="document" />
             <wsdl:input><soap:body use="literal" /></wsdl:input>
             <wsdl:output><soap:body use="literal" /></wsdl:output>
@@ -288,7 +289,7 @@
             </wsdl:fault>
         </wsdl:operation>
 
-        <!-- ********** Requester NSA terminate reservation operation set ********** -->
+        <!-- ********** Requester NSA terminate reserve operation set ********** -->
 
         <wsdl:operation name="terminateConfirmed">
             <soap:operation

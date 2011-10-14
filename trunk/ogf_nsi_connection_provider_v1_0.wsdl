@@ -21,7 +21,7 @@
 
     This document is the SOAP endpoint definition for a provider NSA.  It
     holds definitions for messages the provider NSA will receive.  For the
-    reservation, provision, release, and terminate message sets the provider
+    reserve, provision, release, and terminate message sets the provider
     will receive request messages only.  For the query operation a provider
     NSA must support request, confirmed, and failed messages due to the
     possibility that a provider NSA may query the requester for a list of
@@ -36,6 +36,7 @@
     Version: 0.07 Draft, 2011/07/29, John MacAuley
     Version: 0.08 Draft, 2011/08/02, John MacAuley
     Version: 0.09 Draft, 2011/08/06, John MacAuley
+    Version: 0.10 Draft, 2011/10/14, John MacAuley
 -->
 <wsdl:definitions name="ogf_nsi_connection_provider_v1_0"
     targetNamespace="http://schemas.ogf.org/nsi/2011/07/connection/provider"
@@ -52,19 +53,19 @@
         (response), and fault (error response) messages. -->
     <wsdl:portType name="ConnectionProviderPort">
         
-        <!-- ********** Reservation operation set *********** -->
+        <!-- ********** Reserve operation set *********** -->
         
-        <wsdl:operation name="reservation">
+        <wsdl:operation name="reserve">
             <wsdl:documentation>
-                The reservation message is sent from a Requester NSA to a
-                Provider NSA when a new reservation is being requested. The
-                reservationACK indicates that the Provider NSA has accepted the
-                reservation request for processing. A reservationConfirmed or
-                reservationFailed message will be sent asynchronously to the
-                Requester NSA when reservation processing has completed.
+                The reserve message is sent from a Requester NSA to a Provider
+                NSA when a new reservation is being requested. The reserveACK
+                indicates that the Provider NSA has accepted the reservation
+                request for processing. A reserveConfirmed or reserveFailed
+                message will be sent asynchronously to the Requester NSA
+                when reservation processing has completed.
             </wsdl:documentation>
-            <wsdl:input  name="reservation"         message="interface:NSI_reservationRequest" />
-            <wsdl:output name="reservationACK"      message="interface:NSI_acknowledgment" />
+            <wsdl:input  name="reserve"             message="interface:NSI_reserveRequest" />
+            <wsdl:output name="reserveACK"          message="interface:NSI_acknowledgment" />
             <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
         </wsdl:operation>
         
@@ -161,11 +162,11 @@
     <wsdl:binding name="ConnectionServiceProviderSoapBinding" type="tns:ConnectionProviderPort">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 
-        <!-- ********** Reservation operation set ********** -->
+        <!-- ********** Reserve operation set ********** -->
 
-        <wsdl:operation name="reservation">
+        <wsdl:operation name="reserve">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/07/connection/service/reservation"
+                soapAction="http://schemas.ogf.org/nsi/2011/07/connection/service/reserve"
                 style="document" />
             <wsdl:input><soap:body use="literal" /></wsdl:input>
             <wsdl:output><soap:body use="literal" /></wsdl:output>
