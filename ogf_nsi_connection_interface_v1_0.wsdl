@@ -32,6 +32,7 @@
     Version: 0.07 Draft, 2011/07/29, John MacAuley
     Version: 0.08 Draft, 2011/08/02, John MacAuley
     Version: 0.09 Draft, 2011/08/06, John MacAuley
+    Version: 0.10 Draft, 2011/10/14, John MacAuley
 -->
 <wsdl:definitions name="ogf_nsi_connection_interface_v1_0"
     targetNamespace="http://schemas.ogf.org/nsi/2011/07/connection/interface"
@@ -101,8 +102,21 @@
         Request, Confirmed, and Failed operations are defined with
         input (request), output (acknowledgment), and fault (error)
         messages as part of their WSDL definition. The output message,
-        or response, for each operation is an empty element definition
-        providing a simple acknowledgment.
+        or response, for each operation is an element definition providing a
+        simple acknowledgment with the request correlationId.
+        
+        Note on acknowledgment handling:
+        Depending on NSA implementation and thread timing an acknowledgment to
+        a request operation may be returned after the confirm/fail for the
+        request has been returned to the Requesting NSA.
+        
+        The following guidelines for acknowledgment handling are proposed:
+        
+        1. For protocol robustness, Requesting NSA should be able to accept
+        confirm/fail before acknowledgment.
+        
+        2. Acknowledgment should be sent by Provider NSA before the
+        confirm/fail.
     
         Each NSI CS request message in this WSDL definition has the
         following elements:
@@ -551,7 +565,22 @@
  
                         Elements:
                         correlationId - The identifier provided in the original
-                        query request.
+                        request operation.
+                        
+                        Notes on acknowledgment:
+                        Depending on NSA implementation and thread timing an
+                        acknowledgment to a request operation may be returned
+                        after the confirm/fail for the request has been returned
+                        to the Requesting NSA.
+                        
+                        The following guidelines for acknowledgment handling are
+                        proposed:
+                        
+                        1. For protocol robustness, Requesting NSA should be
+                        able to accept confirm/fail before acknowledgment.
+                        
+                        2. Acknowledgment should be sent by Provider NSA before
+                        the confirm/fail.
                    </xsd:documentation>
                 </xsd:annotation>
                 <xsd:sequence>
