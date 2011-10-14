@@ -64,9 +64,9 @@
                 message will be sent asynchronously to the Requester NSA
                 when reservation processing has completed.
             </wsdl:documentation>
-            <wsdl:input  name="reserve"             message="interface:NSI_reserveRequest" />
-            <wsdl:output name="reserveACK"          message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="reserve"             message="interface:reserveRequest" />
+            <wsdl:output name="reserveACK"          message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** Provision operation set *********** -->
@@ -81,9 +81,9 @@
                 asynchronously to the Requester NSA when provision processing
                 has completed.
             </wsdl:documentation>
-            <wsdl:input  name="provision"           message="interface:NSI_provisionRequest" />
-            <wsdl:output name="provisionACK"        message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="provision"           message="interface:provisionRequest" />
+            <wsdl:output name="provisionACK"        message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** Release operation set *********** -->
@@ -97,9 +97,9 @@
                 or releaseFailed message will be sent asynchronously to the
                 Requester NSA when release processing has completed.
             </wsdl:documentation>
-            <wsdl:input  name="release"             message="interface:NSI_releaseRequest" />
-            <wsdl:output name="releaseACK"          message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="release"             message="interface:releaseRequest" />
+            <wsdl:output name="releaseACK"          message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** Terminate operation set *********** -->
@@ -113,9 +113,9 @@
                 terminateFailed message will be sent asynchronously to the Requester
                 NSA when terminate processing has completed.
             </wsdl:documentation>
-            <wsdl:input  name="terminate"           message="interface:NSI_terminateRequest" />
-            <wsdl:output name="terminateACK"        message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="terminate"           message="interface:terminateRequest" />
+            <wsdl:output name="terminateACK"        message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** Query operation set *********** -->
@@ -129,9 +129,9 @@
                 asynchronously to the requesting NSA when query processing has
                 completed.
             </wsdl:documentation>
-            <wsdl:input  name="query"               message="interface:NSI_queryRequest" />
-            <wsdl:output name="queryACK"            message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="query"               message="interface:queryRequest" />
+            <wsdl:output name="queryACK"            message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <wsdl:operation name="queryConfirmed">
@@ -141,9 +141,9 @@
                 response to an original query request from the associated Requester
                 NSA.
             </wsdl:documentation>
-            <wsdl:input  name="queryConfirmed"      message="interface:NSI_queryConfirmed" />
-            <wsdl:output name="queryConfirmedACK"   message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="queryConfirmed"      message="interface:queryConfirmed" />
+            <wsdl:output name="queryConfirmedACK"   message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <wsdl:operation name="queryFailed">
@@ -153,9 +153,9 @@
                 response to an original query request from the associated
                 Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="queryFailed"         message="interface:NSI_queryFailed" />
-            <wsdl:output name="queryFailedACK"      message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="queryFailed"         message="interface:queryFailed" />
+            <wsdl:output name="queryFailedACK"      message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
     </wsdl:portType>
     

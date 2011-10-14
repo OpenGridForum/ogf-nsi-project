@@ -63,9 +63,9 @@
                 is in response to an original reserve request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="reserveConfirmed"     message="interface:NSI_reserveConfirmed" />
-            <wsdl:output name="reserveConfirmedACK"  message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"         message="interface:NSI_serviceException" />
+            <wsdl:input  name="reserveConfirmed"     message="interface:reserveConfirmed" />
+            <wsdl:output name="reserveConfirmedACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"         message="interface:serviceException" />
         </wsdl:operation>
         
         <wsdl:operation name="reserveFailed">
@@ -75,9 +75,9 @@
                 is in response to an original reserve request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="reserveFailed"     message="interface:NSI_reserveFailed" />
-            <wsdl:output name="reserveFailedACK"  message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"      message="interface:NSI_serviceException" />
+            <wsdl:input  name="reserveFailed"     message="interface:reserveFailed" />
+            <wsdl:output name="reserveFailedACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"      message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** Provision operation set *********** -->
@@ -89,9 +89,9 @@
                 This is in response to an original provision request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="provisionConfirmed"     message="interface:NSI_provisionConfirmed" />
-            <wsdl:output name="provisionConfirmedACK"  message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"       message="interface:NSI_serviceException" />
+            <wsdl:input  name="provisionConfirmed"     message="interface:provisionConfirmed" />
+            <wsdl:output name="provisionConfirmedACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"       message="interface:serviceException" />
         </wsdl:operation>
         
         <wsdl:operation name="provisionFailed">
@@ -101,9 +101,9 @@
                 This is in response to an original provision request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="provisionFailed"     message="interface:NSI_provisionFailed" />
-            <wsdl:output name="provisionFailedACK"  message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="provisionFailed"     message="interface:provisionFailed" />
+            <wsdl:output name="provisionFailedACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** Release operation set *********** -->
@@ -115,9 +115,9 @@
                 This is in response to an original release request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="releaseConfirmed"     message="interface:NSI_releaseConfirmed" />
-            <wsdl:output name="releaseConfirmedACK"  message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"     message="interface:NSI_serviceException" />
+            <wsdl:input  name="releaseConfirmed"     message="interface:releaseConfirmed" />
+            <wsdl:output name="releaseConfirmedACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"     message="interface:serviceException" />
         </wsdl:operation>
         
         <wsdl:operation name="releaseFailed">
@@ -127,9 +127,9 @@
                 response to an original release request from the associated
                 Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="releaseFailed"     message="interface:NSI_releaseFailed" />
-            <wsdl:output name="releaseFailedACK"  message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"  message="interface:NSI_serviceException" />
+            <wsdl:input  name="releaseFailed"     message="interface:releaseFailed" />
+            <wsdl:output name="releaseFailedACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"  message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** Terminate operation set *********** -->
@@ -141,9 +141,9 @@
                 This is in response to an original terminate request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="terminateConfirmed"    message="interface:NSI_terminateConfirmed" />
-            <wsdl:output name="terminateConfirmedACK" message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"      message="interface:NSI_serviceException" />
+            <wsdl:input  name="terminateConfirmed"    message="interface:terminateConfirmed" />
+            <wsdl:output name="terminateConfirmedACK" message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"      message="interface:serviceException" />
         </wsdl:operation>
         
         <wsdl:operation name="terminateFailed">
@@ -153,9 +153,9 @@
                 response to an original terminate request from the associated
                 Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="terminateFailed"     message="interface:NSI_terminateFailed" />
-            <wsdl:output name="terminateFailedACK"  message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="terminateFailed"     message="interface:terminateFailed" />
+            <wsdl:output name="terminateFailedACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** Query operation set *********** -->
@@ -169,9 +169,9 @@
                 asynchronously to the requesting NSA when query processing has
                 completed.
             </wsdl:documentation>
-            <wsdl:input  name="query"             message="interface:NSI_queryRequest" />
-            <wsdl:output name="queryACK"          message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"  message="interface:NSI_serviceException" />
+            <wsdl:input  name="query"             message="interface:queryRequest" />
+            <wsdl:output name="queryACK"          message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"  message="interface:serviceException" />
         </wsdl:operation>
         
         <wsdl:operation name="queryConfirmed">
@@ -181,9 +181,9 @@
                 response to an original query request from the associated Requester
                 NSA.
             </wsdl:documentation>
-            <wsdl:input  name="queryConfirmed"      message="interface:NSI_queryConfirmed" />
-            <wsdl:output name="queryConfirmedACK"   message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="queryConfirmed"      message="interface:queryConfirmed" />
+            <wsdl:output name="queryConfirmedACK"   message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <wsdl:operation name="queryFailed">
@@ -193,9 +193,9 @@
                 response to an original query request from the associated
                 Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="queryFailed"         message="interface:NSI_queryFailed" />
-            <wsdl:output name="queryFailedACK"      message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="queryFailed"         message="interface:queryFailed" />
+            <wsdl:output name="queryFailedACK"      message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** ForcedEnd operation set *********** -->
@@ -208,9 +208,9 @@
                 NSA has accepted the forcedEnd request for processing. There are not
                 associated confirmed or failed messages.
             </wsdl:documentation>
-            <wsdl:input  name="forcedEnd"           message="interface:NSI_forcedEndRequest" />
-            <wsdl:output name="forcedEndACK"        message="interface:NSI_acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:NSI_serviceException" />
+            <wsdl:input  name="forcedEnd"           message="interface:forcedEndRequest" />
+            <wsdl:output name="forcedEndACK"        message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
     </wsdl:portType>
     
