@@ -916,7 +916,7 @@
             <xsd:enumeration value="Provisioned" />
             <xsd:enumeration value="Releasing" />
             <xsd:enumeration value="Cleaning" />
-            <xsd:enumeration value="Terminateing" />
+            <xsd:enumeration value="Terminating" />
             <xsd:enumeration value="Terminated" />
             <xsd:enumeration value="Unknown" />
         </xsd:restriction>
