@@ -19,25 +19,11 @@
     v1.0. This can be considered the transport independent protocol
     representation.  Comments and questions can be directed to the mailing list
     group mailing list (nsi-wg@ogf.org).
-
-    Please see the accompanying CHANGES.txt file for a detailed list of changes
-    made for the most recent updates.
-
-    Version: 0.01 Draft, 2011/02/22, John MacAuley
-    Version: 0.02 Draft, 2011/03/15, John MacAuley
-    Version: 0.03 Draft, 2011/03/22, John MacAuley
-    Version: 0.04 Draft, 2011/04/24, John MacAuley
-    Version: 0.05 Draft, 2011/07/05, John MacAuley
-    Version: 0.06 Draft, 2011/07/06, John MacAuley
-    Version: 0.07 Draft, 2011/07/29, John MacAuley
-    Version: 0.08 Draft, 2011/08/02, John MacAuley
-    Version: 0.09 Draft, 2011/08/06, John MacAuley
-    Version: 0.10 Draft, 2011/10/14, John MacAuley
 -->
-<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2011/07/connection/types"
+<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2011/10/connection/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    xmlns:tns="http://schemas.ogf.org/nsi/2011/07/connection/types">
+    xmlns:tns="http://schemas.ogf.org/nsi/2011/10/connection/types">
 
     <xsd:annotation>
         <xsd:documentation xml:lang="en">
