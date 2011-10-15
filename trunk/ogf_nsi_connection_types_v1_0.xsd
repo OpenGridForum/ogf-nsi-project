@@ -560,9 +560,9 @@
          </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="desired" type="xsd:integer" />
-            <xsd:element name="minimum" type="xsd:integer" minOccurs="0" />
-            <xsd:element name="maximum" type="xsd:integer" minOccurs="0" />
+            <xsd:element name="desired" type="xsd:int" />
+            <xsd:element name="minimum" type="xsd:int" minOccurs="0" />
+            <xsd:element name="maximum" type="xsd:int" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
 
@@ -646,7 +646,7 @@
         <xsd:sequence>
             <xsd:element name="stpId" type="tns:StpIdType" />
         </xsd:sequence>
-        <xsd:attribute   name="order" type="xsd:integer" />
+        <xsd:attribute   name="order" type="xsd:int" />
     </xsd:complexType>
 
    <xsd:complexType name="TechnologySpecificAttributesType">
@@ -723,7 +723,7 @@
             <xsd:element name="connectionState" type="tns:ConnectionStateType" />
             <xsd:element name="pathList"        type="tns:PathListType" minOccurs="0" />
         </xsd:sequence>
-        <xsd:attribute name="order" type="xsd:integer" />
+        <xsd:attribute name="order" type="xsd:int" />
     </xsd:complexType>
 
     <xsd:complexType name="PathListType">
@@ -776,7 +776,7 @@
             <xsd:element name="stpList"         type="tns:StpListType" minOccurs="0" />
             <xsd:element name="children"        type="tns:ChildListType" minOccurs="0" />
         </xsd:sequence>
-        <xsd:attribute name="order" type="xsd:integer" />
+        <xsd:attribute name="order" type="xsd:int" />
     </xsd:complexType>
     
     <xsd:complexType name="ChildListType">
@@ -924,7 +924,7 @@
                 Connection state values for the connection services state machine.
             </xsd:documentation>
         </xsd:annotation>
-            <xsd:restriction base="xsd:string">
+        <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Initial" />
             <xsd:enumeration value="Reserving" />
             <xsd:enumeration value="Reserved" />
