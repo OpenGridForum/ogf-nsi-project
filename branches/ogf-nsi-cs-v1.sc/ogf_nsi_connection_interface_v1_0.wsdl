@@ -162,10 +162,10 @@
             <!-- ********** ForcedEnd notification message elements ********** -->
             <xsd:element name="forcedEndRequest" type="tns:ForcedEndRequestType" />
 
-            <!-- ********** Acknowledgement message elements ********** -->
+            <!-- ********** Acknowledgment message element ********** -->
             <xsd:element name="acknowledgment"   type="tns:GenericAcknowledgmentType" />
             
-            <!-- ********** Fault message elements ********** -->
+            <!-- ********** Fault message element ********** -->
             <xsd:element name="serviceException" type="types:ServiceExceptionType"/>
     
             <!-- *************************************************************
@@ -525,15 +525,11 @@
                         
                         Elements:
                         correlationId - An identifier provided by the requesting
-                        NSA used to correlate an acknowledgement.  There will be
-                        no asynchronous response for this request. It is
-                        recommended that a Universally Unique Identifier (UUID)
-                        URN as per IETF RFC 4122 be used as a globally unique
-                        value.
-                        
-                        replyTo - The Requester NSA's SOAP endpoint address to
-                        which the asynchronous Confirmed or Failed message
-                        associated with this request will be delivered.
+                        NSA used to correlate to the corresponding
+                        acknowledgment.  There will be no asynchronous
+                        response for this request. It is recommended that a
+                        Universally Unique Identifier (UUID) URN as per IETF
+                        RFC 4122 be used as a globally unique value.
                         
                         forcedEnd - forcedEnd message specific parameters.
                     </xsd:documentation>
@@ -653,8 +649,7 @@
         <wsdl:part name="parameters" element="tns:forcedEndRequest" />
     </wsdl:message>
     
-    <!-- ********** Acknowledgement message set ********** -->
-    
+    <!-- ********** Acknowledgment message set ********** -->
     <wsdl:message name="acknowledgment">
         <wsdl:part name="result" element="tns:acknowledgment" />
     </wsdl:message>
