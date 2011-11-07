@@ -1,0 +1,9 @@
+#summary Links to log for NSI agents
+
+= URLs =
+
+Starlight (OpenNSA)
+http://nsa.badlab.crc.ca/opennsa.log.html
+
+Northernlight (OpenNSA):
+http://orval.grid.aau.dk:9000/opennsa.log.html
