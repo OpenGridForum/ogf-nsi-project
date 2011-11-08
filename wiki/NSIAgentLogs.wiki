@@ -7,3 +7,6 @@ http://nsa.badlab.crc.ca/opennsa.log.html
 
 Northernlight (OpenNSA):
 http://orval.grid.aau.dk:9000/opennsa.log.html
+
+G-Lambda/AIST:
+http://163.220.30.174:8090/logs/nsi_gl_proxy.txt
