@@ -2,10 +2,10 @@
 
 = URLs =
 
-Starlight (OpenNSA)
+Starlight:
 http://nsa.badlab.crc.ca/opennsa.log.html
 
-Northernlight (OpenNSA):
+Northernlight:
 http://orval.grid.aau.dk:9000/opennsa.log.html
 
 G-Lambda/AIST:
