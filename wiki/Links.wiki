@@ -1,0 +1,25 @@
+= Visualization =
+
+Java web start thing:
+163.220.30.174:8070/monitor.jnlp
+
+Google earth plugin:
+http://kote-ps-1.ps.jgn-x.jp/ps/autoearth-nsi/
+
+Google earth kml:
+http://kote-ps-1.ps.jgn-x.jp/ps/autoearth-nsi/AutoMAP.kml
+
+
+= Logs =
+
+Starlight:
+http://nsa.badlab.crc.ca/opennsa.log.html
+
+Northernlight:
+http://orval.grid.aau.dk:9000/opennsa.log.html
+
+G-Lambda/AIST:
+http://163.220.30.174:8090/logs/nsi_gl_proxy.txt
+
+dynamicKL:
+http://203.230.116.202:8080/log
