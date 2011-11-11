@@ -1,7 +1,7 @@
 = Visualization =
 
 Java web start thing:
-163.220.30.174:8070/monitor.jnlp
+http://163.220.30.174:8070/monitor.jnlp
 
 Google earth plugin:
 http://kote-ps-1.ps.jgn-x.jp/ps/autoearth-nsi/
