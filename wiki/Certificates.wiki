@@ -6,4 +6,4 @@
 
 CA: Nordugrid (part of IGTF bundle): https://dist.eugridpma.info/distribution/igtf/current/accredited/tgz/ca_NorduGrid-1.42.tar.gz
 
-Certificate ID: "/O=Grid/O=NorduGrid/CN=host/orval.grid.aau.dk"
+Certificate ID: {{{"/O=Grid/O=NorduGrid/CN=host/orval.grid.aau.dk"}}}
