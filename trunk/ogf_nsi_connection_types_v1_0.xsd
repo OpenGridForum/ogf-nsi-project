@@ -487,7 +487,7 @@
             
             schedule - time parameters specifying the life of the service.
             
-            bandwidth - bandwidth of the service.
+            bandwidth - the desired bandwidth of the service in Mb/s.
             
             serviceAttrs - Technology specific attributes relating to the
             service.
@@ -495,7 +495,7 @@
     </xsd:annotation>
             <xsd:sequence>
                 <xsd:element name="schedule"            type="tns:ScheduleType" />
-                <xsd:element name="bandwidth"           type="tns:BandwidthType" />
+                <xsd:element name="bandwidth"           type="xsd:int" />
                 <xsd:element name="serviceAttributes"   type="tns:TechnologySpecificAttributesType" minOccurs="0" />
             </xsd:sequence>
     </xsd:complexType>
@@ -526,29 +526,6 @@
                 <xsd:element name="endTime"  type="tns:DateTimeType" />
                 <xsd:element name="duration" type="xsd:duration" />
             </xsd:choice>
-        </xsd:sequence>
-    </xsd:complexType>
-
-    <xsd:complexType name="BandwidthType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-               Parameters relating to desired service bandwidth.
-
-               Elements:
-
-               desired - the desired bandwidth in Mb/s being requested.
-
-               minimum - the minimum bandwidth in Mb/s acceptable by the request
-               as an alternative to the desired.
-
-               maximum - the maximum bandwidth in Mb/s acceptable by the request
-               as an alternative to the desired.
-         </xsd:documentation>
-        </xsd:annotation>
-        <xsd:sequence>
-            <xsd:element name="desired" type="xsd:int" />
-            <xsd:element name="minimum" type="xsd:int" minOccurs="0" />
-            <xsd:element name="maximum" type="xsd:int" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
 
