@@ -510,22 +510,13 @@
             startTime - Reservation start time. If not specified then immediate
             reservation.
 
-            endTime - Reservation end time.
-
-            duration - Reservation duration, measured from the time the service
-            is instantiated.
-
-            Notes: Only one of endTime or duration are specified.  If both
-            endTime and duration are not specified then the schedule end is
-            indefinite.
+            endTime - Reservation end time.  If endTime is not specified then
+            the schedule end is indefinite.
          </xsd:documentation>
       </xsd:annotation>
         <xsd:sequence>
             <xsd:element name="startTime"    type="tns:DateTimeType" minOccurs="0" />
-            <xsd:choice minOccurs="0">
-                <xsd:element name="endTime"  type="tns:DateTimeType" />
-                <xsd:element name="duration" type="xsd:duration" />
-            </xsd:choice>
+            <xsd:element name="endTime"      type="tns:DateTimeType" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
 
