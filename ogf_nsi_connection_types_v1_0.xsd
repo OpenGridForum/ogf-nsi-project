@@ -837,7 +837,7 @@
                 change it in the future.
             </xsd:documentation>
         </xsd:annotation>
-        <xsd:restriction base="tns:uuidType" />
+        <xsd:restriction base="xsd:string" />
     </xsd:simpleType>
 
     <xsd:simpleType name="uuidType">
