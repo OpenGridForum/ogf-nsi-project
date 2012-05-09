@@ -6,29 +6,26 @@
 
     This document and the information contained herein is provided on an "As Is" basis and the OGF disclaims all warranties, express or implied, including but not limited to any warranty that the use of the information herein will not infringe any rights or any implied warranties of merchantability or fitness for a particular purpose.
 
-    Copyright (C) Open Grid Forum (2009-2011). All Rights Reserved.
+    Copyright (C) Open Grid Forum (2009-2012). All Rights Reserved.
 
     This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to the OGF or other organizations, except as needed for the purpose of developing Grid Recommendations in which case the procedures for copyrights defined in the OGF Document process must be followed, or as required to translate it into languages other than English.
 
     The limited permissions granted above are perpetual and will not be revoked by the OGF or its successors or assignees.
 
-    Open Grid Forum NSI Connection Services Protocol v1.0
+    Open Grid Forum NSI Connection Services Protocol v2.0
 
-    Description: This is a draft version of the types schema for the reference
-    web services implementation of the OGF NSI Connection Services Protocol
-    v1.0. This can be considered the transport independent protocol
-    representation.  Comments and questions can be directed to the mailing list
-    group mailing list (nsi-wg@ogf.org).
+    Description: This is a draft version of the types schema for the reference web services implementation of the OGF NSI Connection Services Protocol v2.0. This can be considered the transport independent protocol representation.  Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
 -->
-<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2011/10/connection/types"
+<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2012/03/connection/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    xmlns:tns="http://schemas.ogf.org/nsi/2011/10/connection/types">
+    xmlns:types="http://schemas.ogf.org/nsi/2012/03/framework/types"
+    xmlns:tns="http://schemas.ogf.org/nsi/2012/03/connection/types">
 
     <xsd:annotation>
         <xsd:documentation xml:lang="en">
             This is an XML schema document describing the OGF NSI Connection
-            Services protocol version 1.0. The Connection Service is message
+            Services protocol version 2.0. The Connection Service is message
             based command protocol that operates between a Requester
             Network Service Agent (NSA) and a Provider NSA. The protocol includes
             a set of defined primitives that are intended to provide the control
@@ -82,7 +79,11 @@
          is a local import of:  http://docs.oasis-open.org/security/saml/v2.0/saml-schema-assertion-2.0.xsd -->
     <xsd:import namespace="urn:oasis:names:tc:SAML:2.0:assertion"
                             schemaLocation="saml-schema-assertion-2.0.xsd"/>
-        
+    
+    <!-- Import the common NSI framework types. -->
+    <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/framework/types"
+        schemaLocation="ogf_nsi_framework_types_v2_0.xsd"/>
+    
     <!-- ******************************************************************
          *                  NSI protocol messages                         *
          ****************************************************************** -->
@@ -114,11 +115,11 @@
 
     <!-- ********** ForcedEnd notification message elements ********** -->
     <xsd:element name="forcedEnd"            type="tns:GenericRequestType" />
-
+    
     <!-- ******************************************************************
-         *                   NSI message types                            *
-         ****************************************************************** -->
-
+        *                   NSI message types                            *
+        ****************************************************************** -->
+    
     <xsd:complexType name="ReserveType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
@@ -128,24 +129,11 @@
 
                 Elements:
 
-                requesterNSA - NSA that requested the NSI connection service
-                operation (Requester Agent).
-
-                providerNSA - NSA that services the NSI connection service
-                operation (Provider Agent).
-
-                sessionSecurityAttr - Security attributes associated with the
-                NSI connection services session between a Requester/Provider
-                NSA pair.
-
                 reservation - Parameters specifying the criteria for the
                 connection reservation.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="requesterNSA"        type="tns:NsaIdType" />
-            <xsd:element name="providerNSA"         type="tns:NsaIdType" />
-            <xsd:element name="sessionSecurityAttr" type="saml:AttributeStatementType" minOccurs="0" />
             <xsd:element name="reservation"         type="tns:ReservationInfoType" />
         </xsd:sequence>
     </xsd:complexType>
@@ -158,19 +146,11 @@
                 that issued the original request message.
 
                 Elements:
-
-                requesterNSA - NSA that requested the NSI connection service
-                operation (Requester Agent).
-
-                providerNSA - NSA that services the NSI connection service
-                operation (Provider Agent).
-
+                
                 reservation - Parameters chosen for the connection reservation.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="requesterNSA"    type="tns:NsaIdType" />
-            <xsd:element name="providerNSA"     type="tns:NsaIdType" />
             <xsd:element name="reservation"     type="tns:ReservationInfoType" />
         </xsd:sequence>
     </xsd:complexType>
@@ -185,24 +165,15 @@
 
                 Elements:
 
-                requesterNSA - NSA that requested the NSI connection service
-                operation (Requester Agent).
-
-                providerNSA - NSA that services the NSI connection service
-                operation (Provider Agent).
-
-                sessionSecurityAttr - Security attributes associated with the NSI
-                connection services session between a Requester/Provider NSA pair.
-
+                operation - Parameter specifying the type of query operation to
+                perform.
+                
                 queryFilter - Parameter specifying the query criteria to match
                 against reserved connections. Any matching connections must be
                 returned.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="requesterNSA"        type="tns:NsaIdType" />
-            <xsd:element name="providerNSA"         type="tns:NsaIdType" />
-            <xsd:element name="sessionSecurityAttr" type="saml:AttributeStatementType" minOccurs="0" />
             <xsd:element name="operation"           type="tns:QueryOperationType" default="Summary" />
             <xsd:element name="queryFilter"         type="tns:QueryFilterType" />
         </xsd:sequence>
@@ -216,12 +187,6 @@
                 issued the original request message.
 
                 Elements:
-
-                requesterNSA - NSA that requested the NSI connection service
-                operation (Requester Agent).
-
-                providerNSA - NSA that services the NSI connection service
-                operation (Provider Agent).
 
                 Choice of reservation element:
                 reservationSummary - Resulting summary set of connection
@@ -237,8 +202,6 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="requesterNSA"    type="tns:NsaIdType" />
-            <xsd:element name="providerNSA"     type="tns:NsaIdType" />
             <xsd:choice>
                 <xsd:element name="reservationSummary"  type="tns:QuerySummaryResultType" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element name="reservationDetails"  type="tns:QueryDetailsResultType" minOccurs="0" maxOccurs="unbounded" />
@@ -256,19 +219,11 @@
                 
                 Elements:
                 
-                requesterNSA - NSA that requested the NSI connection service
-                operation (Requester Agent).
-                
-                providerNSA - NSA that services the NSI connection service
-                operation (Provider Agent).
-                
                 ServiceException - Specific error condition - the reason for the
                 failure.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="requesterNSA"     type="tns:NsaIdType" />
-            <xsd:element name="providerNSA"      type="tns:NsaIdType" />
             <xsd:element name="serviceException" type="tns:ServiceExceptionType" />
         </xsd:sequence>
     </xsd:complexType>
@@ -281,13 +236,7 @@
                 connectionId as a request parameter.
 
                 Elements:
-
-                requesterNSA - NSA that requested the NSI connection service
-                operation (Requester Agent).
-
-                providerNSA - NSA that services the NSI connection service
-                operation (Provider Agent).
-
+                
                 sessionSecurityAttr - Security attributes associated with the NSI
                 connection services session between a Requester/Provider NSA pair.
 
@@ -296,9 +245,6 @@
          </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="requesterNSA"        type="tns:NsaIdType" />
-            <xsd:element name="providerNSA"         type="tns:NsaIdType" />
-            <xsd:element name="sessionSecurityAttr" type="saml:AttributeStatementType" minOccurs="0" />
             <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
         </xsd:sequence>
     </xsd:complexType>
@@ -312,12 +258,6 @@
 
                 Elements:
 
-                requesterNSA - NSA that requested the NSI connection service
-                operation (Requester Agent).
-
-                providerNSA - NSA that services the NSI connection service
-                operation (Provider Agent).
-
                 globalReservationId - An optional global reservation id that was
                 originally provided in the reserve request.
 
@@ -326,8 +266,6 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="requesterNSA"           type="tns:NsaIdType" />
-            <xsd:element name="providerNSA"            type="tns:NsaIdType" />
             <xsd:element name="globalReservationId"    type="tns:GlobalReservationIdType" nillable="true" />
             <xsd:element name="connectionId"           type="tns:ConnectionIdType" />
         </xsd:sequence>
@@ -342,12 +280,6 @@
 
                 Elements:
 
-                requesterNSA - NSA that requested the NSI connection service
-                operation (Requester Agent).
-
-                providerNSA - NSA that services the NSI connection service
-                operation (Provider Agent).
-
                 globalReservationId - An optional global reservation id that was
                 originally provided in the reserve request.
 
@@ -361,8 +293,6 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="requesterNSA"        type="tns:NsaIdType" />
-            <xsd:element name="providerNSA"         type="tns:NsaIdType" />
             <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
             <xsd:element name="connectionState"     type="tns:ConnectionStateType" />
@@ -515,8 +445,8 @@
          </xsd:documentation>
       </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="startTime"    type="tns:DateTimeType" minOccurs="0" />
-            <xsd:element name="endTime"      type="tns:DateTimeType" minOccurs="0" />
+            <xsd:element name="startTime" type="types:DateTimeType" minOccurs="0" />
+            <xsd:element name="endTime"   type="types:DateTimeType" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
 
@@ -672,7 +602,7 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="providerNSA"     type="tns:NsaIdType" />
+            <xsd:element name="providerNSA"     type="types:NsaIdType" />
             <xsd:element name="connectionId"    type="tns:ConnectionIdType" />
             <xsd:element name="connectionState" type="tns:ConnectionStateType" />
             <xsd:element name="pathList"        type="tns:PathListType" minOccurs="0" />
@@ -759,6 +689,8 @@
 
                 Elements:
 
+                nsaId - NSA that generated the service exception.
+                
                 errorId - Error identifier uniquely identifying each known
                 fault within the protocol.
 
@@ -766,32 +698,23 @@
 
                 variables - A collection of type/value pairs providing addition
                 information relating to the error.
+                
+                downStreamException - Heirarchical list of service exceptions
+                capturing failures withing the request tree.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="errorId" type="xsd:string" />
-            <xsd:element name="text"      type="xsd:string" />
-            <xsd:element name="variables" type="saml:AttributeStatementType" minOccurs="0" />
+            <xsd:element name="nsaId"               type="types:NsaIdType" />
+            <xsd:element name="errorId"             type="xsd:string" />
+            <xsd:element name="text"                type="xsd:string" />
+            <xsd:element name="variables"           type="saml:AttributeStatementType" minOccurs="0" />
+            <xsd:element name="downStreamException" type="tns:ServiceExceptionType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
 
    <!-- ******************************************************************
         *                       XML base types                           *
         ****************************************************************** -->
-
-    <xsd:simpleType name="NsaIdType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                A specific type for a Network Services Agent (NSA) identifier
-                just in case we need to change it in the future.  This type
-                will be populated with a OGF URN (reference artifact 6478
-                "Procedure for Registration of Subnamespace Identifiers in
-                the URN:OGF Hierarchy") to be used for compatibility with
-                other external systems.
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:restriction base="xsd:anyURI" />
-    </xsd:simpleType>
 
     <xsd:simpleType name="StpIdType">
         <xsd:annotation>
@@ -829,35 +752,6 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:restriction base="xsd:string" />
-    </xsd:simpleType>
-
-    <xsd:simpleType name="uuidType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                Universally Unique Identifier (UUID) URN as per ITU-T Rec.
-                X.667 | ISO/IEC 9834-8:2005 and IETF RFC 4122.
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:restriction base="xsd:anyURI">
-            <xsd:pattern value="urn:uuid:[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"/>
-        </xsd:restriction>
-    </xsd:simpleType>
-
-    <xsd:simpleType name="DateTimeType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                The time zone support of W3C XML Schema is quite controversial
-                and needs some additional constraints to avoid comparison
-                problems. These patterns can be kept relatively simple since
-                the syntax of the datetime is already checked by the schema
-                validator and only simple additional checks need to be added.
-                This type definition checks that the time part ends with a "Z"
-                or contains a sign.
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:restriction base="xsd:dateTime">
-            <xsd:pattern value=".+T.+(Z|[+-].+)"/>
-        </xsd:restriction>
     </xsd:simpleType>
 
     <xsd:simpleType name="DirectionalityType">

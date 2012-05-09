@@ -12,32 +12,23 @@
 
     The limited permissions granted above are perpetual and will not be revoked by the OGF or its successors or assignees.
 
-    Open Grid Forum NSI Connection Services Protocol v1.0
+    Open Grid Forum NSI Connection Services Protocol v2.0
 
-    Description: This is a draft version of service definitions for the
-    reference web services implementation of the OGF NSI Connection Services
-    Protocol v1.0. Comments and questions can be directed to the mailing list
-    group mailing list (nsi-wg@ogf.org).
+    Description: This is the NSI Connection Services Protocol 2.0 service definitions for the reference web services implementation of the OGF NSI Connection Services Protocol v2.0. Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
 
-    This document is the SOAP endpoint definition for a provider NSA.  It
-    holds definitions for messages the provider NSA will receive.  For the
-    reserve, provision, release, and terminate message sets the provider
-    will receive request messages only.  For the query operation a provider
-    NSA must support request, confirmed, and failed messages due to the
-    possibility that a provider NSA may query the requester for a list of
-    connection reservations.
+    This document is the SOAP endpoint definition for a provider NSA.  It holds definitions for messages the provider NSA will receive.  For the reserve, provision, release, and terminate message sets the provider will receive request messages only.  For the query operation a provider NSA must support request, confirmed, and failed messages due to the possibility that a provider NSA may query the requester for a list of connection reservations.
 -->
-<wsdl:definitions name="ogf_nsi_connection_provider_v1_0"
-    targetNamespace="http://schemas.ogf.org/nsi/2011/10/connection/provider"
+<wsdl:definitions name="ogf_nsi_connection_provider_v2_0"
+    targetNamespace="http://schemas.ogf.org/nsi/2012/03/connection/provider"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:tns="http://schemas.ogf.org/nsi/2011/10/connection/provider"
-    xmlns:interface="http://schemas.ogf.org/nsi/2011/10/connection/interface">
+    xmlns:tns="http://schemas.ogf.org/nsi/2012/03/connection/provider"
+    xmlns:interface="http://schemas.ogf.org/nsi/2012/03/connection/interface">
 
-    <wsdl:import namespace="http://schemas.ogf.org/nsi/2011/10/connection/interface"
-        location="ogf_nsi_connection_interface_v1_0.wsdl" />
-
+    <wsdl:import namespace="http://schemas.ogf.org/nsi/2012/03/connection/interface"
+        location="ogf_nsi_connection_interface_v2_0.wsdl" />
+  
     <!-- WSDL operation definitions with associated input (request), output
         (response), and fault (error response) messages. -->
     <wsdl:portType name="ConnectionProviderPort">
@@ -53,7 +44,7 @@
                 message will be sent asynchronously to the Requester NSA
                 when reservation processing has completed.
             </wsdl:documentation>
-            <wsdl:input  name="reserve"             message="interface:reserveRequest" />
+            <wsdl:input  name="reserve"             message="interface:reserve" />
             <wsdl:output name="reserveACK"          message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
@@ -70,7 +61,7 @@
                 asynchronously to the Requester NSA when provision processing
                 has completed.
             </wsdl:documentation>
-            <wsdl:input  name="provision"           message="interface:provisionRequest" />
+            <wsdl:input  name="provision"           message="interface:provision" />
             <wsdl:output name="provisionACK"        message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
@@ -86,7 +77,7 @@
                 or releaseFailed message will be sent asynchronously to the
                 Requester NSA when release processing has completed.
             </wsdl:documentation>
-            <wsdl:input  name="release"             message="interface:releaseRequest" />
+            <wsdl:input  name="release"             message="interface:release" />
             <wsdl:output name="releaseACK"          message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
@@ -102,7 +93,7 @@
                 terminateFailed message will be sent asynchronously to the Requester
                 NSA when terminate processing has completed.
             </wsdl:documentation>
-            <wsdl:input  name="terminate"           message="interface:terminateRequest" />
+            <wsdl:input  name="terminate"           message="interface:terminate" />
             <wsdl:output name="terminateACK"        message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
@@ -118,7 +109,7 @@
                 asynchronously to the requesting NSA when query processing has
                 completed.
             </wsdl:documentation>
-            <wsdl:input  name="query"               message="interface:queryRequest" />
+            <wsdl:input  name="query"               message="interface:query" />
             <wsdl:output name="queryACK"            message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
@@ -155,10 +146,16 @@
 
         <wsdl:operation name="reserve">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/reserve"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/reserve"
                 style="document" />
-            <wsdl:input><soap:body use="literal" /></wsdl:input>
-            <wsdl:output><soap:body use="literal" /></wsdl:output>
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
             <wsdl:fault name="serviceException">
                 <soap:fault name="serviceException" use="literal" />
             </wsdl:fault>
@@ -168,10 +165,16 @@
 
         <wsdl:operation name="provision">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/provision"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/provision"
                 style="document" />
-            <wsdl:input><soap:body use="literal" /></wsdl:input>
-            <wsdl:output><soap:body use="literal" /></wsdl:output>
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
             <wsdl:fault name="serviceException">
                 <soap:fault name="serviceException" use="literal" />
             </wsdl:fault>
@@ -181,10 +184,16 @@
 
         <wsdl:operation name="release">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/release"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/release"
                 style="document" />
-            <wsdl:input><soap:body use="literal" /></wsdl:input>
-            <wsdl:output><soap:body use="literal" /></wsdl:output>
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
             <wsdl:fault name="serviceException">
                 <soap:fault name="serviceException" use="literal" />
             </wsdl:fault>
@@ -194,10 +203,16 @@
 
         <wsdl:operation name="terminate">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/terminate"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/terminate"
                 style="document" />
-            <wsdl:input><soap:body use="literal" /></wsdl:input>
-            <wsdl:output><soap:body use="literal" /></wsdl:output>
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
             <wsdl:fault name="serviceException">
                 <soap:fault name="serviceException" use="literal" />
             </wsdl:fault>
@@ -207,10 +222,16 @@
 
         <wsdl:operation name="query">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/query"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/query"
                 style="document" />
-            <wsdl:input><soap:body use="literal" /></wsdl:input>
-            <wsdl:output><soap:body use="literal" /></wsdl:output>
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
             <wsdl:fault name="serviceException">
                 <soap:fault name="serviceException" use="literal" />
             </wsdl:fault>
@@ -218,10 +239,16 @@
 
         <wsdl:operation name="queryConfirmed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/queryConfirmed"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/queryConfirmed"
                 style="document" />
-            <wsdl:input><soap:body use="literal" /></wsdl:input>
-            <wsdl:output><soap:body use="literal" /></wsdl:output>
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
             <wsdl:fault name="serviceException">
                 <soap:fault name="serviceException" use="literal" />
             </wsdl:fault>
@@ -229,10 +256,16 @@
         
         <wsdl:operation name="queryFailed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/queryFailed"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/queryFailed"
                 style="document" />
-            <wsdl:input><soap:body use="literal" /></wsdl:input>
-            <wsdl:output><soap:body use="literal" /></wsdl:output>
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
             <wsdl:fault name="serviceException">
                 <soap:fault name="serviceException" use="literal" />
             </wsdl:fault>
@@ -241,7 +274,7 @@
     
     <wsdl:service name="ConnectionServiceProvider">
         <wsdl:port name="ConnectionServiceProviderPort" binding="tns:ConnectionServiceProviderSoapBinding">
-            <soap:address location="https://localhost:8443/nsi/ConnectionServiceProvider" />
+            <soap:address location="https://localhost:8443/nsi-v2/ConnectionServiceProvider" />
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
