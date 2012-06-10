@@ -12,11 +12,11 @@
 
     The limited permissions granted above are perpetual and will not be revoked by the OGF or its successors or assignees.
 
-    Open Grid Forum NSI Connection Services Protocol v1.0
+    Open Grid Forum NSI Connection Services Protocol v1.1
 
     Description: This is a draft version of service definitions for the
     reference web services implementation of the OGF NSI Connection Services
-    Protocol v1.0. Comments and questions can be directed to the mailing list
+    Protocol v1.1. Comments and questions can be directed to the mailing list
     group mailing list (nsi-wg@ogf.org).
 
     This document is the SOAP endpoint definition for a provider NSA.  It
@@ -27,16 +27,16 @@
     possibility that a provider NSA may query the requester for a list of
     connection reservations.
 -->
-<wsdl:definitions name="ogf_nsi_connection_provider_v1_0"
-    targetNamespace="http://schemas.ogf.org/nsi/2011/10/connection/provider"
+<wsdl:definitions name="ogf_nsi_connection_provider_v1_1"
+    targetNamespace="http://schemas.ogf.org/nsi/2011/12/connection/provider"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:tns="http://schemas.ogf.org/nsi/2011/10/connection/provider"
-    xmlns:interface="http://schemas.ogf.org/nsi/2011/10/connection/interface">
+    xmlns:tns="http://schemas.ogf.org/nsi/2011/12/connection/provider"
+    xmlns:interface="http://schemas.ogf.org/nsi/2011/12/connection/interface">
 
-    <wsdl:import namespace="http://schemas.ogf.org/nsi/2011/10/connection/interface"
-        location="ogf_nsi_connection_interface_v1_0.wsdl" />
+    <wsdl:import namespace="http://schemas.ogf.org/nsi/2011/12/connection/interface"
+        location="ogf_nsi_connection_interface_v1_1.wsdl" />
 
     <!-- WSDL operation definitions with associated input (request), output
         (response), and fault (error response) messages. -->
@@ -155,7 +155,7 @@
 
         <wsdl:operation name="reserve">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/reserve"
+                soapAction="http://schemas.ogf.org/nsi/2011/12/connection/service/reserve"
                 style="document" />
             <wsdl:input><soap:body use="literal" /></wsdl:input>
             <wsdl:output><soap:body use="literal" /></wsdl:output>
@@ -168,7 +168,7 @@
 
         <wsdl:operation name="provision">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/provision"
+                soapAction="http://schemas.ogf.org/nsi/2011/12/connection/service/provision"
                 style="document" />
             <wsdl:input><soap:body use="literal" /></wsdl:input>
             <wsdl:output><soap:body use="literal" /></wsdl:output>
@@ -181,7 +181,7 @@
 
         <wsdl:operation name="release">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/release"
+                soapAction="http://schemas.ogf.org/nsi/2011/12/connection/service/release"
                 style="document" />
             <wsdl:input><soap:body use="literal" /></wsdl:input>
             <wsdl:output><soap:body use="literal" /></wsdl:output>
@@ -194,7 +194,7 @@
 
         <wsdl:operation name="terminate">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/terminate"
+                soapAction="http://schemas.ogf.org/nsi/2011/12/connection/service/terminate"
                 style="document" />
             <wsdl:input><soap:body use="literal" /></wsdl:input>
             <wsdl:output><soap:body use="literal" /></wsdl:output>
@@ -207,7 +207,7 @@
 
         <wsdl:operation name="query">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/query"
+                soapAction="http://schemas.ogf.org/nsi/2011/12/connection/service/query"
                 style="document" />
             <wsdl:input><soap:body use="literal" /></wsdl:input>
             <wsdl:output><soap:body use="literal" /></wsdl:output>
@@ -218,7 +218,7 @@
 
         <wsdl:operation name="queryConfirmed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/queryConfirmed"
+                soapAction="http://schemas.ogf.org/nsi/2011/12/connection/service/queryConfirmed"
                 style="document" />
             <wsdl:input><soap:body use="literal" /></wsdl:input>
             <wsdl:output><soap:body use="literal" /></wsdl:output>
@@ -229,7 +229,7 @@
         
         <wsdl:operation name="queryFailed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2011/10/connection/service/queryFailed"
+                soapAction="http://schemas.ogf.org/nsi/2011/12/connection/service/queryFailed"
                 style="document" />
             <wsdl:input><soap:body use="literal" /></wsdl:input>
             <wsdl:output><soap:body use="literal" /></wsdl:output>
