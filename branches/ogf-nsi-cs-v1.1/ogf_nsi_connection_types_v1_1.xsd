@@ -12,23 +12,23 @@
 
     The limited permissions granted above are perpetual and will not be revoked by the OGF or its successors or assignees.
 
-    Open Grid Forum NSI Connection Services Protocol v1.0
+    Open Grid Forum NSI Connection Services Protocol v1.1
 
     Description: This is a draft version of the types schema for the reference
     web services implementation of the OGF NSI Connection Services Protocol
-    v1.0. This can be considered the transport independent protocol
+    v1.1. This can be considered the transport independent protocol
     representation.  Comments and questions can be directed to the mailing list
     group mailing list (nsi-wg@ogf.org).
 -->
-<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2011/10/connection/types"
+<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2011/12/connection/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    xmlns:tns="http://schemas.ogf.org/nsi/2011/10/connection/types">
+    xmlns:tns="http://schemas.ogf.org/nsi/2011/12/connection/types">
 
     <xsd:annotation>
         <xsd:documentation xml:lang="en">
             This is an XML schema document describing the OGF NSI Connection
-            Services protocol version 1.0. The Connection Service is message
+            Services protocol version 1.1. The Connection Service is message
             based command protocol that operates between a Requester
             Network Service Agent (NSA) and a Provider NSA. The protocol includes
             a set of defined primitives that are intended to provide the control
@@ -617,8 +617,8 @@
          </xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-        <xsd:element name="guaranteed" type="saml:AttributeStatementType" minOccurs="0" />
-        <xsd:element name="preferred"  type="saml:AttributeStatementType" minOccurs="0" />
+         <xsd:element name="guaranteed" type="saml:AttributeStatementType" minOccurs="0" />
+         <xsd:element name="preferred"  type="saml:AttributeStatementType" minOccurs="0" />
       </xsd:sequence>
    </xsd:complexType>
 
