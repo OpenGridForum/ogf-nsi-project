@@ -536,19 +536,19 @@
    <xsd:complexType name="TechnologySpecificAttributesType">
       <xsd:annotation>
          <xsd:documentation xml:lang="en">
-            Technology specific attributes supporting both guaranteed and
-            preferred values.
+            Technology specific attributes supporting both mandatory and
+            optional values.
 
             Elements:
 
-            guaranteed - Attributes that MUST be met by the service.
+            mandatory - Attributes that MUST be met by the service.
 
-            preferred - Attributes that MAY be met by the service.
+            optional - Attributes that MAY be met by the service.
          </xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-        <xsd:element name="guaranteed" type="saml:AttributeStatementType" minOccurs="0" />
-        <xsd:element name="preferred"  type="saml:AttributeStatementType" minOccurs="0" />
+          <xsd:element name="mandatory" type="saml:AttributeStatementType" minOccurs="0" />
+          <xsd:element name="optional"  type="saml:AttributeStatementType" minOccurs="0" />
       </xsd:sequence>
    </xsd:complexType>
 
