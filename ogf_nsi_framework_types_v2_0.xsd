@@ -28,6 +28,78 @@ Description: This is the NSI framework common types schema for the reference web
         </xsd:documentation>
     </xsd:annotation>
 
+    <!-- ******************************************************************
+         *             Complex XML types used in message elements         *
+         ****************************************************************** -->
+    
+    <xsd:complexType name="ServiceExceptionType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Common service exception used for SOAP faults and Failed message.
+                
+                Elements:
+                
+                nsaId - NSA that generated the service exception.
+                
+                errorId - Error identifier uniquely identifying each known
+                fault within the protocol.
+                
+                text - User friendly message text describing the error.
+                
+                variables - A collection of type/value pairs providing addition
+                information relating to the error.
+                
+                childException - Heirarchical list of service exceptions capturing
+                failures withing the request tree.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="nsaId"               type="tns:NsaIdType" />
+            <xsd:element name="errorId"             type="xsd:string" />
+            <xsd:element name="text"                type="xsd:string" />
+            <xsd:element name="variables"           type="tns:VariablesType" />
+            <xsd:element name="childException"      type="tns:ServiceExceptionType" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+ 
+    <xsd:complexType name="VariablesType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                A specific type definition providing a set of zero or more
+                variables associated with the ServiceException.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="variable" type="tns:VariableType" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="VariableType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                A simple type definition for a name/value pair that will hold
+                specific errored parameters from the NSI message.
+                
+                Elements:
+                
+                value - A string holding the errored value associated with the
+                ServiceException.
+                
+                Attributes:
+                
+                name - A string name for the errored request parameter.
+                
+                targetNamespace - An optional URL to qualify the name space of
+                the errored parameters.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="value" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:attribute name="targetNamespace" type="xsd:anyURI" use="optional"/>
+    </xsd:complexType>
+    
    <!-- ******************************************************************
         *                       XML base types                           *
         ****************************************************************** -->

@@ -21,6 +21,7 @@ Description: This is a draft version of the WSDL common types and messages for t
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ftypes="http://schemas.ogf.org/nsi/2012/03/framework/types"
     xmlns:headers="http://schemas.ogf.org/nsi/2012/03/framework/headers"
     xmlns:types="http://schemas.ogf.org/nsi/2012/03/connection/types"
     xmlns:tns="http://schemas.ogf.org/nsi/2012/03/connection/interface">
@@ -107,6 +108,10 @@ Description: This is a draft version of the WSDL common types and messages for t
         <xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2012/03/connection/interface"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
+            <!-- Import the common NSI framework types. -->
+            <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/framework/types"
+                schemaLocation="ogf_nsi_framework_types_v2_0.xsd"/>
+            
             <!--  Import common NSI framework header types. -->
             <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/framework/headers"
                 schemaLocation="ogf_nsi_framework_headers_v2_0.xsd" />
@@ -119,7 +124,7 @@ Description: This is a draft version of the WSDL common types and messages for t
             <xsd:element name="acknowledgment"   type="tns:GenericAcknowledgmentType" />
             
             <!-- ********** Fault message element ********** -->
-            <xsd:element name="serviceException" type="types:ServiceExceptionType"/>
+            <xsd:element name="serviceException" type="ftypes:ServiceExceptionType"/>
             
             <!-- ********** Acknowledgement type definition ********** -->
             <xsd:complexType name="GenericAcknowledgmentType">
