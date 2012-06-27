@@ -237,9 +237,6 @@
 
                 Elements:
                 
-                sessionSecurityAttr - Security attributes associated with the NSI
-                connection services session between a Requester/Provider NSA pair.
-
                 connectionId - The unique identifier for a connection known between
                 a Requesting and Provider NSA pair.
          </xsd:documentation>
