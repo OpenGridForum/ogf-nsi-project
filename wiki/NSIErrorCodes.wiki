@@ -1,0 +1,54 @@
+#summary Living list of NSI error codes for standardization.
+
+= Introduction =
+
+The NSI ServiceException structure is designed to return detailed error information in the event of an operation failure.  This structure can be returned as a SOAP fault in response to the initial request message, or in the message contents of the operation's Failed response.
+
+The following elements are defined as members of the ServiceException:
+
+ * nsaId - NSA that generated the service exception.
+
+ * errorId - Error identifier uniquely identifying each known fault within the protocol.
+
+ * text - User friendly message text describing the error.
+
+ * variables - A collection of type/value pairs providing addition information relating to the error.
+
+ * childException - Heirarchical list of service exceptions capturing failures withing the request tree.
+
+= Error Codes =
+
+NSI uses a hierarchal error code structure to group related error codes together under a common parent error code value.  For example, the following table demonstrates the generic SECURITY_ERROR parent code and two more specific children security related error codes.
+
+|| text || errorId ||
+|| SECURITY_ERROR || 00300 ||
+|| UNAUTHORIZED || 00301 ||
+|| AUTHENTICATION_FAILURE || 00302 ||
+
+If we introduce a new security error code, then the next value would be 00303.  An implementation that does not yet support the new error code can, at the very least, determine it is a  SECURITY_ERROR.
+
+The following are a list of standardized error codes to be supported within ServiceException:
+
+|| text || errorId || description || variables ||
+|| PAYLOAD_ERROR || 00100 || || ||
+|| MISSING_PARAMETER || 00101 || Invalid or missing parameter || Include the parameter name that is missing. ||
+|| UNSUPPORTED_PARAMETER || 00102 || Parameter provided contains an unsupported value which MUST be processed. || Include the parameter name that is unsupported. ||
+|| NOT_IMPLEMENTED || 00103 ||  || Include the capability that is not implemented. ||
+|| CONNECTION_ERROR || 00200 || || ||
+|| INVALID_TRANSITION || 00201 || Connection state machine is in invalid state for received message. || Include the current state of the state machine. ||
+|| CONNECTION_EXISTS || 00202 || Schedule already exists for connectionId || ||
+|| CONNECTION_NONEXISTENT || 00203 || Schedule does not exists for connectionId. || ||
+|| CONNECTION_GONE || 00204 || || ||
+|| SECURITY_ERROR || 00300 || || ||
+|| AUTHENTICATION_FAILURE || 00301 ||  || ||
+|| UNAUTHORIZED || 00302 || || ||
+|| TOPOLOGY_ERROR || 00400 || || ||
+|| UNKNOWN_STP || 00401 || Could not find STP in topology database. || Include the unknown STP. ||
+|| STP_RESOLUTION_ERROR || 00402 || Could not resolve STP to a managing NSA. || Include the STP that could not be resolved. ||
+|| NO_PATH_FOUND || 00403 || Path computation failed to resolve route for reservation. || ||
+|| VLANID_INTERCANGE_NOT_SUPPORTED || 00404 || VlanId interchange not supported for requested path. || ||
+|| INTERNAL_ERROR || 00500 || An internal error has caused a message processing failure. || ||
+|| INTERNAL_NRM_ERROR || 00501 || An internal NRM error has caused a message processing failure. || Include information describing the specific NRM error. ||
+|| RESOURCE_UNAVAILABLE || 00600 || || ||
+|| STP_UNAVALABLE || 00601 || Specified STP already in use. || ||
+|| BANDWIDTH_UNAVAILABLE || 00602 || Insufficent bandwidth available for reservation. || ||
