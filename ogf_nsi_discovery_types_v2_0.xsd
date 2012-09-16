@@ -18,6 +18,7 @@ Description: This is the NSI Interface Discovery types schema for the reference 
 -->
 <xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2012/03/discovery/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ftypes="http://schemas.ogf.org/nsi/2012/03/framework/types"
     xmlns:tns="http://schemas.ogf.org/nsi/2012/03/discovery/types">
 
     <xsd:annotation>
@@ -27,6 +28,10 @@ Description: This is the NSI Interface Discovery types schema for the reference 
         </xsd:documentation>
     </xsd:annotation>
 
+    <!-- Import the common NSI framework types. -->
+    <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/framework/types"
+        schemaLocation="ogf_nsi_framework_types_v2_0.xsd"/>
+    
     <!-- ******************************************************************
         *                       XML base types                           *
         ****************************************************************** -->
@@ -204,53 +209,8 @@ Description: This is the NSI Interface Discovery types schema for the reference 
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="capability" type="tns:CapabilityType" minOccurs="0"
+            <xsd:element name="capability" type="ftypes:TypeValuePairType" minOccurs="0"
                 maxOccurs="unbounded" />
         </xsd:sequence>
-    </xsd:complexType>
-
-    <xsd:complexType name="CapabilityType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                Type definition for a service.  A service may consist of zero
-                or more versions.
-                
-                Elements:
-                value - A string value of the capability.
-                
-                any - Provides a flexible mechanism allowing additional elements
-                to be provided in the discovery message.  Use of this element
-                field is beyond the current scope of this NSI specification, but
-                may be used in the future to extend the existing protocol without
-                requiring a schema change.  Additionally, the field can be used
-                between peered NSA to provide additional context not covered in
-                the existing specification, however, this is left up to specific
-                peering agreements.                
-                
-                Attributes:
-                name - A string representing the name of the capability.
-                
-                targetNamespace - An optional URL to qualify the name space of
-                the capability.
-                
-                anyAttribute - Provides a flexible mechanism allowing additional
-                attributes in the discovery message exchange between two peered
-                NSA.  Use of this attribute field is beyond the current scope of
-                this NSI specification, but may be used in the future to extend
-                the existing protocol without requiring a schema change.
-                Additionally, the field can be used between peered NSA to provide
-                additional context not covered in the existing specification,
-                however, this is left up to specific peering agreements.                
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:sequence>
-            <xsd:element name="value" type="xsd:string" nillable="true" minOccurs="0"
-                maxOccurs="unbounded" />
-            <xsd:any namespace="##other" processContents="lax" minOccurs="0"
-                maxOccurs="unbounded" />
-        </xsd:sequence>
-        <xsd:attribute name="name" type="xsd:string" use="required" />
-        <xsd:attribute name="targetNamespace" type="xsd:anyURI" use="optional" />
-        <xsd:anyAttribute namespace="##other" processContents="lax" />
     </xsd:complexType>
 </xsd:schema>

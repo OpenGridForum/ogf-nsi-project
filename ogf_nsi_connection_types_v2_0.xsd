@@ -19,7 +19,7 @@
 <xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2012/03/connection/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    xmlns:types="http://schemas.ogf.org/nsi/2012/03/framework/types"
+    xmlns:ftypes="http://schemas.ogf.org/nsi/2012/03/framework/types"
     xmlns:tns="http://schemas.ogf.org/nsi/2012/03/connection/types">
 
     <xsd:annotation>
@@ -224,7 +224,7 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="serviceException" type="types:ServiceExceptionType" />
+            <xsd:element name="serviceException" type="ftypes:ServiceExceptionType" />
         </xsd:sequence>
     </xsd:complexType>
     
@@ -293,7 +293,7 @@
             <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
             <xsd:element name="connectionState"     type="tns:ConnectionStateType" />
-            <xsd:element name="serviceException"    type="types:ServiceExceptionType" />
+            <xsd:element name="serviceException"    type="ftypes:ServiceExceptionType" />
         </xsd:sequence>
     </xsd:complexType>
     
@@ -416,7 +416,7 @@
             
             bandwidth - the desired bandwidth of the service in Mb/s.
             
-            serviceAttrs - Technology specific attributes relating to the
+            serviceAttributes - Technology specific attributes relating to the
             service.
         </xsd:documentation>
     </xsd:annotation>
@@ -442,8 +442,8 @@
          </xsd:documentation>
       </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="startTime" type="types:DateTimeType" minOccurs="0" />
-            <xsd:element name="endTime"   type="types:DateTimeType" minOccurs="0" />
+            <xsd:element name="startTime" type="ftypes:DateTimeType" minOccurs="0" />
+            <xsd:element name="endTime"   type="ftypes:DateTimeType" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
 
@@ -465,67 +465,81 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="directionality"  type="tns:DirectionalityType" default="Bidirectional"/>
-            <xsd:element name="sourceSTP"       type="tns:ServiceTerminationPointType" />
-            <xsd:element name="destSTP"         type="tns:ServiceTerminationPointType" />
-            <xsd:element name="stpList"         type="tns:StpListType" minOccurs="0" />
+            <xsd:element name="directionality"  type="tns:DirectionalityType" default="Bidirectional" />
+            <xsd:element name="symmetric"       type="xsd:boolean" minOccurs="0" />
+            <xsd:element name="sourceSTP"       type="tns:StpType" />
+            <xsd:element name="destSTP"         type="tns:StpType" />
+            <xsd:element name="ero"             type="tns:StpListType" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
     
-    <xsd:complexType name="ServiceTerminationPointType">
+    <xsd:complexType name="StpType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-            The Service Termination Point (STP) type used for path selection.
-             
-            Elements:
-            
-            stpId - the unique identifier for the STP.
-            
-            techSpecAttrs - technology specific attributes associated with
-            the Service Termination Point.
+                The Service Termination Point (STP) type used for path selection.
+                 
+                Elements:
+                
+                networkId - a globally unique identifier (URN) that identifies the
+                Network.  Rather than forcing parsing of an STP to determine the
+                Network, a separate Network object is defined to allow an
+                intermediate NSA to forward the message to the target Network
+                without needing to know about the STPs within that domain.
+                
+                localId - a locally unique identifier for the STP withint he
+                associated network.
+                
+                label - technology specific attributes associated with
+                the Service Termination Point.
+                
+                orientation - describes the connection orientation of the STP in 
+                the context of the network (Ingress or Egress).  Required to
+                remove path-finding ambiguity for bidirectional STP.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="stpId"        type="tns:StpIdType" />
-            <xsd:element name="stpSpecAttrs" type="tns:TechnologySpecificAttributesType" minOccurs="0" />
+            <xsd:element name="networkId"       type="tns:NetworkIdType" />
+            <xsd:element name="localId"         type="xsd:string" />
+            <xsd:element name="label"           type="ftypes:TypeValuePairType" minOccurs="0" />
+            <xsd:element name="orientation"     type="tns:OrientationType" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
-
+    
     <xsd:complexType name="StpListType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 A simple ordered list if list of Service Termination Point (STP).
                 List order is determined by the interger order attribute in the
-                OrderedServiceTerminationPointType.
-
+                OrderedStpType.
+    
                 Elements:
-
-                stp - A list of STP ordered 0..n by their integer order attribute.
+    
+                orderedSTP- A list of STP ordered 0..n by their integer order attribute.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="stp" type="tns:OrderedServiceTerminationPointType" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="orderedSTP" type="tns:OrderedStpType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
 
-    <xsd:complexType name="OrderedServiceTerminationPointType">
+    <xsd:complexType name="OrderedStpType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 A Service Termination Point (STP) which can be ordered in a list for
                 use in PathObject definition.
-
+    
                 Attributes:
-
+    
                 order - Order attribute is provided only when the STP is part of an
                 orderedStpList.
-
+    
                 Elements:
-
-                stpId - the unique identifier for the STP.
-         </xsd:documentation>
+    
+                stp - the Service Termination Point (STP).
+            </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="stpId" type="tns:StpIdType" />
+            <xsd:element name="stp" type="tns:StpType" />
         </xsd:sequence>
         <xsd:attribute   name="order" type="xsd:int" />
     </xsd:complexType>
@@ -533,19 +547,16 @@
    <xsd:complexType name="TechnologySpecificAttributesType">
       <xsd:annotation>
          <xsd:documentation xml:lang="en">
-            Technology specific attributes supporting both mandatory and
-            optional values.
+            Technology specific attributes modeled as a type-value-pair
+            construct.
 
             Elements:
 
-            mandatory - Attributes that MUST be met by the service.
-
-            optional - Attributes that MAY be met by the service.
+            attribute - An instance of a technology specific attribute.
          </xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-          <xsd:element name="mandatory" type="saml:AttributeStatementType" minOccurs="0" />
-          <xsd:element name="optional"  type="saml:AttributeStatementType" minOccurs="0" />
+          <xsd:element name="attribute" type="ftypes:TypeValuePairType" minOccurs="0" maxOccurs="unbounded" />
       </xsd:sequence>
    </xsd:complexType>
 
@@ -599,7 +610,7 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="providerNSA"     type="types:NsaIdType" />
+            <xsd:element name="providerNSA"     type="ftypes:NsaIdType" />
             <xsd:element name="connectionId"    type="tns:ConnectionIdType" />
             <xsd:element name="connectionState" type="tns:ConnectionStateType" />
             <xsd:element name="pathList"        type="tns:PathListType" minOccurs="0" />
@@ -652,8 +663,8 @@
         </xsd:annotation>
         <xsd:sequence>
             <xsd:element name="directionality"  type="tns:DirectionalityType" default="Bidirectional"/>
-            <xsd:element name="sourceSTP"       type="tns:ServiceTerminationPointType" />
-            <xsd:element name="destSTP"         type="tns:ServiceTerminationPointType" />
+            <xsd:element name="sourceSTP"       type="tns:StpType" />
+            <xsd:element name="destSTP"         type="tns:StpType" />
             <xsd:element name="stpList"         type="tns:StpListType" minOccurs="0" />
             <xsd:element name="children"        type="tns:ChildListType" minOccurs="0" />
         </xsd:sequence>
@@ -682,7 +693,7 @@
         *                       XML base types                           *
         ****************************************************************** -->
 
-    <xsd:simpleType name="StpIdType">
+    <xsd:simpleType name="NetworkIdType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 An Service Termination Point will be populated with a OGF URN
@@ -772,4 +783,21 @@
             <xsd:enumeration value="Details" />
         </xsd:restriction>
     </xsd:simpleType>
+    
+    <xsd:simpleType name="OrientationType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                The orientation of an STP with respect to the network.
+                
+                Ingress - the STP is bring used as an ingress to the network.
+                
+                Egress - the STP is being used as an egress to the network.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Ingress" />
+            <xsd:enumeration value="Egress" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
 </xsd:schema>

@@ -70,36 +70,52 @@ Description: This is the NSI framework common types schema for the reference web
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="variable" type="tns:VariableType" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="variable" type="tns:TypeValuePairType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
-    
-    <xsd:complexType name="VariableType">
+
+    <xsd:complexType name="TypeValuePairType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                A simple type definition for a name/value pair that will hold
-                specific errored parameters from the NSI message.
+                Definition for a simple type and multi-value tuple.  Includes
+                simple string type and value, as well as more advanced
+                extensions if needed.  A targetNamespace attribute is include
+                to provide context where needed.
                 
                 Elements:
+                value - A string value corresponding to type.
                 
-                value - A string holding the errored value associated with the
-                ServiceException.
-                
+                any - Provides a flexible mechanism allowing additional elements
+                to be provided as an alternative, or in combination with value.
+                Use of this element field is beyond the current scope of this
+                NSI specification, but may be used in the future to extend the
+                existing protocol without requiring a schema change.
+           
                 Attributes:
-                
-                name - A string name for the errored request parameter.
+                type - A string representing the name of the type.
                 
                 targetNamespace - An optional URL to qualify the name space of
-                the errored parameters.
+                the capability.
+                
+                anyAttribute - Provides a flexible mechanism allowing additional
+                attributes non-specified to be provided as needed for peer-to-peer
+                NSA communications.  Use of this attribute field is beyond the
+                current scope of this NSI specification, but may be used in the
+                future to extend the existing protocol without requiring a schema
+                change.            
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="value" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="value" type="xsd:string" nillable="true" minOccurs="0"
+                maxOccurs="unbounded" />
+            <xsd:any namespace="##other" processContents="lax" minOccurs="0"
+                maxOccurs="unbounded" />
         </xsd:sequence>
-        <xsd:attribute name="name" type="xsd:string" use="required"/>
-        <xsd:attribute name="targetNamespace" type="xsd:anyURI" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="required" />
+        <xsd:attribute name="targetNamespace" type="xsd:anyURI" use="optional" />
+        <xsd:anyAttribute namespace="##other" processContents="lax" />
     </xsd:complexType>
-    
+
    <!-- ******************************************************************
         *                       XML base types                           *
         ****************************************************************** -->
