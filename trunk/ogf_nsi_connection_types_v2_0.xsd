@@ -414,15 +414,12 @@
             
             schedule - time parameters specifying the life of the service.
             
-            bandwidth - the desired bandwidth of the service in Mb/s.
-            
             serviceAttributes - Technology specific attributes relating to the
             service.
         </xsd:documentation>
     </xsd:annotation>
             <xsd:sequence>
                 <xsd:element name="schedule"            type="tns:ScheduleType" />
-                <xsd:element name="bandwidth"           type="xsd:int" />
                 <xsd:element name="serviceAttributes"   type="tns:TechnologySpecificAttributesType" minOccurs="0" />
             </xsd:sequence>
     </xsd:complexType>
