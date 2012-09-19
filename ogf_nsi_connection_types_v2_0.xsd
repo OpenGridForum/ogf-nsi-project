@@ -37,25 +37,37 @@
             1. Reserve - Make a request to reserve network resources for a
             connection between two STP's constrained by a certain service
             parameters.
+            
+            2. ModifyCheck - Request a modification of an existing reservation.
+            Any required resources will be pre-allocated.
+            
+            3. Modify - Commit a previously allocated modification on a
+            reservation.
+            
+            4. ModifyCancel - Cancel a pending modification and release any
+            associated resources.
 
-            2. Provision - Provider NSA has been given permission to setup a
+            5. Provision - Provider NSA has been given permission to setup a
             reservation (associated with a previous reserve message) on
             the Requester NSA's behalf but subject to the constraints of
             the requested service.
 
-            3. Release - Provider NSA should release the provisioned resources
+            6. Release - Provider NSA should release the provisioned resources
             without removing the reservation.
 
-            4. Terminate - Provider NSA should release the provisioned resources
+            7. Terminate - Provider NSA should release the provisioned resources
             and terminate the reservation.
 
-            5. Query - Mechanism for either NSA to query the other NSA for a
+            8. Query - Mechanism for either NSA to query the other NSA for a
             set of connection service instances between the RA-PA pair.
             This message can be used as a status polling mechanism.
 
-            6. ForcedEnd - An autonomous message issued from a Provider NSA
-            when an existing reservation is administratively terminated before
-            the reservation's scheduled end-time.
+            9. Notification - An autonomous message issued from a Provider NSA
+            to a Requester NSA when an existing reservation encounters an
+            autonomous condition such as being administratively terminated
+            before the reservation's scheduled end-time.  Connection activation
+            status within the data plane is also communciated using this
+            notification mechanism.
 
             The Connection Service protocol is an asynchronous protocol where
             each primitive consists of three operations:
@@ -92,7 +104,20 @@
     <xsd:element name="reserve"          type="tns:ReserveType" />
     <xsd:element name="reserveConfirmed" type="tns:ReserveConfirmedType" />
     <xsd:element name="reserveFailed"    type="tns:GenericFailedType" />
+    
+    <!-- ********** Modify message elements ********** -->
+    <xsd:element name="modifyCheck"          type="tns:ModifyCheckType" />
+    <xsd:element name="modifyCheckConfirmed" type="tns:ModifyCheckConfirmedType" />
+    <xsd:element name="modifyCheckFailed"    type="tns:GenericFailedType" />
+    
+    <xsd:element name="modify"                type="tns:GenericRequestType" />
+    <xsd:element name="modifyConfirmed"       type="tns:GenericConfirmedType" />
+    <xsd:element name="modifyFailed"          type="tns:GenericFailedType" />
 
+    <xsd:element name="modifyCancel"          type="tns:GenericRequestType" />
+    <xsd:element name="modifyCancelConfirmed" type="tns:GenericConfirmedType" />
+    <xsd:element name="modifyCancelFailed"    type="tns:GenericFailedType" />
+    
     <!-- ********** Provision message elements ********** -->
     <xsd:element name="provision"            type="tns:GenericRequestType" />
     <xsd:element name="provisionConfirmed"   type="tns:GenericConfirmedType" />
@@ -113,8 +138,8 @@
     <xsd:element name="queryConfirmed"       type="tns:QueryConfirmedType" />
     <xsd:element name="queryFailed"          type="tns:QueryFailedType" />
 
-    <!-- ********** ForcedEnd notification message elements ********** -->
-    <xsd:element name="forcedEnd"            type="tns:GenericRequestType" />
+    <!-- ********** Notification message elements ********** -->
+    <xsd:element name="notification"         type="tns:NotificationRequestType" />
     
     <!-- ******************************************************************
         *                   NSI message types                            *
@@ -128,13 +153,30 @@
                 between two STP's constrained by a certain service parameters.
 
                 Elements:
-
-                reservation - Parameters specifying the criteria for the
-                connection reservation.
+                
+                globalReservationId - An optional global reservation id that can be
+                used to correlate individual related service reservations through
+                the network. This must be populated with a Universally Unique
+                Identifier (UUID) URN as per ITU-T Rec. X.667 | ISO/IEC 9834-8:2005
+                and IETF RFC 4122.
+                
+                description - An optional description for the service reservation.
+                
+                connectionId - The Requester NSA assigned connectionId for this
+                service segment. This value must be unique within the context
+                of the Requester and Provider NSA.  This must be populated with a
+                Universally Unique Identifier (UUID) URN as per ITU-T Rec. X.667 |
+                ISO/IEC 9834-8:2005 and IETF RFC 4122.
+                
+                criteria - reservation request criteria including start and end
+                time, severice attributes, and requested path for the service.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="reservation"         type="tns:ReservationInfoType" />
+            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
+            <xsd:element name="description"         type="xsd:string" minOccurs="0" />
+            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
+            <xsd:element name="criteria"            type="tns:ReservationRequestCriteriaType" />
         </xsd:sequence>
     </xsd:complexType>
 
@@ -147,13 +189,61 @@
 
                 Elements:
                 
-                reservation - Parameters chosen for the connection reservation.
+                ReservationInfoGroup - Element group containing the common
+                reservation elements for reservation confirmations.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="reservation"     type="tns:ReservationInfoType" />
+            <xsd:group   ref="tns:ReservationInfoGroup" />
         </xsd:sequence>
     </xsd:complexType>
+
+
+    <xsd:complexType name="ModifyCheckType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Type definition for the modifyCheck message that allows a
+                Requester NSA to check the feasibility of connection reservation
+                modification.  Any additional resources associated with the
+                modify will be allocated.
+                
+                Elements:
+
+                connectionId - The Requester NSA assigned connectionId for this
+                service segment. This value must be unique within the context
+                of the Requester and Provider NSA.  This must be populated with a
+                Universally Unique Identifier (UUID) URN as per ITU-T Rec. X.667 |
+                ISO/IEC 9834-8:2005 and IETF RFC 4122.
+                
+                criteria - requested modification criteria including start and
+                end time, severice attributes, and requested path for the
+                service.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
+            <xsd:element name="criteria"            type="tns:ModifyRequestCriteriaType" />
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ModifyCheckConfirmedType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Type definition for the reserveConfirmed message. A Provider NSA
+                sends this positive reserveRequest response to the Requester NSA
+                that issued the original request message.
+                
+                Elements:
+                
+                ReservationInfoGroup - Element group containing the common
+                reservation elements for reservation confirmations.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:group   ref="tns:ReservationInfoGroup" />
+        </xsd:sequence>
+    </xsd:complexType>
+
 
     <xsd:complexType name="QueryType">
         <xsd:annotation>
@@ -283,7 +373,7 @@
                 connectionId - The locally unique identifier for a connection that
                 is known between a Requesting and Provider NSA pair.
 
-                connectionState - Overall connection state for the reservation.
+                connectionStates - Overall connection state for the reservation.
 
                 ServiceException - Specific error condition - the reason for the
                 failure.
@@ -292,8 +382,38 @@
         <xsd:sequence>
             <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
-            <xsd:element name="connectionState"     type="tns:ConnectionStateType" />
+            <xsd:element name="connectionStates"    type="tns:ConnectionStatesType" />
             <xsd:element name="serviceException"    type="ftypes:ServiceExceptionType" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="NotificationRequestType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Type definition for the notification message that allows a
+                Requester NSA to reserve network resources for a connection
+                between two STP's constrained by a certain service parameters.
+                
+                Elements:
+                
+                event - The type of notification event generated
+                
+                connectionId - The unique identifier for a connection known between
+                a Requesting and Provider NSA pair.
+                
+                connectionStates - Connection state for the reservation.
+                
+                timeStamp - Time the event was generated.
+                
+                additionalInfo - Type/value 
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="event"            type="tns:EventEnumType" />
+            <xsd:element name="connectionId"     type="tns:ConnectionIdType" />
+            <xsd:element name="connectionStates" type="tns:ConnectionStatesType" />
+            <xsd:element name="timeStamp"        type="ftypes:DateTimeType" />
+            <xsd:element name="additionalInfo"   type="ftypes:TypeValuePairListType" />
         </xsd:sequence>
     </xsd:complexType>
     
@@ -301,11 +421,91 @@
          *             XML types used in message elements                 *
          ****************************************************************** -->
 
+    <xsd:complexType name="ReservationRequestCriteriaType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Type definition for reservation request criteria.
+                
+                Elements:
+                
+                schedule - time parameters specifying the life of the service.
+                
+                serviceAttributes - Technology specific attributes relating to the
+                service.
+                
+                path - The source and destination end points of the service.
+                Can optionally provide additional path segments to guide path
+                computation.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="schedule"            type="tns:ScheduleType" />
+            <xsd:element name="serviceAttributes"   type="ftypes:TypeValuePairListType" />
+            <xsd:element name="path"                type="tns:PathType" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="ModifyRequestCriteriaType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Type definition for a reservation modification request criteria.
+                
+                Elements:
+                
+                schedule - time parameters specifying the life of the service.
+                
+                serviceAttributes - Technology specific attributes relating to the
+                service.
+                
+                path - The source and destination end points of the service.
+                Can optionally provide additional path segments to guide path
+                computation.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="schedule"            type="tns:ScheduleType" minOccurs="0" />
+            <xsd:element name="serviceAttributes"   type="ftypes:TypeValuePairListType" minOccurs="0" />
+            <xsd:element name="path"                type="tns:PathType" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ReservationConfirmCriteriaType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Type definition for reservation confirmation information.
+                Includes the reservation version id.
+                
+                Elements:
+                
+                schedule - time parameters specifying the life of the service.
+                
+                serviceAttributes - Technology specific attributes relating to the
+                service.
+                
+                path - The source and destination end points of the service.
+                Can optionally provide additional path segments to guide path
+                computation.
+                
+                Attributes:
+                
+                version - version of the reservation instance.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="schedule"            type="tns:ScheduleType" />
+            <xsd:element name="serviceAttributes"   type="ftypes:TypeValuePairListType" />
+            <xsd:element name="path"                type="tns:PathType" />
+        </xsd:sequence>
+        <xsd:attribute   name="version"             type="xsd:int" use="required" />
+    </xsd:complexType>
+    
+    
     <xsd:group name="ReservationInfoGroup">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 Element group containing the common reservation elements for both
-                reserve requests, confirmations, and query messages.
+                reserve requests and confirmations.
                 
                 Elements:
                 
@@ -323,38 +523,16 @@
                 Universally Unique Identifier (UUID) URN as per ITU-T Rec. X.667 |
                 ISO/IEC 9834-8:2005 and IETF RFC 4122.
                 
-                serviceParameters - service specific parameters relating to the
-                reservation.
+                criteria - A set of versioned reservation criteria information.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" nillable="true" />
+            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="description"         type="xsd:string" minOccurs="0" />
             <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
-            <xsd:element name="serviceParameters"   type="tns:ServiceParametersType" />
+            <xsd:element name="criteria"            type="tns:ReservationConfirmCriteriaType" minOccurs="1" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:group>
-    
-    <xsd:complexType name="ReservationInfoType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                Type definition for reservation request/confirmation information.
-                
-                Elements:
-                
-                ReservationInfoGroup - The common reservation information
-                elements.
-                
-                path - The source and destination end points of the service.
-                Can optionally provide additional path segments to guide path
-                computation.
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:sequence>
-            <xsd:group   ref="tns:ReservationInfoGroup" />
-            <xsd:element name="path" type="tns:PathType" />
-        </xsd:sequence>
-    </xsd:complexType>
     
     <xsd:complexType name="QuerySummaryResultType">
       <xsd:annotation>
@@ -366,21 +544,71 @@
 
             ReservationInfoGroup - Element group containing the common
             reservation elements and detailed path data.
-
-            connectionState - The reservation's overall connection state.
-            Individual connection states for each component in the connection
-            hierarchy are not provided in this result set.
             
-            path - The source and destination end points of the service.
-            Can optionally hold additional path segments for the path
-            but this is up to the NSA to populate.
+            requesterNSA - The requester NSA associated with the reservation.
+
+            connectionStates - The reservation's overall connection states.
+
+            children - If this connection reservation is aggregating child
+            connections then this element contains basic summary information
+            about the child connection segment.
          </xsd:documentation>
       </xsd:annotation>
         <xsd:sequence>
             <xsd:group   ref="tns:ReservationInfoGroup" />
-            <xsd:element name="connectionState" type="tns:ConnectionStateType" />
-            <xsd:element name="path"            type="tns:PathType" />
+            <xsd:element name="requesterNSA"       type="ftypes:NsaIdType" />
+            <xsd:element name="connectionStates"   type="tns:ConnectionStatesType" />
+            <xsd:element name="children"           type="tns:ChildSummaryListType" minOccurs="0" />
         </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ChildSummaryListType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                A holder element providing an evelope which will contain the
+                list of child NSA and associated connection information.
+                
+                Elements:
+                
+                child - Summary path information for a child NSA.  Each
+                child element is ordered and contains a connection segment in
+                the overall path.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="child" type="tns:SummaryPathType" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="SummaryPathType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                This type is used to model a connection reservation's summary
+                path information.  The structure provides the next level of
+                connection information but not state.
+
+                Attributes:
+                
+                order - Specification of ordered path elements.
+                
+                Elements:
+                
+                providerNSA - The provider NSA holding the connection
+                information associated with this instance of data.
+                
+                connectionId - The connection identifier associated with the
+                reservation and path segment.
+                
+                path - The summary path information associated with the
+                connection reservation.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="providerNSA"     type="ftypes:NsaIdType" />
+            <xsd:element name="connectionId"    type="tns:ConnectionIdType" />
+            <xsd:element name="path"            type="tns:PathType" minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="order" type="xsd:int" use="required" />
     </xsd:complexType>
     
     <xsd:complexType name="QueryDetailsResultType">
@@ -393,37 +621,87 @@
                 
                 ReservationInfoGroup - The common reservation information
                 elements.
-                
-                detailedPath - Minimally provides the source and destination
-                end points of the service, however, can hold detailed path
-                information for the reservation encompassing the entire
-                connection hierarchy.  The level of detail include is left up
-                to the individual NSA and their authorization policies.
+
+                requesterNSA - The requester NSA associated with the reservation.
+
+                connectionStates - The reservation's overall connection states.
+
+                children - If this connection reservation is aggregating child
+                connections then this element contains detailed information
+                about the child connection segment.  The level of detail
+                include is left up to the individual NSA and their
+                authorization policies.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
             <xsd:group   ref="tns:ReservationInfoGroup" />
-            <xsd:element name="detailedPath" type="tns:DetailedPathType" />
+            <xsd:element name="requesterNSA"       type="ftypes:NsaIdType" />
+            <xsd:element name="connectionStates"   type="tns:ConnectionStatesType" />
+            <xsd:element name="children"           type="tns:ChildDetailedListType" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
     
-    <xsd:complexType name="ServiceParametersType">
-    <xsd:annotation>
-        <xsd:documentation xml:lang="en">
-            Type modeling parameters relating to the requested service.
-            
-            schedule - time parameters specifying the life of the service.
-            
-            serviceAttributes - Technology specific attributes relating to the
-            service.
-        </xsd:documentation>
-    </xsd:annotation>
-            <xsd:sequence>
-                <xsd:element name="schedule"            type="tns:ScheduleType" />
-                <xsd:element name="serviceAttributes"   type="tns:TechnologySpecificAttributesType" minOccurs="0" />
-            </xsd:sequence>
+    <xsd:complexType name="ChildDetailedListType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                A holder element providing an evelope which will contain the
+                list of child NSA and associated detailed connection
+                information.
+                
+                Elements:
+                
+                child - Deatiled path information for a child NSA.  Each
+                child element is ordered and contains a connection segment in
+                the overall path.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="child" type="tns:DetailedPathType" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
     </xsd:complexType>
 
+    <xsd:complexType name="DetailedPathType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                This type is used to model a connection reservation's detailed 
+                path information.  The structure is recursive so it is 
+                possible to model both an ordered list of connection segments,
+                as well as the hierarchical connection segments created on 
+                children NSA in either a tree and chain configuration.
+                
+                Attributes:
+                
+                order - Specification of ordered path elements.
+                
+                Elements:
+                
+                providerNSA - The provider NSA holding the connection
+                information associated with this instance of data.
+                
+                connectionId - The connection identifier associated with the
+                reservation and path segment.
+                
+                connectionStates - This reservation's segments connection
+                states.
+                
+                path - The path information associated with the connection
+                reservation.
+                
+                children - If provided this element will contain the list of 
+                connections in the context of all direct children NSA involved 
+                in the connection path.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="providerNSA"        type="ftypes:NsaIdType" />
+            <xsd:element name="connectionId"       type="tns:ConnectionIdType" />
+            <xsd:element name="connectionStates"   type="tns:ConnectionStatesType" />
+            <xsd:element name="path"               type="tns:PathType" minOccurs="0" />
+            <xsd:element name="children"           type="tns:ChildDetailedListType" minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="order" type="xsd:int" use="required" />
+    </xsd:complexType>
+    
     <xsd:complexType name="ScheduleType">
       <xsd:annotation>
          <xsd:documentation xml:lang="en">
@@ -486,7 +764,7 @@
                 localId - a locally unique identifier for the STP withint he
                 associated network.
                 
-                label - technology specific attributes associated with
+                labels - technology specific attributes associated with
                 the Service Termination Point.
                 
                 orientation - describes the connection orientation of the STP in 
@@ -497,7 +775,7 @@
         <xsd:sequence>
             <xsd:element name="networkId"       type="tns:NetworkIdType" />
             <xsd:element name="localId"         type="xsd:string" />
-            <xsd:element name="label"           type="ftypes:TypeValuePairType" minOccurs="0" />
+            <xsd:element name="labels"           type="ftypes:TypeValuePairListType" minOccurs="0" />
             <xsd:element name="orientation"     type="tns:OrientationType" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
@@ -538,24 +816,8 @@
         <xsd:sequence>
             <xsd:element name="stp" type="tns:StpType" />
         </xsd:sequence>
-        <xsd:attribute   name="order" type="xsd:int" />
+        <xsd:attribute   name="order" type="xsd:int" use="required" />
     </xsd:complexType>
-
-   <xsd:complexType name="TechnologySpecificAttributesType">
-      <xsd:annotation>
-         <xsd:documentation xml:lang="en">
-            Technology specific attributes modeled as a type-value-pair
-            construct.
-
-            Elements:
-
-            attribute - An instance of a technology specific attribute.
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:sequence>
-          <xsd:element name="attribute" type="ftypes:TypeValuePairType" minOccurs="0" maxOccurs="unbounded" />
-      </xsd:sequence>
-   </xsd:complexType>
 
     <xsd:complexType name="QueryFilterType">
         <xsd:annotation>
@@ -576,116 +838,96 @@
             </xsd:choice>
         </xsd:sequence>
     </xsd:complexType>
-
-    <xsd:complexType name="DetailedPathType">
+    
+    <xsd:complexType name="ConnectionStatesType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                This type is used to model a connection reservation's detailed
-                path information.  The structure is recursive so it is
-                possible to model both an ordered list of connection segments,
-                as well as the hierarchical connection segments created on
-                children NSA in either a tree and chain configuration.
+                A holder element containing the state machines associated with
+                a connection reservation.
+                
+                Elements:
+                
+                reservationState - Models the current connection reservation
+                state.
+                
+                provisionState - Models the current connection provisioning
+                state.
+                
+                activationState - Models the current connection data plane
+                activation state.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="reservationState"   type="tns:ReservationStateType" />
+            <xsd:element name="provisionState"     type="tns:ProvisionStateType" />
+            <xsd:element name="activationState"    type="tns:ActivationStateType" />
+        </xsd:sequence>
+    </xsd:complexType>    
+
+    <xsd:complexType name="ReservationStateType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Models the current connection reservation state.
                 
                 Attributes:
                 
-                order - an optional attribute used if specification of ordered
-                path elements is required.
+                version - Version of the connection reservation this entry is
+                modeling.
                 
                 Elements:
                 
-                providerNSA - The provider NSA holding the connection
-                information associated with this instance of data.
-                
-                connectionId - The connection identifier associated with the
-                reservation and path segment.
-                
-                pathList - The detailed path information associated with the
-                connection reservation.  This element can model multiple local
-                path segments if required to realize the reservation, as well
-                as the full connection hierarchy associated with each path
-                segment.
+                state - The state of the connection reservation state machine.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="providerNSA"     type="ftypes:NsaIdType" />
-            <xsd:element name="connectionId"    type="tns:ConnectionIdType" />
-            <xsd:element name="connectionState" type="tns:ConnectionStateType" />
-            <xsd:element name="pathList"        type="tns:PathListType" minOccurs="0" />
+            <xsd:element name="state"   type="tns:ReservationStateEnumType" />
         </xsd:sequence>
-        <xsd:attribute name="order" type="xsd:int" />
-    </xsd:complexType>
-
-    <xsd:complexType name="PathListType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                A holder element providing an evelope that will contain the
-                list of component path information.
-                
-                Elements:
-                
-                path - An ordered list of detailed path elements.
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:sequence>
-            <xsd:element name="path" type="tns:ComponentPathType" minOccurs="0" maxOccurs="unbounded" />
-        </xsd:sequence>
+        <xsd:attribute   name="version" type="xsd:int" />
     </xsd:complexType>
     
-    <xsd:complexType name="ComponentPathType">
+    <xsd:complexType name="ProvisionStateType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                Path of the service represented by a list of STP.
+                Models the current connection provisioning state.
                 
                 Attributes:
                 
-                order - an optional attribute used if specification of ordered
-                path elements is required.
+                version - Version of the connection reservation this entry is
+                modeling.
                 
                 Elements:
                 
-                directionality - (uni or bi) directionality of the service.
-                
-                sourceSTP - Source STP of the service.
-                
-                destSTP - Destination STP of the service.
-                
-                stpList - A possible hop-by-hop ordered list of STP from
-                sourceSTP to destSTP. List does not include sourceSTP and
-                destSTP.  List may only be partial.
-                
-                children - If provided this element will contain the list of
-                connections in the context of all direct children NSA involved
-                in the connection path.
+                state - The state of the connection provisioning state machine.                
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="directionality"  type="tns:DirectionalityType" default="Bidirectional"/>
-            <xsd:element name="sourceSTP"       type="tns:StpType" />
-            <xsd:element name="destSTP"         type="tns:StpType" />
-            <xsd:element name="stpList"         type="tns:StpListType" minOccurs="0" />
-            <xsd:element name="children"        type="tns:ChildListType" minOccurs="0" />
+            <xsd:element name="state"   type="tns:ProvisionStateEnumType" />
         </xsd:sequence>
-        <xsd:attribute name="order" type="xsd:int" />
-    </xsd:complexType>
-    
-    <xsd:complexType name="ChildListType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                A holder element providing an evelope which will contain the
-                list of child NSA and associated connection information.
-                
-                Elements:
-                
-                child - The detailed path information for a child NSA.  Each
-                child element is ordered and contains a connection segment in
-                the overall path.
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:sequence>
-            <xsd:element name="child" type="tns:DetailedPathType" minOccurs="0" maxOccurs="unbounded" />
-        </xsd:sequence>
+        <xsd:attribute   name="version" type="xsd:int" />
     </xsd:complexType>
 
+    <xsd:complexType name="ActivationStateType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Models the current connection activation state within the
+                data plane.
+                
+                Attributes:
+                
+                version - Version of the connection reservation this entry is
+                modeling.
+                
+                Elements:
+                
+                state - The state of the connection activation state machine.                  
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="state"   type="tns:ActivationStateEnumType" />
+        </xsd:sequence>
+        <xsd:attribute   name="version" type="xsd:int" />
+    </xsd:complexType>
+    
    <!-- ******************************************************************
         *                       XML base types                           *
         ****************************************************************** -->
@@ -740,24 +982,96 @@
         </xsd:restriction>
     </xsd:simpleType>
 
-    <xsd:simpleType name="ConnectionStateType">
+    <xsd:simpleType name="EventEnumType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                Connection state values for the connection services state machine.
+                Notification event message types.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="forcedEnd" />
+            <xsd:enumeration value="activateComplete" />
+            <xsd:enumeration value="activateFailed" />
+            <xsd:enumeration value="deactivateComplete" />
+            <xsd:enumeration value="deactivateFailed" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="ReservationStateEnumType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Connection reservation state values for the connection 
+                services reservation state machine.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Initial" />
+            
             <xsd:enumeration value="Reserving" />
             <xsd:enumeration value="Reserved" />
-            <xsd:enumeration value="Auto-Provision" />
+            <xsd:enumeration value="ReserveFailed" />
+            
+            <xsd:enumeration value="ModifyChecking" />
+            <xsd:enumeration value="ModifyChecked" />
+            <xsd:enumeration value="ModifyCheckFailed" />
+            
+            <xsd:enumeration value="ModifyCanceling" />
+            <xsd:enumeration value="ModifyCancelFailed" />
+            
+            <xsd:enumeration value="Modifying" />
+            <xsd:enumeration value="ModifyFailed" />
+            
+            <xsd:enumeration value="Terminating" />
+            <xsd:enumeration value="TerminatedReserved" />
+            <xsd:enumeration value="TerminatedEndtime" />
+            <xsd:enumeration value="TerminatedRequest" />
+            <xsd:enumeration value="TerminateFailed" />
+
+            <xsd:enumeration value="Unknown" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="ProvisionStateEnumType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Connection provisioning state values for the connection 
+                services provision state machine.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Initial" />
+            
             <xsd:enumeration value="Scheduled" />
+            
             <xsd:enumeration value="Provisioning" />
             <xsd:enumeration value="Provisioned" />
+            <xsd:enumeration value="ProvisionFailed" />
+            
             <xsd:enumeration value="Releasing" />
-            <xsd:enumeration value="Cleaning" />
+            <xsd:enumeration value="ReleaseFailed" />
+            
             <xsd:enumeration value="Terminating" />
-            <xsd:enumeration value="Terminated" />
+            <xsd:enumeration value="TerminatedReserved" />
+            <xsd:enumeration value="TerminatedEndtime" />
+            <xsd:enumeration value="TerminatedRequest" />
+            <xsd:enumeration value="TerminateFailed" />
+            
+            <xsd:enumeration value="Unknown" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ActivationStateEnumType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Connection activation state values for the connection services
+                activation state machine.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Inactive" />
+            <xsd:enumeration value="Activating" />
+            <xsd:enumeration value="Active" />
+            <xsd:enumeration value="Deactivating" />
             <xsd:enumeration value="Unknown" />
         </xsd:restriction>
     </xsd:simpleType>

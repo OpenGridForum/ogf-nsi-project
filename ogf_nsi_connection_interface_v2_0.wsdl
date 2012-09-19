@@ -181,6 +181,45 @@ Description: This is a draft version of the WSDL common types and messages for t
         <wsdl:part name="reserveFailed" element="types:reserveFailed" />
     </wsdl:message>
 
+    <!-- ********** ModifyCheck message set ********** -->
+    <wsdl:message name="modifyCheck">
+        <wsdl:part name="modifyCheck" element="types:modifyCheck" />
+    </wsdl:message>
+    
+    <wsdl:message name="modifyCheckConfirmed">
+        <wsdl:part name="modifyCheckConfirmed" element="types:modifyCheckConfirmed" />
+    </wsdl:message>
+    
+    <wsdl:message name="modifyCheckFailed">
+        <wsdl:part name="modifyCheckFailed" element="types:modifyCheckFailed" />
+    </wsdl:message>
+    
+    <!-- ********** Modify message set ********** -->
+    <wsdl:message name="modify">
+        <wsdl:part name="modify" element="types:modify" />
+    </wsdl:message>
+    
+    <wsdl:message name="modifyConfirmed">
+        <wsdl:part name="modifyConfirmed" element="types:modifyConfirmed" />
+    </wsdl:message>
+    
+    <wsdl:message name="modifyFailed">
+        <wsdl:part name="modifyFailed" element="types:modifyFailed" />
+    </wsdl:message>
+
+    <!-- ********** ModifyCancel message set ********** -->
+    <wsdl:message name="modifyCancel">
+        <wsdl:part name="modifyCancel" element="types:modifyCancel" />
+    </wsdl:message>
+    
+    <wsdl:message name="modifyCancelConfirmed">
+        <wsdl:part name="modifyCancelConfirmed" element="types:modifyCancelConfirmed" />
+    </wsdl:message>
+    
+    <wsdl:message name="modifyCancelFailed">
+        <wsdl:part name="modifyCancelFailed" element="types:modifyCancelFailed" />
+    </wsdl:message>
+    
     <!-- ********** Provision message set ********** -->
     <wsdl:message name="provision">
         <wsdl:part name="provision" element="types:provision" />
@@ -233,9 +272,9 @@ Description: This is a draft version of the WSDL common types and messages for t
         <wsdl:part name="queryFailed" element="types:queryFailed" />
     </wsdl:message>
 
-    <!-- ********** ForcedEnd notification message set ********** -->
-    <wsdl:message name="forcedEnd">
-        <wsdl:part name="forcedEnd" element="types:forcedEnd" />
+    <!-- ********** Notification message set ********** -->
+    <wsdl:message name="notification">
+        <wsdl:part name="notification" element="types:notification" />
     </wsdl:message>
     
     <!-- ********** Acknowledgment message set ********** -->
