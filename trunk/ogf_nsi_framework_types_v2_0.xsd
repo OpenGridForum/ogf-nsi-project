@@ -74,6 +74,22 @@ Description: This is the NSI framework common types schema for the reference web
         </xsd:sequence>
     </xsd:complexType>
 
+    <xsd:complexType name="TypeValuePairListType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                A holder element providing an attribute list definition for the
+                type/value pair.
+                
+                Elements:
+                
+                attribute - An instance of a type/value pair.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="attribute" type="tns:TypeValuePairType" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+    
     <xsd:complexType name="TypeValuePairType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">

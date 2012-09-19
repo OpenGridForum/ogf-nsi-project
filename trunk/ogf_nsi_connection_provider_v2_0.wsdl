@@ -48,6 +48,57 @@
             <wsdl:output name="reserveACK"          message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
+
+        <!-- ********** ModifyCheck operation set *********** -->
+        
+        <wsdl:operation name="modifyCheck">
+            <wsdl:documentation>
+                The modifyCheck message is sent from a Requester NSA to a
+                Provider NSA when a modification to an existing reservation is
+                being requested. The modifyCheckACK indicates that the
+                Provider NSA has accepted the modifyCheck request for
+                processing. A modifyCheckConfirmed or modifyCheckFailed
+                message will be sent asynchronously to the Requester NSA
+                when modifyCheck processing has completed.
+            </wsdl:documentation>
+            <wsdl:input  name="modifyCheck"         message="interface:modifyCheck" />
+            <wsdl:output name="modifyCheckACK"      message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
+        </wsdl:operation>
+
+        <!-- ********** Modify operation set *********** -->
+        
+        <wsdl:operation name="modify">
+            <wsdl:documentation>
+                The modify message is sent from a Requester NSA to a
+                Provider NSA when a modification to an existing reservation is
+                being committed. The modifyACK indicates that the Provider
+                NSA has accepted the modify request for processing. A
+                modifyConfirmed or modifyFailed message will be sent
+                asynchronously to the Requester NSA when modify processing has
+                completed.
+            </wsdl:documentation>
+            <wsdl:input  name="modify"              message="interface:modify" />
+            <wsdl:output name="modifyACK"           message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
+        </wsdl:operation>
+
+        <!-- ********** ModifyCancel operation set *********** -->
+        
+        <wsdl:operation name="modifyCancel">
+            <wsdl:documentation>
+                The modifyCancel message is sent from a Requester NSA to a
+                Provider NSA when a cancellation to an existing modify is
+                being requested. The modifyCancelACK indicates that the
+                Provider NSA has accepted the modifyCheck request for
+                processing. A modifyCancelConfirmed or modifyCancelFailed
+                message will be sent asynchronously to the Requester NSA
+                when modifyCancel processing has completed.
+            </wsdl:documentation>
+            <wsdl:input  name="modifyCancel"        message="interface:modifyCancel" />
+            <wsdl:output name="modifyCancelACK"     message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
+        </wsdl:operation>
         
         <!-- ********** Provision operation set *********** -->
         
@@ -161,6 +212,63 @@
             </wsdl:fault>
         </wsdl:operation>
 
+        <!-- ********** ModifyCheck operation set ********** -->
+        
+        <wsdl:operation name="modifyCheck">
+            <soap:operation
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modifyCheck"
+                style="document" />
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="serviceException">
+                <soap:fault name="serviceException" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <!-- ********** Modify operation set ********** -->
+        
+        <wsdl:operation name="modify">
+            <soap:operation
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modify"
+                style="document" />
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="serviceException">
+                <soap:fault name="serviceException" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <!-- ********** ModifyCancel operation set ********** -->
+        
+        <wsdl:operation name="modifyCancel">
+            <soap:operation
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modifyCancel"
+                style="document" />
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="serviceException">
+                <soap:fault name="serviceException" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        
         <!-- ********** Provision operation set ********** -->
 
         <wsdl:operation name="provision">
