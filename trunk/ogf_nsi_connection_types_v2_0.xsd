@@ -66,7 +66,7 @@
             to a Requester NSA when an existing reservation encounters an
             autonomous condition such as being administratively terminated
             before the reservation's scheduled end-time.  Connection activation
-            status within the data plane is also communciated using this
+            status within the data plane is also communicated using this
             notification mechanism.
 
             The Connection Service protocol is an asynchronous protocol where
@@ -216,7 +216,7 @@
                 ISO/IEC 9834-8:2005 and IETF RFC 4122.
                 
                 criteria - requested modification criteria including start and
-                end time, severice attributes, and requested path for the
+                end time, service attributes, and requested path for the
                 service.
             </xsd:documentation>
         </xsd:annotation>
@@ -398,8 +398,8 @@
                 
                 event - The type of notification event generated
                 
-                connectionId - The unique identifier for a connection known between
-                a Requesting and Provider NSA pair.
+                connectionId - The unique identifier for a connection known
+                between a Requesting and Provider NSA pair.
                 
                 connectionStates - Connection state for the reservation.
                 
@@ -430,8 +430,8 @@
                 
                 schedule - time parameters specifying the life of the service.
                 
-                serviceAttributes - Technology specific attributes relating to the
-                service.
+                serviceAttributes - Technology specific attributes relating to
+                the service.
                 
                 path - The source and destination end points of the service.
                 Can optionally provide additional path segments to guide path
@@ -455,8 +455,8 @@
                 
                 schedule - time parameters specifying the life of the service.
                 
-                serviceAttributes - Technology specific attributes relating to the
-                service.
+                serviceAttributes - Technology specific attributes relating to
+                the service.
                 
                 path - The source and destination end points of the service.
                 Can optionally provide additional path segments to guide path
@@ -480,8 +480,8 @@
                 
                 schedule - time parameters specifying the life of the service.
                 
-                serviceAttributes - Technology specific attributes relating to the
-                service.
+                serviceAttributes - Technology specific attributes relating to
+                the service.
                 
                 path - The source and destination end points of the service.
                 Can optionally provide additional path segments to guide path
@@ -570,9 +570,9 @@
                 
                 Elements:
                 
-                child - Summary path information for a child NSA.  Each
-                child element is ordered and contains a connection segment in
-                the overall path.
+                child - Summary path information for a child NSA.  Each child
+                element is ordered and contains a connection segment in the
+                overall path.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>

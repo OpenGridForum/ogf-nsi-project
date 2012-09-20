@@ -126,7 +126,7 @@ Description: This is a draft version of the WSDL common types and messages for t
             <!-- ********** Fault message element ********** -->
             <xsd:element name="serviceException" type="ftypes:ServiceExceptionType"/>
             
-            <!-- ********** Acknowledgement type definition ********** -->
+            <!-- ********** Acknowledgment type definition ********** -->
             <xsd:complexType name="GenericAcknowledgmentType">
                 <xsd:annotation>
                     <xsd:documentation  xml:lang="en">

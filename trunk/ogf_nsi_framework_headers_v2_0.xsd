@@ -45,29 +45,70 @@ Description: This is a draft version of the ftypes schema for the reference web 
     <xsd:complexType name="CommonHeaderType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                Type definition for the common NSI message header that is sent as part of every NSI message exchange.
+                Type definition for the common NSI message header that is sent
+                as part of every NSI message exchange.
                                 
                 Mandatory Elements:
                 
-                protocolVersion - A URI identifying the specific protocol version carried in this NSI message.  The protocol version is modeled separately from the namespace of the WSDL and XML schema to capture behavioral changes that cannot be modeled in schema definition, and to avoid updating of the schema namespace.
+                protocolVersion - A URI identifying the specific protocol
+                version carried in this NSI message.  The protocol version is
+                modeled separately from the namespace of the WSDL and XML
+                schema to capture behavioral changes that cannot be modeled in
+                schema definition, and to avoid updating of the schema
+                namespace.
                 
-                correlationId - An identifier provided by the requesting NSA used to correlate to an asynchronous response from the responder. It is recommended that a Universally Unique Identifier (UUID) URN as per IETF RFC 4122 be used as a globally unique value.
+                correlationId - An identifier provided by the requesting NSA
+                used to correlate to an asynchronous response from the
+                responder. It is recommended that a Universally Unique
+                Identifier (UUID) URN as per IETF RFC 4122 be used as a
+                globally unique value.
                 
-                requesterNSA - The NSA identifier for the NSA acting in the Requester Agent role for the specific NSI operation.
+                requesterNSA - The NSA identifier for the NSA acting in the
+                Requester Agent role for the specific NSI operation.
                 
-                providerNSA - The NSA identifier for the NSA acting in the Provider Agent role for the specific NSI operation.
+                providerNSA - The NSA identifier for the NSA acting in the
+                Provider Agent role for the specific NSI operation.
                 
                 Optional Elements:
                 
-                replyTo - The Requester NSA's SOAP endpoint address to which asynchronous messages associated with this operation request will be delivered.  This is only populated for the original operation request (reserve, provision, release, terminate, and query), and not for any additional messaging associated with the operation.  If no endpoint value is provided in a operation request, then it is assumed the requester is not interested in a response and will use alternative mechanism to determine the result.
+                replyTo - The Requester NSA's SOAP endpoint address to which
+                asynchronous messages associated with this operation request
+                will be delivered.  This is only populated for the original
+                operation request (reserve, provision, release, terminate,
+                and query), and not for any additional messaging associated
+                with the operation.  If no endpoint value is provided in a
+                operation request, then it is assumed the requester is not
+                interested in a response and will use alternative mechanism to
+                determine the result.
                 
-                sessionSecurityAttr - Security attributes associated with the end user's NSI session.  This field can be used to perform authentication, authorization, and policy enforcement of end user requests.  Is only provided in the operation request (reserve, provision, release, terminate, and query), and not for any additional messaging associated with the operation.
+                sessionSecurityAttr - Security attributes associated with the
+                end user's NSI session.  This field can be used to perform
+                authentication, authorization, and policy enforcement of end
+                user requests.  Is only provided in the operation request
+                (reserve, provision, release, terminate, and query), and not
+                for any additional messaging associated with the operation.
                 
-                any - Provides a flexible mechanism allowing additional elements in the protocol header for exchange between two peered NSA.  Use of this element field is beyond the current scope of this NSI specification, but may be used in the future to extend the existing protocol without requiring a schema change.  Additionally, the field can be used between peered NSA to provide additional context not covered in the existing specification, however, this is left up to specific peering agreements.                
+                any - Provides a flexible mechanism allowing additional
+                elements in the protocol header for exchange between two
+                peered NSA.  Use of this element field is beyond the current
+                scope of this NSI specification, but may be used in the future
+                to extend the existing protocol without requiring a schema
+                change.  Additionally, the field can be used between peered
+                NSA to provide additional context not covered in the existing
+                specification, however, this is left up to specific peering
+                agreements.                
 
                 Optional Attributes:
 
-                anyAttribute - Provides a flexible mechanism allowing additional attributes in the protocol header for exchange between two peered NSA.  Use of this attribute field is beyond the current scope of this NSI specification, but may be used in the future to extend the existing protocol without requiring a schema change.  Additionally, the field can be used between peered NSA to provide additional context not covered in the existing specification, however, this is left up to specific peering agreements.
+                anyAttribute - Provides a flexible mechanism allowing
+                additional attributes in the protocol header for exchange
+                between two peered NSA.  Use of this attribute field is beyond
+                the current scope of this NSI specification, but may be used
+                in the future to extend the existing protocol without
+                requiring a schema change.  Additionally, the field can be
+                used between peered NSA to provide additional context not
+                covered in the existing specification, however, this is left
+                up to specific peering agreements.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
