@@ -46,8 +46,8 @@ Description: This is the NSI Interface Discovery types schema for the reference 
     <xsd:element name="services" type="tns:ServicesType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                Element definition for the queryServicesResult message containing
-                the matching interface versions.
+                Element definition for the queryServicesResult message
+                containing the matching interface versions.
             </xsd:documentation>
         </xsd:annotation>
     </xsd:element>
@@ -100,8 +100,8 @@ Description: This is the NSI Interface Discovery types schema for the reference 
                 peering agreements.                
                 
                 Attributes:
-                type - A string identify the service type such as "ConnectionService",
-                "TopologyService", or "DiscoveryService".
+                type - A string identify the service type such as
+                "ConnectionService", "TopologyService", or "DiscoveryService".
                 
                 anyAttribute - Provides a flexible mechanism allowing additional
                 attributes in the discovery message exchange between two peered

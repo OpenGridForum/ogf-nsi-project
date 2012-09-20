@@ -43,15 +43,15 @@
                 updates to the protocol to a minimum.  There is one primitive
                 supported in this version of the protocol.
                 
-                1. queryServices - The queryServices operation is sent from a Requester
-                NSA to a Provider NSA to discover interfaces versions supported
-                by the Provider NSA.  This simple request/response interaction
-                uses the following messages: 
+                1. queryServices - The queryServices operation is sent from a
+                Requester NSA to a Provider NSA to discover interfaces versions
+                supported by the Provider NSA.  This simple request/response
+                interaction uses the following messages: 
                 
-                queryServicesRequest contains the optional list of interface types
-                the requester NSA would like returned from the provider NSA.  All
-                supported interface types and versions are returned if the list
-                of interface types is empty.
+                queryServicesRequest contains the optional list of interface
+                types the requester NSA would like returned from the provider
+                NSA.  All supported interface types and versions are returned
+                if the list of interface types is empty.
                 
                 queryServicesResponse contains the list of interface version
                 information matching the request.
@@ -69,11 +69,12 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
         <wsdl:operation name="queryServices">
             <wsdl:documentation>
-                The queryServices message is sent from a Requester NSA to a Provider
-                NSA to discover interfaces versions supported by the Provider NSA.
+                The queryServices message is sent from a Requester NSA to a
+                Provider NSA to discover interfaces versions supported by the
+                Provider NSA.
                 
-                The Discovery service uses a basic request/response messaging model
-                with an HTTP/SOAP binding:
+                The Discovery service uses a basic request/response messaging 
+                model with an HTTP/SOAP binding:
                 - HTTP POST carries the discovery request operation
                 - HTTP 200 OK response carries result of the operation
                 - HTTP socket blocks until result it returned (synchronous)
