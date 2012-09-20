@@ -353,7 +353,7 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="globalReservationId"    type="tns:GlobalReservationIdType" nillable="true" />
+            <xsd:element name="globalReservationId"    type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="connectionId"           type="tns:ConnectionIdType" />
         </xsd:sequence>
     </xsd:complexType>
