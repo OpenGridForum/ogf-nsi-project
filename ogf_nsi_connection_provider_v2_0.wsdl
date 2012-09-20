@@ -28,7 +28,7 @@
 
     <wsdl:import namespace="http://schemas.ogf.org/nsi/2012/03/connection/interface"
         location="ogf_nsi_connection_interface_v2_0.wsdl" />
-  
+
     <!-- WSDL operation definitions with associated input (request), output
         (response), and fault (error response) messages. -->
     <wsdl:portType name="ConnectionProviderPort">
