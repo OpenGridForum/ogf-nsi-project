@@ -34,7 +34,7 @@ The following are a list of standardized error codes to be supported within Serv
 || MISSING_PARAMETER || 00101 || Invalid or missing parameter || Include the parameter name that is missing. ||
 || UNSUPPORTED_PARAMETER || 00102 || Parameter provided contains an unsupported value which MUST be processed. || Include the parameter name that is unsupported. ||
 || NOT_IMPLEMENTED || 00103 ||  || Include the capability that is not implemented. ||
-|| VERSION_NOT_SUPPORTED || 00104 || The service version requested in NSI header is not supported. || Return type protocolVersion and value the version requested. 
+|| VERSION_NOT_SUPPORTED || 00104 || The service version requested in NSI header is not supported. || Return type protocolVersion and value the version requested. ||
 || CONNECTION_ERROR || 00200 || || ||
 || INVALID_TRANSITION || 00201 || Connection state machine is in invalid state for received message. || Include the current state of the state machine. ||
 || CONNECTION_EXISTS || 00202 || Schedule already exists for connectionId || ||
