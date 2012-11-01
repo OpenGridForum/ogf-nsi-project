@@ -1004,6 +1004,7 @@
             <xsd:enumeration value="activateFailed" />
             <xsd:enumeration value="deactivateComplete" />
             <xsd:enumeration value="deactivateFailed" />
+            <xsd:enumeration value="dataplaneError" />
         </xsd:restriction>
     </xsd:simpleType>
     
