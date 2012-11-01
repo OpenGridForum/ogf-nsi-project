@@ -12,11 +12,11 @@ This document and translations of it may be copied and furnished to others, and 
 
 The limited permissions granted above are perpetual and will not be revoked by the OGF or its successors or assignees.
 
-Open Grid Forum NSI Interface Discovery Protocol v2.0
+Open Grid Forum NSI Interface Discovery Protocol v1.0
 
-Description: This is a draft version of the WSDL common types and messages for the reference web services implementation of the OGF NSI Interface Discovery Protocol v2.0. Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
+Description: This is a draft version of the WSDL common types and messages for the reference web services implementation of the OGF NSI Interface Discovery Protocol v1.0. Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
 -->
-<wsdl:definitions name="ogf_nsi_discovery_interface_v2_0"
+<wsdl:definitions name="ogf_nsi_discovery_interface_v1_0"
     targetNamespace="http://schemas.ogf.org/nsi/2012/03/discovery/interface"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
@@ -26,10 +26,10 @@ Description: This is a draft version of the WSDL common types and messages for t
     xmlns:types="http://schemas.ogf.org/nsi/2012/03/discovery/types"
     xmlns:tns="http://schemas.ogf.org/nsi/2012/03/discovery/interface">
 
-    <!-- OGF NSI Interface Discovery Protocol 2.0 description -->
+    <!-- OGF NSI Interface Discovery Protocol 1.0 description -->
     <wsdl:documentation>
         This is a web services message definition of OGF NSI Interface
-        Discovery protocol version 2.0 based on an HTTP/SOAP binding.
+        Discovery protocol version 1.0 based on an HTTP/SOAP binding.
         The Interface Discovery Protocol is message based request-
         response protocol that operates between a Requester Network
         Service Agent (NSA) and a Provider NSA. The protocol is defined
@@ -37,18 +37,18 @@ Description: This is a draft version of the WSDL common types and messages for t
         updates to the protocol to a minimum.  There is one primitive
         supported in this version of the protocol.
     
-        1. queryServices - The queryServices operation is sent from a Requester
-        NSA to a Provider NSA to discover interfaces versions supported
-        by the Provider NSA.  This simple request/response interaction
-        uses the following messages: 
+        1. queryNSA - The queryNSA operation is sent from a Requester NSA to a
+        Provider NSA to discover basic NSA information and supported service
+        interface versions.  This simple request/response interaction uses the
+        following messages: 
 
-        queryServicesRequest contains the optional list of interface types
+        queryNsaRequest contains the optional list of NSA and interface types
         the requester NSA would like returned from the provider NSA.  All
-        supported interface types and versions are returned if the list
-        of interface types is empty.
+        supported interface types and versions are returned if the list of
+        interface types is empty.
         
-        queryServicesResponse contains the list of interface version
-        information matching the request.
+        queryNsaResponse contains the list of interface version information
+        matching the request.
         
         serviceException contains exception information related to a
         failed request.
@@ -62,13 +62,9 @@ Description: This is a draft version of the WSDL common types and messages for t
             <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/framework/types"
                 schemaLocation="ogf_nsi_framework_types_v2_0.xsd"/>
             
-            <!--  Import common NSI framework header types. -->
-            <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/framework/headers"
-                schemaLocation="ogf_nsi_framework_headers_v2_0.xsd" />
-            
             <!--  Import common NSI Interface Discovery types from protocol schema. -->
             <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/discovery/types"
-                    schemaLocation="ogf_nsi_discovery_types_v2_0.xsd" />
+                    schemaLocation="ogf_nsi_discovery_types_v1_0.xsd" />
             
             <!-- ********** Fault message element ********** -->
             <xsd:element name="serviceException" type="ftypes:ServiceExceptionType"/>
@@ -78,19 +74,14 @@ Description: This is a draft version of the WSDL common types and messages for t
    <!-- *************************************************************
         *         NSI protocol WSDL message definitions.            *
         ************************************************************* -->
-
-    <!-- ********** NSI message header ********** -->
-    <message name="header">
-        <part name="header" element="headers:nsiHeader"/>
-    </message>
      
     <!-- ********** queryServices message set ********** -->
-    <wsdl:message name="queryServicesRequest">
-        <wsdl:part name="queryServicesRequest" element="types:servicesQuery" />
+    <wsdl:message name="queryNsaRequest">
+        <wsdl:part name="queryNsaRequest" element="types:queryNsaRequest" />
     </wsdl:message>
 
-    <wsdl:message name="queryServicesResponse">
-        <wsdl:part name="queryServicesResponse" element="types:services" />
+    <wsdl:message name="queryNsaResponse">
+        <wsdl:part name="queryNsaResponse" element="types:queryNsaResponse" />
     </wsdl:message>
     
     <wsdl:message name="serviceException">

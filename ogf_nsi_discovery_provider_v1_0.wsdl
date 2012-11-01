@@ -12,13 +12,13 @@
 
     The limited permissions granted above are perpetual and will not be revoked by the OGF or its successors or assignees.
 
-    Open Grid Forum NSI Interface Discovery Protocol v2.0
+    Open Grid Forum NSI Interface Discovery Protocol v1.0
 
-    Description: This is the NSI Interface Discovery Protocol 2.0 service definitions for the reference web services implementation of the OGF NSI Interface Discovery Protocol v2.0. Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
+    Description: This is the NSI Interface Discovery Protocol 1.0 service definitions for the reference web services implementation of the OGF NSI Interface Discovery Protocol v1.0. Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
 
     This document is the SOAP endpoint definition for a provider NSA.  It holds definitions for messages the provider NSA will receive.  For the reserve, provision, release, and terminate message sets the provider will receive request messages only.  For the query operation a provider NSA must support request, confirmed, and failed messages due to the possibility that a provider NSA may query the requester for a list of connection reservations.
 -->
-<wsdl:definitions name="ogf_nsi_discovery_provider_v2_0"
+<wsdl:definitions name="ogf_nsi_discovery_provider_v1_0"
     targetNamespace="http://schemas.ogf.org/nsi/2012/03/discovery/provider"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
@@ -27,15 +27,15 @@
     xmlns:interface="http://schemas.ogf.org/nsi/2012/03/discovery/interface">
 
     <wsdl:import namespace="http://schemas.ogf.org/nsi/2012/03/discovery/interface"
-        location="ogf_nsi_discovery_interface_v2_0.wsdl" />
+        location="ogf_nsi_discovery_interface_v1_0.wsdl" />
   
     <!-- WSDL operation definitions with associated input (request), output
         (response), and fault (error response) messages. -->
     <wsdl:portType name="DiscoveryProviderPort">
-        <wsdl:operation name="queryServices">
+        <wsdl:operation name="queryNSA">
             <wsdl:documentation>
                 This is a web services message definition of OGF NSI Interface
-                Discovery protocol version 2.0 based on an HTTP/SOAP binding.
+                Discovery protocol version 1.0 based on an HTTP/SOAP binding.
                 The Interface Discovery Protocol is message based request-
                 response protocol that operates between a Requester Network
                 Service Agent (NSA) and a Provider NSA. The protocol is defined
@@ -43,35 +43,35 @@
                 updates to the protocol to a minimum.  There is one primitive
                 supported in this version of the protocol.
                 
-                1. queryServices - The queryServices operation is sent from a
-                Requester NSA to a Provider NSA to discover interfaces versions
-                supported by the Provider NSA.  This simple request/response
-                interaction uses the following messages: 
+                1. queryNSA - The queryNSA operation is sent from a Requester NSA to a
+                Provider NSA to discover basic NSA information and supported service
+                interface versions.  This simple request/response interaction uses the
+                following messages: 
                 
-                queryServicesRequest contains the optional list of interface
-                types the requester NSA would like returned from the provider
-                NSA.  All supported interface types and versions are returned
-                if the list of interface types is empty.
+                queryNsaRequest contains the optional list of NSA and interface types
+                the requester NSA would like returned from the provider NSA.  All
+                supported interface types and versions are returned if the list of
+                interface types is empty.
                 
-                queryServicesResponse contains the list of interface version
-                information matching the request.
+                queryNsaResponse contains the list of interface version information
+                matching the request.
                 
                 serviceException contains exception information related to a
                 failed request.
             </wsdl:documentation>
-            <wsdl:input  name="queryServicesRequest"   message="interface:queryServicesRequest" />
-            <wsdl:output name="queryServicesResponse"  message="interface:queryServicesResponse" />
+            <wsdl:input  name="queryNsaRequest"   message="interface:queryNsaRequest" />
+            <wsdl:output name="queryNsaResponse"  message="interface:queryNsaResponse" />
             <wsdl:fault  name="serviceException"     message="interface:serviceException" />
         </wsdl:operation>
     </wsdl:portType>
     
     <wsdl:binding name="DiscoveryProviderSoapBinding" type="tns:DiscoveryProviderPort">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
-        <wsdl:operation name="queryServices">
+        <wsdl:operation name="queryNSA">
             <wsdl:documentation>
-                The queryServices message is sent from a Requester NSA to a
-                Provider NSA to discover interfaces versions supported by the
-                Provider NSA.
+                The queryNSA message is sent from a Requester NSA to a Provider
+                NSA to discover basic NSA information and interfaces versions
+                supported by the Provider NSA.
                 
                 The Discovery service uses a basic request/response messaging 
                 model with an HTTP/SOAP binding:
@@ -83,11 +83,9 @@
                 soapAction="http://schemas.ogf.org/nsi/2012/03/discovery/service/queryServices"
                 style="document" />
             <wsdl:input>
-                <soap:header message="interface:header" part="header" use="literal"/>
                 <soap:body use="literal" />
             </wsdl:input>
             <wsdl:output>
-                <soap:header message="interface:header" part="header" use="literal"/>
                 <soap:body use="literal" />
             </wsdl:output>
             <wsdl:fault name="serviceException">
