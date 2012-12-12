@@ -40,7 +40,7 @@ The following are a list of standardized error codes to be supported within Serv
 || CONNECTION_EXISTS || 00202 || Schedule already exists for connectionId || ||
 || CONNECTION_NONEXISTENT || 00203 || Schedule does not exists for connectionId. || ||
 || CONNECTION_GONE || 00204 || || ||
-|| CONNECTION_CREATE_ERROR || 00205 || || ||
+|| CONNECTION_CREATE_ERROR || 00205 || Failed to create connection (payload was ok, something went wrong) || ||
 || SECURITY_ERROR || 00300 || || ||
 || AUTHENTICATION_FAILURE || 00301 ||  || ||
 || UNAUTHORIZED || 00302 || || ||
