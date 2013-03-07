@@ -18,7 +18,6 @@
 -->
 <xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2012/03/connection/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
     xmlns:ftypes="http://schemas.ogf.org/nsi/2012/03/framework/types"
     xmlns:tns="http://schemas.ogf.org/nsi/2012/03/connection/types">
 
@@ -86,11 +85,6 @@
             issued the original request message ("reserveRequest").
         </xsd:documentation>
     </xsd:annotation>
-
-    <!-- Import SAML attribute definitions for our security attributes.  This
-         is a local import of:  http://docs.oasis-open.org/security/saml/v2.0/saml-schema-assertion-2.0.xsd -->
-    <xsd:import namespace="urn:oasis:names:tc:SAML:2.0:assertion"
-                            schemaLocation="saml-schema-assertion-2.0.xsd"/>
     
     <!-- Import the common NSI framework types. -->
     <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/framework/types"
