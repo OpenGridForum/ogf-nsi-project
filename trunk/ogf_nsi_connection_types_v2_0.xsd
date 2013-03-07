@@ -776,17 +776,12 @@
                 
                 labels - technology specific attributes associated with
                 the Service Termination Point.
-                
-                orientation - describes the connection orientation of the STP in 
-                the context of the network (Ingress or Egress).  Required to
-                remove path-finding ambiguity for bidirectional STP.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
             <xsd:element name="networkId"       type="xsd:string" />
             <xsd:element name="localId"         type="xsd:string" />
             <xsd:element name="labels"          type="ftypes:TypeValuePairListType" minOccurs="0" />
-            <xsd:element name="orientation"     type="tns:OrientationType" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
     
@@ -1088,22 +1083,6 @@
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Summary" />
             <xsd:enumeration value="Details" />
-        </xsd:restriction>
-    </xsd:simpleType>
-    
-    <xsd:simpleType name="OrientationType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                The orientation of an STP with respect to the network.
-                
-                Ingress - the STP is being used as an ingress to the network.
-                
-                Egress - the STP is being used as an egress to the network.
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="Ingress" />
-            <xsd:enumeration value="Egress" />
         </xsd:restriction>
     </xsd:simpleType>
     
