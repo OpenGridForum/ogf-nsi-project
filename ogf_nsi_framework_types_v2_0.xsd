@@ -47,8 +47,8 @@ Description: This is the NSI framework common types schema for the reference web
                 
                 text - User friendly message text describing the error.
                 
-                variables - A collection of type/value pairs providing addition
-                information relating to the error.
+                variables - An  optional collection of type/value pairs providing
+                addition information relating to the error.
                 
                 childException - Hierarchical list of service exceptions
                 capturing failures within the request tree.
@@ -58,7 +58,7 @@ Description: This is the NSI framework common types schema for the reference web
             <xsd:element name="nsaId"               type="tns:NsaIdType" />
             <xsd:element name="errorId"             type="xsd:string" />
             <xsd:element name="text"                type="xsd:string" />
-            <xsd:element name="variables"           type="tns:VariablesType" />
+            <xsd:element name="variables"           type="tns:VariablesType" minOccurs="0" />
             <xsd:element name="childException"      type="tns:ServiceExceptionType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
