@@ -783,9 +783,9 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="networkId"       type="tns:NetworkIdType" />
+            <xsd:element name="networkId"       type="xsd:string" />
             <xsd:element name="localId"         type="xsd:string" />
-            <xsd:element name="labels"           type="ftypes:TypeValuePairListType" minOccurs="0" />
+            <xsd:element name="labels"          type="ftypes:TypeValuePairListType" minOccurs="0" />
             <xsd:element name="orientation"     type="tns:OrientationType" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
@@ -941,21 +941,6 @@
    <!-- ******************************************************************
         *                       XML base types                           *
         ****************************************************************** -->
-
-    <xsd:simpleType name="NetworkIdType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                An Service Termination Point will be populated with a OGF URN
-                (reference artifact 6478 "Procedure for Registration of
-                Subnamespace Identifiers in the URN:OGF Hierarchy") to be used
-                for compatibility with other external systems.  The suggested
-                format is urn:ogf:network:stp:networkId:localId where networkId
-                identifies the network holding the STP and localId is the
-                STP identifier in that network.
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:restriction base="xsd:anyURI" />
-    </xsd:simpleType>
         
     <xsd:simpleType name="GlobalReservationIdType">
         <xsd:annotation>
