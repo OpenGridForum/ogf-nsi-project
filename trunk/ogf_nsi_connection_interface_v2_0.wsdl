@@ -259,19 +259,45 @@ Description: This is a draft version of the WSDL common types and messages for t
         <wsdl:part name="parameters" element="types:terminateFailed" />
     </wsdl:message>
 
-    <!-- ********** Query message set ********** -->
-    <wsdl:message name="query">
-        <wsdl:part name="query" element="types:query" />
+    <!-- ********** QuerySummary message set ********** -->
+    <wsdl:message name="querySummary">
+        <wsdl:part name="querySummary" element="types:querySummary" />
     </wsdl:message>
     
-    <wsdl:message name="queryConfirmed">
-        <wsdl:part name="queryConfirmed" element="types:queryConfirmed" />
+    <wsdl:message name="querySummaryConfirmed">
+        <wsdl:part name="querySummaryConfirmed" element="types:querySummaryConfirmed" />
     </wsdl:message>
 
-    <wsdl:message name="queryFailed">
-        <wsdl:part name="queryFailed" element="types:queryFailed" />
+    <wsdl:message name="querySummaryFailed">
+        <wsdl:part name="querySummaryFailed" element="types:querySummaryFailed" />
     </wsdl:message>
 
+    <!-- ********** QueryRecursive message set ********** -->
+    <wsdl:message name="queryRecursive">
+        <wsdl:part name="queryRecursive" element="types:queryRecursive" />
+    </wsdl:message>
+    
+    <wsdl:message name="queryRecursiveConfirmed">
+        <wsdl:part name="queryRecursiveConfirmed" element="types:queryRecursiveConfirmed" />
+    </wsdl:message>
+    
+    <wsdl:message name="queryRecursiveFailed">
+        <wsdl:part name="queryRecursiveFailed" element="types:queryRecursiveFailed" />
+    </wsdl:message>
+
+    <!-- ********** QuerySummarySync message set ********** -->
+    <wsdl:message name="querySummarySync">
+        <wsdl:part name="querySummarySync" element="types:querySummarySync" />
+    </wsdl:message>
+    
+    <wsdl:message name="querySummarySyncConfirmed">
+        <wsdl:part name="querySummarySyncConfirmed" element="types:querySummarySyncConfirmed" />
+    </wsdl:message>
+
+    <wsdl:message name="querySummarySyncFailed">
+        <wsdl:part name="querySummarySyncFailed" element="types:querySummarySyncFailed" />
+    </wsdl:message>
+    
     <!-- ********** Notification message set ********** -->
     <wsdl:message name="notification">
         <wsdl:part name="notification" element="types:notification" />
