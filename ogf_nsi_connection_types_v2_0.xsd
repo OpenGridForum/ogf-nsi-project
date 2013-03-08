@@ -57,11 +57,24 @@
             7. Terminate - Provider NSA should release the provisioned resources
             and terminate the reservation.
 
-            8. Query - Mechanism for either NSA to query the other NSA for a
-            set of connection service instances between the RA-PA pair.
-            This message can be used as a status polling mechanism.
+            8. QuerySummary - Mechanism for either NSA to query the other NSA
+            for a set of connection service instances between the RA-PA pair.
+            The returned results will be a summary of the reservation
+            information.
 
-            9. Notification - An autonomous message issued from a Provider NSA
+            9. QueryRecursive - Mechanism for either NSA to query the other
+            NSA for a set of connection service instances between the RA-PA
+            pair. The returned results will be a detailed list of reservation
+            information collected by recursively traversing the reservation
+            tree.
+
+            10. QuerySummarySync - Mechanism for either NSA to query the other
+            NSA for a set of connection service instances between the RA-PA
+            pair. The returned results will be a summary of the reservation
+            information.  This is a syncronous blocking operation and not
+            asynchronous like QuerySummary and QueryRecursive.
+
+            11. Notification - An autonomous message issued from a Provider NSA
             to a Requester NSA when an existing reservation encounters an
             autonomous condition such as being administratively terminated
             before the reservation's scheduled end-time.  Connection activation
@@ -127,11 +140,21 @@
     <xsd:element name="terminateConfirmed"   type="tns:GenericConfirmedType" />
     <xsd:element name="terminateFailed"      type="tns:GenericFailedType" />
 
-    <!-- ********** Query message elements ********** -->
-    <xsd:element name="query"                type="tns:QueryType" />
-    <xsd:element name="queryConfirmed"       type="tns:QueryConfirmedType" />
-    <xsd:element name="queryFailed"          type="tns:QueryFailedType" />
+    <!-- ********** QuerySummary message elements ********** -->
+    <xsd:element name="querySummary"           type="tns:QueryType" />
+    <xsd:element name="querySummaryConfirmed"  type="tns:QuerySummaryConfirmedType" />
+    <xsd:element name="querySummaryFailed"     type="tns:QueryFailedType" />
 
+    <!-- ********** QueryRecursive message elements ********** -->
+    <xsd:element name="queryRecursive"           type="tns:QueryType" />
+    <xsd:element name="queryRecursiveConfirmed"  type="tns:QueryRecursiveConfirmedType" />
+    <xsd:element name="queryRecursiveFailed"     type="tns:QueryFailedType" />
+
+    <!-- ********** QuerySummarySync message elements ********** -->
+    <xsd:element name="querySummarySync"           type="tns:QueryType" />
+    <xsd:element name="querySummarySyncConfirmed"  type="tns:QuerySummaryConfirmedType" />
+    <xsd:element name="querySummarySyncFailed"     type="tns:QueryFailedType" />
+    
     <!-- ********** Notification message elements ********** -->
     <xsd:element name="notification"         type="tns:NotificationRequestType" />
     
@@ -192,7 +215,6 @@
         </xsd:sequence>
     </xsd:complexType>
 
-
     <xsd:complexType name="ModifyCheckType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
@@ -237,8 +259,7 @@
             <xsd:group   ref="tns:ReservationInfoGroup" />
         </xsd:sequence>
     </xsd:complexType>
-
-
+    
     <xsd:complexType name="QueryType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
@@ -246,53 +267,74 @@
                 for either Requester or Provider NSA to query the other NSA for a
                 set of connection service reservation instances between the RA-PA
                 pair. This message can also be used as a status polling mechanism.
+                
+                Elements compose a filter for specifying the reservations to return
+                in response to the queryRequest. Supports querying reservations
+                based on connectionId or globalReservationId. Filter items specified
+                are OR'ed to build the match criteria. If no criteria is specified
+                then all reservations associated with the requesting NSA are
+                returned.
 
                 Elements:
 
-                operation - Parameter specifying the type of query operation to
-                perform.
+                connectionId - Return reservations contain this connectionId.
                 
-                queryFilter - Parameter specifying the query criteria to match
-                against reserved connections. Any matching connections must be
-                returned.
+                globalReservationId - Return reservations containg this
+                globalReservationId.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="operation"           type="tns:QueryOperationType" default="Summary" />
-            <xsd:element name="queryFilter"         type="tns:QueryFilterType" />
+            <xsd:choice>
+                <xsd:element name="connectionId"        type="tns:ConnectionIdType" minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:choice>
         </xsd:sequence>
     </xsd:complexType>
 
-    <xsd:complexType name="QueryConfirmedType">
+    <xsd:complexType name="QuerySummaryConfirmedType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                This is the type definition for the queryConfirmed message.  An
-                NSA sends this positive queryRequest response to the NSA that
-                issued the original request message.
+                This is the type definition for the querySummaryConfirmed
+                message. An NSA sends this positive querySummaryRequest
+                response to the NSA that issued the original request message.
 
                 Elements:
 
-                Choice of reservation element:
-                reservationSummary - Resulting summary set of connection
-                reservations matching the query criteria.  Will be provided
-                if the original query operation parameter was for "Summary".
-                
-                reservationDetails - Resulting detailed set of connection
-                reservations matching the query criteria.  Will be provided
-                if the original query operation parameter was for "Details".
+                reservation - Resulting summary set of connection reservations
+                matching the query criteria.
 
                 If there were no matches to the query then no reservation
                 elements will be present.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:choice>
-                <xsd:element name="reservationSummary"  type="tns:QuerySummaryResultType" minOccurs="0" maxOccurs="unbounded" />
-                <xsd:element name="reservationDetails"  type="tns:QueryDetailsResultType" minOccurs="0" maxOccurs="unbounded" />
-            </xsd:choice>
+            <xsd:element name="reservation"  type="tns:QuerySummaryResultType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
 
+    <xsd:complexType name="QueryRecursiveConfirmedType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                This is the type definition for the queryRecursiveConfirmed
+                message.  An NSA sends this positive queryRecursiveRequest
+                response to the NSA that issued the original request message.
+                
+                Elements:
+                
+                reservation - Resulting recursive set of connection reservations
+                matching the query criteria.
+                
+                If there were no matches to the query then no reservation
+                elements will be present.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:choice>
+                <xsd:element name="reservation" type="tns:QueryRecursiveResultType" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+    
     <xsd:complexType name="QueryFailedType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
@@ -547,7 +589,7 @@
             Elements:
 
             ReservationInfoGroup - Element group containing the common
-            reservation elements and detailed path data.
+            reservation elements and path data.
             
             requesterNSA - The requester NSA associated with the reservation.
 
@@ -615,11 +657,11 @@
         <xsd:attribute name="order" type="xsd:int" use="required" />
     </xsd:complexType>
     
-    <xsd:complexType name="QueryDetailsResultType">
+    <xsd:complexType name="QueryRecursiveResultType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 Type containing the common reservation elements and detailed
-                path data for "Detailed" query results.
+                path data for "Recursive" query results.
                 
                 Elements:
                 
@@ -641,11 +683,11 @@
             <xsd:group   ref="tns:ReservationInfoGroup" />
             <xsd:element name="requesterNSA"       type="ftypes:NsaIdType" />
             <xsd:element name="connectionStates"   type="tns:ConnectionStatesType" />
-            <xsd:element name="children"           type="tns:ChildDetailedListType" minOccurs="0" />
+            <xsd:element name="children"           type="tns:ChildRecursiveListType" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
     
-    <xsd:complexType name="ChildDetailedListType">
+    <xsd:complexType name="ChildRecursiveListType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 A holder element providing an evelope which will contain the
@@ -660,11 +702,11 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="child" type="tns:DetailedPathType" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="child" type="tns:RecursivePathType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
 
-    <xsd:complexType name="DetailedPathType">
+    <xsd:complexType name="RecursivePathType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 This type is used to model a connection reservation's detailed 
@@ -701,7 +743,7 @@
             <xsd:element name="connectionId"       type="tns:ConnectionIdType" />
             <xsd:element name="connectionStates"   type="tns:ConnectionStatesType" />
             <xsd:element name="path"               type="tns:PathType" minOccurs="0" />
-            <xsd:element name="children"           type="tns:ChildDetailedListType" minOccurs="0" />
+            <xsd:element name="children"           type="tns:ChildRecursiveListType" minOccurs="0" />
         </xsd:sequence>
         <xsd:attribute name="order" type="xsd:int" use="required" />
     </xsd:complexType>
@@ -816,26 +858,6 @@
             <xsd:element name="stp" type="tns:StpType" />
         </xsd:sequence>
         <xsd:attribute   name="order" type="xsd:int" use="required" />
-    </xsd:complexType>
-
-    <xsd:complexType name="QueryFilterType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                A filter for specifying the reservations to return in response to a
-                queryRequest.
-
-                Supports querying reservations based on connectionId or
-                globalReservationId. Filter items specified are OR'ed to build
-                the match criteria. If no criteria is specified then all
-                reservations associated with the requesting NSA are returned.
-         </xsd:documentation>
-        </xsd:annotation>
-        <xsd:sequence>
-            <xsd:choice>
-                <xsd:element name="connectionId"        type="tns:ConnectionIdType" minOccurs="0" maxOccurs="unbounded" />
-                <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" maxOccurs="unbounded" />
-            </xsd:choice>
-        </xsd:sequence>
     </xsd:complexType>
     
     <xsd:complexType name="ConnectionStatesType">
@@ -1060,24 +1082,4 @@
             <xsd:enumeration value="Unknown" />
         </xsd:restriction>
     </xsd:simpleType>
-    
-    <xsd:simpleType name="QueryOperationType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                The type of search operation to be performed by the query.
-                
-                Summary - will query reservation information held in the
-                queried provider NSA only.
-                
-                Details - will perform a recursive query to build detailed
-                reservation information for all child NSA involved in the
-                connection path.
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="Summary" />
-            <xsd:enumeration value="Details" />
-        </xsd:restriction>
-    </xsd:simpleType>
-    
 </xsd:schema>
