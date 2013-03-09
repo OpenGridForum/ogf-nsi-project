@@ -45,7 +45,7 @@
                 when reservation processing has completed.
             </wsdl:documentation>
             <wsdl:input  name="reserve"             message="interface:reserve" />
-            <wsdl:output name="reserveACK"          message="interface:acknowledgment" />
+            <wsdl:output name="reserveResponse"     message="interface:reserveResponse" />
             <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
 

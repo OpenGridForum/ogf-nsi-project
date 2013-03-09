@@ -38,43 +38,73 @@ Description: This is a draft version of the WSDL common types and messages for t
     
         There are five primitives supported in this version of the
         protocol:
-    
+        
         1. Reserve - Make a request to reserve network resources for a
-        connection between two STP’s constrained by certain service
+        connection between two STP's constrained by a certain service
         parameters.
-    
-        2. Provision - Provider NSA has been given permission to setup a
+        
+        2. ModifyCheck - Request a modification of an existing reservation.
+        Any required resources will be pre-allocated.
+        
+        3. Modify - Commit a previously allocated modification on a
+        reservation.
+        
+        4. ModifyCancel - Cancel a pending modification and release any
+        associated resources.
+        
+        5. Provision - Provider NSA has been given permission to setup a
         reservation (associated with a previous reserve message) on
         the Requester NSA's behalf but subject to the constraints of
         the requested service.
-    
-        3. Release - Provider NSA should release the provisioned resources
+        
+        6. Release - Provider NSA should release the provisioned resources
         without removing the reservation.
         
-        4. Terminate - Provider NSA should release the provisioned resources
+        7. Terminate - Provider NSA should release the provisioned resources
         and terminate the reservation.
-    
-        5. Query - Mechanism for either NSA to query the other NSA for a
-        set of connection service instances between the RA-PA pair.
-        This message can be used as a status polling mechanism.
-    
-        6. ForcedEnd - An autonomous message issued from a Provider NSA when
-        an existing reservation is administratively terminated before the
-        reservation's scheduled end-time.
+        
+        8. QuerySummary - Mechanism for either NSA to query the other NSA
+        for a set of connection service instances between the RA-PA pair.
+        The returned results will be a summary of the reservation
+        information.
+        
+        9. QueryRecursive - Mechanism for either NSA to query the other
+        NSA for a set of connection service instances between the RA-PA
+        pair. The returned results will be a detailed list of reservation
+        information collected by recursively traversing the reservation
+        tree.
+        
+        10. QuerySummarySync - Mechanism for either NSA to query the other
+        NSA for a set of connection service instances between the RA-PA
+        pair. The returned results will be a summary of the reservation
+        information.  This is a syncronous blocking operation and not
+        asynchronous like QuerySummary and QueryRecursive.
+        
+        11. Notification - An autonomous message issued from a Provider NSA
+        to a Requester NSA when an existing reservation encounters an
+        autonomous condition such as being administratively terminated
+        before the reservation's scheduled end-time.  Connection activation
+        status within the data plane is also communicated using this
+        notification mechanism.
     
         The Connection Service protocol is an asynchronous protocol where
-        each primitive consists of three operations:
+        each primitive may consist of four operations:
     
         1. Request - A Requester NSA issues an operation request message
-        such as "reserveRequest" to the Provider NSA. The Requester
-        NSA can expect an response to the request at some point in
-        the future.
-    
-        2. Confirmed - A Provider NSA sends this positive operation
+        such as "reserve" to the Provider NSA. The Requester NSA can
+        expect an response to the request at some point in the future.
+
+        2. Response - A Provider NSA may issue an immediate response
+        to the Requester NSA providing needed progress information.
+        For example, a requester NSA issuing a "reserve" request can
+        expect a "reserveResponse" message providing the connectionId
+        needed for querying reservation progress.
+
+        3. Confirmed - A Provider NSA sends this positive operation
         response message (such as "reserveConfirmed") to the Requester
         NSA that issued the original request message ("reserveRequest").
     
-        3. Failed - A Provider NSA sends this negative operation response
+        4. Failed - A Provider NSA sends this negative operation response
         message (such as "reserveFailed") to the Requester NSA that
         issued the original request message ("reserveRequest").
     
@@ -85,23 +115,18 @@ Description: This is a draft version of the WSDL common types and messages for t
         Confirmed and Failed messages are sent from the Provider NSA to
         the Requester NSA SOAP end point. In addition, each of the
         Request, Confirmed, and Failed operations are defined with
-        input (request), output (acknowledgment), and fault (error)
-        messages as part of their WSDL definition. The output message,
-        or response, for each operation is an element definition providing a
-        simple acknowledgment with the request correlationId.
+        input (request), output (response or acknowledgment), and fault
+        (error) messages as part of their WSDL definition. The output
+        message, or response, for each operation is an element definition
+        providing a simple acknowledgment with the request correlationId.
         
         Note on acknowledgment handling:
         Depending on NSA implementation and thread timing an acknowledgment to
         a request operation may be returned after the confirm/fail for the
         request has been returned to the Requesting NSA.
         
-        The following guidelines for acknowledgment handling are proposed:
-        
-        1. For protocol robustness, Requesting NSA should be able to accept
+        For protocol robustness, Requesting NSA should be able to accept
         confirm/fail before acknowledgment.
-        
-        2. Acknowledgment should be sent by Provider NSA before the
-        confirm/fail.
     </wsdl:documentation>
 
     <wsdl:types>
@@ -142,15 +167,9 @@ Description: This is a draft version of the WSDL common types and messages for t
                         acknowledgment to a request operation may be returned
                         after the confirm/fail for the request has been returned
                         to the Requesting NSA.
-                        
-                        The following guidelines for acknowledgment handling are
-                        proposed:
-                        
-                        1. For protocol robustness, Requesting NSA should be
+                                            
+                        For protocol robustness, Requesting NSA should be
                         able to accept confirm/fail before acknowledgment.
-                        
-                        2. Acknowledgment should be sent by Provider NSA before
-                        the confirm/fail.
                     </xsd:documentation>
                 </xsd:annotation>
                 <xsd:sequence />
@@ -171,6 +190,10 @@ Description: This is a draft version of the WSDL common types and messages for t
     <!-- ********** Reserve message set ********** -->
     <wsdl:message name="reserve">
         <wsdl:part name="reserve" element="types:reserve" />
+    </wsdl:message>
+
+    <wsdl:message name="reserveResponse">
+        <wsdl:part name="reserveResponse" element="types:reserveResponse" />
     </wsdl:message>
 
     <wsdl:message name="reserveConfirmed">
