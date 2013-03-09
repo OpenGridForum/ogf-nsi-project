@@ -245,11 +245,9 @@
                 
                 Elements:
 
-                connectionId - The Requester NSA assigned connectionId for this
-                service segment. This value must be unique within the context
-                of the Requester and Provider NSA.  This must be populated with a
-                Universally Unique Identifier (UUID) URN as per ITU-T Rec. X.667 |
-                ISO/IEC 9834-8:2005 and IETF RFC 4122.
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation. This value will be unique within the context of the
+                Provider NSA.
                 
                 criteria - requested modification criteria including start and
                 end time, service attributes, and requested path for the
@@ -297,7 +295,7 @@
 
                 Elements:
 
-                connectionId - Return reservations contain this connectionId.
+                connectionId - Return reservations containing this connectionId.
                 
                 globalReservationId - Return reservations containg this
                 globalReservationId.
@@ -383,8 +381,9 @@
 
                 Elements:
                 
-                connectionId - The unique identifier for a connection known between
-                a Requesting and Provider NSA pair.
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation. This value will be unique within the context of the 
+                Provider NSA.
          </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
@@ -404,8 +403,9 @@
                 globalReservationId - An optional global reservation id that was
                 originally provided in the reserve request.
 
-                connectionId - The unique identifier for a connection that is known
-                between a Requesting and Provider NSA pair.
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation request. This value will be unique within the context
+                of the Provider NSA.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
@@ -426,8 +426,9 @@
                 globalReservationId - An optional global reservation id that was
                 originally provided in the reserve request.
 
-                connectionId - The locally unique identifier for a connection that
-                is known between a Requesting and Provider NSA pair.
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation. This value will be unique within the context
+                of the Provider NSA.
 
                 connectionStates - Overall connection state for the reservation.
 
@@ -454,8 +455,9 @@
                 
                 event - The type of notification event generated
                 
-                connectionId - The unique identifier for a connection known
-                between a Requesting and Provider NSA pair.
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation. This value will be unique within the context
+                of the Provider NSA.
                 
                 connectionStates - Connection state for the reservation.
                 
@@ -583,11 +585,9 @@
                 
                 description - An optional description for the service reservation.
                 
-                connectionId - The Requester NSA assigned connectionId for this
-                service segment. This value must be unique within the context
-                of the Requester and Provider NSA.  This must be populated with a
-                Universally Unique Identifier (UUID) URN as per ITU-T Rec. X.667 |
-                ISO/IEC 9834-8:2005 and IETF RFC 4122.
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation. This value will be unique within the context
+                of the Provider NSA.
                 
                 criteria - A set of versioned reservation criteria information.
             </xsd:documentation>
@@ -989,8 +989,9 @@
     <xsd:simpleType name="ConnectionIdType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                A specific type for a connectionId just in case we need to
-                change it in the future.
+                A connectionId is a simple string value that uniquely identifies
+                a reservation segment witin the context of a Provider NSA.  This
+                value is not globally unique.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:restriction base="xsd:string" />
