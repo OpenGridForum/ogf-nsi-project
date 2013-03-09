@@ -82,18 +82,23 @@
             notification mechanism.
 
             The Connection Service protocol is an asynchronous protocol where
-            each primitive consists of three operations:
-
+            each primitive may consist of four operations:
+            
             1. Request - A Requester NSA issues an operation request message
-            such as "reserveRequest" to the Provider NSA. The Requester
-            NSA can expect an response to the request at some point in
-            the future.
-
-            2. Confirmed - A Provider NSA sends this positive operation
+            such as "reserve" to the Provider NSA. The Requester NSA can
+            expect an response to the request at some point in the future.
+            
+            2. Response - A Provider NSA may issue an immediate response
+            to the Requester NSA providing needed progress information.
+            For example, a requester NSA issuing a "reserve" request can
+            expect a "reserveResponse" message providing the connectionId
+            needed for querying reservation progress.
+            
+            3. Confirmed - A Provider NSA sends this positive operation
             response message (such as "reserveConfirmed") to the Requester
             NSA that issued the original request message ("reserveRequest").
-
-            3. Failed - A Provider NSA sends this negative operation response
+            
+            4. Failed - A Provider NSA sends this negative operation response
             message (such as "reserveFailed") to the Requester NSA that
             issued the original request message ("reserveRequest").
         </xsd:documentation>
@@ -109,6 +114,7 @@
 
     <!-- ********** Reserve message elements ********** -->
     <xsd:element name="reserve"          type="tns:ReserveType" />
+    <xsd:element name="reserveResponse"  type="tns:ReserveResponseType" />
     <xsd:element name="reserveConfirmed" type="tns:ReserveConfirmedType" />
     <xsd:element name="reserveFailed"    type="tns:GenericFailedType" />
     
@@ -179,12 +185,6 @@
                 
                 description - An optional description for the service reservation.
                 
-                connectionId - The Requester NSA assigned connectionId for this
-                service segment. This value must be unique within the context
-                of the Requester and Provider NSA.  This must be populated with a
-                Universally Unique Identifier (UUID) URN as per ITU-T Rec. X.667 |
-                ISO/IEC 9834-8:2005 and IETF RFC 4122.
-                
                 criteria - reservation request criteria including start and end
                 time, severice attributes, and requested path for the service.
             </xsd:documentation>
@@ -192,11 +192,31 @@
         <xsd:sequence>
             <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="description"         type="xsd:string" minOccurs="0" />
-            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
             <xsd:element name="criteria"            type="tns:ReservationRequestCriteriaType" />
         </xsd:sequence>
     </xsd:complexType>
 
+    <xsd:complexType name="ReserveResponseType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Type definition for the reserveResponse message. A Provider NSA
+                sends this reserveResponse message immediately after recieving
+                the reservation request to inform the Requester NSA of the
+                connectionId allocated to their reservation request.  This
+                connectionId can then be used to query reservation progress.
+                
+                Elements:
+                
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation request. This value will be unique within the context
+                of the Provider NSA.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="connectionId" type="tns:ConnectionIdType" />
+        </xsd:sequence>
+    </xsd:complexType>
+    
     <xsd:complexType name="ReserveConfirmedType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
