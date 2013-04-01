@@ -17,14 +17,14 @@ Open Grid Forum NSI Connection Services Protocol v2.0
 Description: This is a draft version of the WSDL common types and messages for the reference web services implementation of the OGF NSI Connection Services Protocol v2.0. Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
 -->
 <wsdl:definitions name="ogf_nsi_connection_interface_v2_0"
-    targetNamespace="http://schemas.ogf.org/nsi/2012/03/connection/interface"
+    targetNamespace="http://schemas.ogf.org/nsi/2013/04/connection/interface"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:ftypes="http://schemas.ogf.org/nsi/2012/03/framework/types"
-    xmlns:headers="http://schemas.ogf.org/nsi/2012/03/framework/headers"
-    xmlns:types="http://schemas.ogf.org/nsi/2012/03/connection/types"
-    xmlns:tns="http://schemas.ogf.org/nsi/2012/03/connection/interface">
+    xmlns:ftypes="http://schemas.ogf.org/nsi/2013/04/framework/types"
+    xmlns:headers="http://schemas.ogf.org/nsi/2013/04/framework/headers"
+    xmlns:types="http://schemas.ogf.org/nsi/2013/04/connection/types"
+    xmlns:tns="http://schemas.ogf.org/nsi/2013/04/connection/interface">
 
     <!-- OGF NSI Connection Services Protocol 2.0 description -->
     <wsdl:documentation>
@@ -78,14 +78,7 @@ Description: This is a draft version of the WSDL common types and messages for t
         information.  This is a syncronous blocking operation and not
         asynchronous like QuerySummary and QueryRecursive.
         
-        In addition, there are three notification primatives:
-        
-        11. Notification - An autonomous message issued from a Provider NSA
-        to a Requester NSA when an existing reservation encounters an
-        autonomous condition such as being administratively terminated
-        before the reservation's scheduled end-time.  Connection activation
-        status within the data plane is also communicated using this
-        notification mechanism.
+        In addition, there are four notification primatives:
         
         1. errorEvent - An autonomous message issued from a Provider NSA to
         a Requester NSA when an existing reservation encounters an
@@ -99,6 +92,19 @@ Description: This is a draft version of the WSDL common types and messages for t
         3. dataPlaneStateChange - An autonomous message issued from a Provider
         NSA to a Requester NSA when a data plane state change event has occured
         within the network.
+
+        4. messageDeliveryTimeout - Notification message for a message
+        transport layer delivery timeout of an NSI CS request message.
+        In the event of an MTL or Coordinator timeout, the Coordinator
+        will generate this message delivery failure notification and
+        send it up the workflow tree (towards the uRA).
+        
+        If the uRA wants to request a resend of the the original message
+        it must issue the original operation again with the same
+        correlationId. Aggregators receiving the request SHOULD only
+        attempt redelivery of the message to children that it did not
+        receive an acknowledgement for (i.e. MTL timeout) or reply to
+        (i.e. Coordinator timeout) the original message.
 
         The Connection Service protocol is an asynchronous protocol where
         each primitive may consist of four operations:
@@ -135,26 +141,6 @@ Description: This is a draft version of the WSDL common types and messages for t
         message, or response, for each operation is an element definition
         providing a simple acknowledgment with the request correlationId.
         
-        In addition to the basic message flow described above, a simple
-        Message Transport Layer mechanism is added to allow for
-        notification of message delivery failures from lower down in the
-        request tree to the top level uRA.
- 
-        messageDeliveryTimeout - Notification message for a message
-        transport layer delivery timeout of an NSI CS request message.
-        In the event of an MTL or Coordinator timeout, the Coordinator
-        will generate this message delivery failure notification and
-        send it up the workflow tree (towards the uRA).
-        
-        messageDeliveryRetry - In the event of an MTL or Coordinator
-        timeout, the Coordinator will generate a message delivery
-        failure notification and send it up the workflow tree (towards
-        the uRA).  This message type permits the uRA to request a resend
-        of the the original message. Aggregators receiving the request
-        SHOULD only attempt redelivery of the message to children that
-        it did not receive an acknowledgement for (i.e. MTL timeout) or
-        reply to (i.e. Coordinator timeout) the original message.
-        
         Note on acknowledgment handling:
         Depending on NSA implementation and thread timing an acknowledgment to
         a request operation may be returned after the confirm/fail for the
@@ -165,29 +151,23 @@ Description: This is a draft version of the WSDL common types and messages for t
     </wsdl:documentation>
 
     <wsdl:types>
-        <xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2012/03/connection/interface"
+        <xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/04/connection/interface"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
             <!-- Import the common NSI framework types. -->
-            <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/framework/types"
+            <xsd:import namespace="http://schemas.ogf.org/nsi/2013/04/framework/types"
                 schemaLocation="ogf_nsi_framework_types_v2_0.xsd"/>
             
             <!--  Import common NSI framework header types. -->
-            <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/framework/headers"
+            <xsd:import namespace="http://schemas.ogf.org/nsi/2013/04/framework/headers"
                 schemaLocation="ogf_nsi_framework_headers_v2_0.xsd" />
             
             <!--  Import common NSI Connection Services types from protocol schema. -->
-            <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/connection/types"
+            <xsd:import namespace="http://schemas.ogf.org/nsi/2013/04/connection/types"
                     schemaLocation="ogf_nsi_connection_types_v2_0.xsd" />
 
             <!-- ********** Acknowledgment message element ********** -->
             <xsd:element name="acknowledgment" type="tns:GenericAcknowledgmentType" />
-
-            <!-- ********** MessageDeliveryRetry message element ********** -->
-            <xsd:element name="messageDeliveryRetry" type="tns:messageDeliveryRetryRequestType" />
-            
-            <!-- ********** MessageDeliveryFailure message element ********** -->
-            <xsd:element name="messageDeliveryTimeout" type="tns:messageDeliveryTimeoutRequestType" />
             
             <!-- ********** Fault message element ********** -->
             <xsd:element name="serviceException" type="ftypes:ServiceExceptionType"/>
@@ -214,55 +194,6 @@ Description: This is a draft version of the WSDL common types and messages for t
                     </xsd:documentation>
                 </xsd:annotation>
                 <xsd:sequence />
-            </xsd:complexType>
-
-            <!-- ********** MessageDeliveryRetry type definition ********** -->
-            <xsd:complexType name="messageDeliveryRetryRequestType">
-                <xsd:annotation>
-                    <xsd:documentation  xml:lang="en">
-                        In the event of an MTL or Coordinator timeout, the Coordinator
-                        will generate a message delivery failure notification and send
-                        it up the workflow tree (towards the uRA).  This message type
-                        permits the uRA to request a resend of the the original message.
-                        Aggregators receiving the request SHOULD only attempt redelivery
-                        of the message to children that it did not receive an
-                        acknowledgement for (i.e. MTL timeout) or reply to (i.e.
-                        Coordinator timeout) the original message.
-                        
-                        Elements:
-                        
-                        correlationId - Identifies the correclationId of the original
-                        message to be redelivered.
-                    </xsd:documentation>
-                </xsd:annotation>
-                <xsd:sequence>
-                    <xsd:element name="correlationId" type="ftypes:UuidType" />
-                </xsd:sequence>
-            </xsd:complexType>
-            
-            <!-- ********** MessageDeliveryFailure notification type definition ********** -->
-            <xsd:complexType name="messageDeliveryTimeoutRequestType">
-                <xsd:annotation>
-                    <xsd:documentation  xml:lang="en">
-                        Notification message for a message transport layer delivery
-                        timeout of an NSI CS request message. In the event of an MTL
-                        or Coordinator timeout, the Coordinator will generate this
-                        message delivery failure notification and send it up the
-                        workflow tree (towards the uRA).
-
-                        Elements:
-                        
-                        correlationId - This value indicates the correlationId of
-                        the original message that the transport layer failed to
-                        send.
-                        
-                        timeStamp - Time the event was generated.
-                    </xsd:documentation>
-                </xsd:annotation>
-                <xsd:sequence>
-                    <xsd:element name="correlationId" type="ftypes:UuidType" />
-                    <xsd:element name="timeStamp"     type="ftypes:DateTimeType" />
-                </xsd:sequence>
             </xsd:complexType>
         </xsd:schema>
     </wsdl:types>
@@ -398,15 +329,10 @@ Description: This is a draft version of the WSDL common types and messages for t
     <wsdl:message name="acknowledgment">
         <wsdl:part name="acknowledgment" element="tns:acknowledgment" />
     </wsdl:message>
- 
-    <!-- ********** MessageDeliveryRetry request message set ********** -->
-    <wsdl:message name="messageDeliveryRetry">
-        <wsdl:part name="messageDeliveryRetry" element="tns:messageDeliveryRetry" />
-    </wsdl:message>
     
     <!-- ********** MessageDeliveryFailure notification message set ********** -->
     <wsdl:message name="messageDeliveryTimeout">
-        <wsdl:part name="messageDeliveryTimeout" element="tns:messageDeliveryTimeout" />
+        <wsdl:part name="messageDeliveryTimeout" element="types:messageDeliveryTimeout" />
     </wsdl:message>
     
     <!-- ********** Fault message set ********** -->

@@ -16,10 +16,10 @@ Open Grid Forum NSI Framework v2.0
 
 Description: This is the NSI framework common types schema for the reference web services implementation of the OGF NSI Framework v2.0. Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
 -->
-<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2012/03/framework/types"
+<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/04/framework/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    xmlns:tns="http://schemas.ogf.org/nsi/2012/03/framework/types">
+    xmlns:tns="http://schemas.ogf.org/nsi/2013/04/framework/types">
 
     <xsd:annotation>
         <xsd:documentation xml:lang="en">

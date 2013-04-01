@@ -19,14 +19,14 @@
     This document is the SOAP endpoint definition for a provider NSA.  It holds definitions for messages the provider NSA will receive.  For the reserve, provision, release, and terminate message sets the provider will receive request messages only.  For the query operation a provider NSA must support request, confirmed, and failed messages due to the possibility that a provider NSA may query the requester for a list of connection reservations.
 -->
 <wsdl:definitions name="ogf_nsi_connection_provider_v2_0"
-    targetNamespace="http://schemas.ogf.org/nsi/2012/03/connection/provider"
+    targetNamespace="http://schemas.ogf.org/nsi/2013/04/connection/provider"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:tns="http://schemas.ogf.org/nsi/2012/03/connection/provider"
-    xmlns:interface="http://schemas.ogf.org/nsi/2012/03/connection/interface">
+    xmlns:tns="http://schemas.ogf.org/nsi/2013/04/connection/provider"
+    xmlns:interface="http://schemas.ogf.org/nsi/2013/04/connection/interface">
 
-    <wsdl:import namespace="http://schemas.ogf.org/nsi/2012/03/connection/interface"
+    <wsdl:import namespace="http://schemas.ogf.org/nsi/2013/04/connection/interface"
         location="ogf_nsi_connection_interface_v2_0.wsdl" />
 
     <!-- WSDL operation definitions with associated input (request), output
@@ -227,26 +227,7 @@
             <wsdl:input  name="querySummarySync"           message="interface:querySummarySync" />
             <wsdl:output name="querySummarySyncConfirmed"  message="interface:querySummarySyncConfirmed" />
             <wsdl:fault  name="querySummarySyncFailed"     message="interface:querySummarySyncFailed" />
-        </wsdl:operation>
-
-        <!-- ********** Message Delivery Retry operation set *********** -->
-        
-        <wsdl:operation name="messageDeliveryRetry">
-            <wsdl:documentation>
-                In the event of an MTL or Coordinator timeout, the Coordinator
-                will generate a message delivery failure notification and send
-                it up the workflow tree (towards the uRA).  This messageDeliveryRetry
-                message permits the uRA to request a resend of the the original
-                message. Thia message is sent from a Requester NSA to a Provider
-                NSA. Aggregator NSA receiving the request SHOULD only attempt
-                redelivery of the message to children that it did not receive an
-                acknowledgement for (i.e. MTL timeout) or reply to (i.e.
-                Coordinator timeout) the original message.
-            </wsdl:documentation>
-            <wsdl:input  name="messageDeliveryRetry"     message="interface:messageDeliveryRetry" />
-            <wsdl:output name="messageDeliveryRetryACK"  message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"         message="interface:serviceException" />
-        </wsdl:operation>       
+        </wsdl:operation>    
     </wsdl:portType>
     
     <wsdl:binding name="ConnectionServiceProviderSoapBinding" type="tns:ConnectionProviderPort">
@@ -256,7 +237,7 @@
 
         <wsdl:operation name="reserve">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/reserve"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/reserve"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -275,7 +256,7 @@
         
         <wsdl:operation name="reserveCommit">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/reserveCommit"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/reserveCommit"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -294,7 +275,7 @@
         
         <wsdl:operation name="reserveAbort">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/reserveAbort"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/reserveAbort"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -313,7 +294,7 @@
 
         <wsdl:operation name="provision">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/provision"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/provision"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -332,7 +313,7 @@
 
         <wsdl:operation name="release">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/release"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/release"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -351,7 +332,7 @@
 
         <wsdl:operation name="terminate">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/terminate"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/terminate"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -370,7 +351,7 @@
 
         <wsdl:operation name="querySummary">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/querySummary"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/querySummary"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -387,7 +368,7 @@
 
         <wsdl:operation name="querySummaryConfirmed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/querySummaryConfirmed"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/querySummaryConfirmed"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -404,7 +385,7 @@
 
         <wsdl:operation name="querySummaryFailed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/querySummaryFailed"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/querySummaryFailed"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -423,7 +404,7 @@
         
         <wsdl:operation name="queryRecursive">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/queryRecursive"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/queryRecursive"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -440,7 +421,7 @@
         
         <wsdl:operation name="queryRecursiveConfirmed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/queryRecursiveConfirmed"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/queryRecursiveConfirmed"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -457,7 +438,7 @@
         
         <wsdl:operation name="queryRecursiveFailed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/queryRecursiveFailed"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/queryRecursiveFailed"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -476,7 +457,7 @@
         
         <wsdl:operation name="querySummarySync">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/querySummarySync"
+                soapAction="http://schemas.ogf.org/nsi/2013/04/connection/service/querySummarySync"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -488,25 +469,6 @@
             </wsdl:output>
             <wsdl:fault name="querySummarySyncFailed">
                 <soap:fault name="querySummarySyncFailed" use="literal" />
-            </wsdl:fault>
-        </wsdl:operation>
-        
-        <!-- ********** MessageDeliveryRetry operation set ********** -->
-        
-        <wsdl:operation name="messageDeliveryRetry">
-            <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/messageDeliveryRetry"
-                style="document" />
-            <wsdl:input>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:input>
-            <wsdl:output>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:output>
-            <wsdl:fault name="serviceException">
-                <soap:fault name="serviceException" use="literal" />
             </wsdl:fault>
         </wsdl:operation>
     </wsdl:binding>
