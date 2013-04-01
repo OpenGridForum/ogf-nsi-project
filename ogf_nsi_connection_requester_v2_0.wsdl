@@ -59,82 +59,44 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             <wsdl:fault  name="serviceException"  message="interface:serviceException" />
         </wsdl:operation>
 
-        <!-- ********** ModifyCheck operation set *********** -->
+        <!-- ********** reserveCommit operation set *********** -->
         
-        <wsdl:operation name="modifyCheckConfirmed">
+        <wsdl:operation name="reserveCommitConfirmed">
             <wsdl:documentation>
-                This modifyCheckConfirmed message is sent from a Provider NSA to
-                Requester NSA as an indication of a successful modifyCheck request.
-                This is in response to an original modifyCheck request from the
+                This reserveCommitConfirmed message is sent from a Provider NSA to
+                Requester NSA as an indication of a successful reserveCommit request.
+                This is in response to an original reserveCommit request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="modifyCheckConfirmed"     message="interface:modifyCheckConfirmed" />
-            <wsdl:output name="modifyCheckConfirmedACK"  message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"         message="interface:serviceException" />
+            <wsdl:input  name="reserveCommitConfirmed"     message="interface:reserveCommitConfirmed" />
+            <wsdl:output name="reserveCommitConfirmedACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"           message="interface:serviceException" />
         </wsdl:operation>
         
-        <wsdl:operation name="modifyCheckFailed">
+        <wsdl:operation name="reserveCommitFailed">
             <wsdl:documentation>
-                This modifyCheckFailed message is sent from a Provider NSA to
+                This reserveCommitFailed message is sent from a Provider NSA to
                 Requester NSA as an indication of a modify failure. This
                 is in response to an original modify request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="modifyCheckFailed"      message="interface:modifyCheckFailed" />
-            <wsdl:output name="modifyCheckFailedACK"   message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"       message="interface:serviceException" />
-        </wsdl:operation>
-        
-        <!-- ********** Modify operation set *********** -->
-        
-        <wsdl:operation name="modifyConfirmed">
-            <wsdl:documentation>
-                This modifyConfirmed message is sent from a Provider NSA to
-                Requester NSA as an indication of a successful modify commit.
-                This is in response to an original modify request from the
-                associated Requester NSA.
-            </wsdl:documentation>
-            <wsdl:input  name="modifyConfirmed"     message="interface:modifyConfirmed" />
-            <wsdl:output name="modifyConfirmedACK"  message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
-        </wsdl:operation>
-        
-        <wsdl:operation name="modifyFailed">
-            <wsdl:documentation>
-                This modifyFailed message is sent from a Provider NSA to
-                Requester NSA as an indication of a modify failure. This
-                is in response to an original modify request from the
-                associated Requester NSA.
-            </wsdl:documentation>
-            <wsdl:input  name="modifyFailed"      message="interface:modifyFailed" />
-            <wsdl:output name="modifyFailedACK"   message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"  message="interface:serviceException" />
+            <wsdl:input  name="reserveCommitFailed"     message="interface:reserveCommitFailed" />
+            <wsdl:output name="reserveCommitFailedACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"        message="interface:serviceException" />
         </wsdl:operation>
 
-        <!-- ********** Modify operation set *********** -->
+        <!-- ********** ReserveAbort operation set *********** -->
         
-        <wsdl:operation name="modifyCancelConfirmed">
+        <wsdl:operation name="reserveAbortConfirmed">
             <wsdl:documentation>
-                This modifyCancelConfirmed message is sent from a Provider NSA to
-                Requester NSA as an indication of a successful modifyCancel.
-                This is in response to an original modifyCancel request from the
+                This reserveAbortConfirmed message is sent from a Provider NSA to
+                Requester NSA as an indication of a successful reserveAbort.
+                This is in response to an original reserveAbort request from the
                 associated Requester NSA.
             </wsdl:documentation>
-            <wsdl:input  name="modifyCancelConfirmed"     message="interface:modifyCancelConfirmed" />
-            <wsdl:output name="modifyCancelConfirmedACK"  message="interface:acknowledgment" />
+            <wsdl:input  name="reserveAbortConfirmed"     message="interface:reserveAbortConfirmed" />
+            <wsdl:output name="reserveAbortConfirmedACK"  message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"          message="interface:serviceException" />
-        </wsdl:operation>
-        
-        <wsdl:operation name="modifyCancelFailed">
-            <wsdl:documentation>
-                This modifyCancelFailed message is sent from a Provider NSA to
-                Requester NSA as an indication of a modifyCancel failure. This
-                is in response to an original modifyCancel request from the
-                associated Requester NSA.
-            </wsdl:documentation>
-            <wsdl:input  name="modifyCancelFailed"      message="interface:modifyCancelFailed" />
-            <wsdl:output name="modifyCancelFailedACK"   message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"        message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** Provision operation set *********** -->
@@ -151,18 +113,6 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             <wsdl:fault  name="serviceException"       message="interface:serviceException" />
         </wsdl:operation>
         
-        <wsdl:operation name="provisionFailed">
-            <wsdl:documentation>
-                This provisionFailed message is sent from a Provider NSA to
-                Requester NSA as an indication of a provision operation failure.
-                This is in response to an original provision request from the
-                associated Requester NSA.
-            </wsdl:documentation>
-            <wsdl:input  name="provisionFailed"     message="interface:provisionFailed" />
-            <wsdl:output name="provisionFailedACK"  message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
-        </wsdl:operation>
-        
         <!-- ********** Release operation set *********** -->
         
         <wsdl:operation name="releaseConfirmed">
@@ -177,18 +127,6 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             <wsdl:fault  name="serviceException"     message="interface:serviceException" />
         </wsdl:operation>
         
-        <wsdl:operation name="releaseFailed">
-            <wsdl:documentation>
-                This releaseFailed message is sent from a Provider NSA to Requester
-                NSA as an indication of a release operation failure. This is in
-                response to an original release request from the associated
-                Requester NSA.
-            </wsdl:documentation>
-            <wsdl:input  name="releaseFailed"     message="interface:releaseFailed" />
-            <wsdl:output name="releaseFailedACK"  message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"  message="interface:serviceException" />
-        </wsdl:operation>
-        
         <!-- ********** Terminate operation set *********** -->
         
         <wsdl:operation name="terminateConfirmed">
@@ -201,18 +139,6 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             <wsdl:input  name="terminateConfirmed"    message="interface:terminateConfirmed" />
             <wsdl:output name="terminateConfirmedACK" message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"      message="interface:serviceException" />
-        </wsdl:operation>
-        
-        <wsdl:operation name="terminateFailed">
-            <wsdl:documentation>
-                This terminateFailed message is sent from a Provider NSA to Requester
-                NSA as an indication of a terminate operation failure. This is in
-                response to an original terminate request from the associated
-                Requester NSA.
-            </wsdl:documentation>
-            <wsdl:input  name="terminateFailed"     message="interface:terminateFailed" />
-            <wsdl:output name="terminateFailedACK"  message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
         <!-- ********** QuerySummary operation set *********** -->
@@ -310,19 +236,55 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             <wsdl:fault  name="querySummarySyncFailed"     message="interface:querySummarySyncFailed" />
         </wsdl:operation>
         
-        <!-- ********** ForcedEnd operation set *********** -->
+        <!-- ********** Notification message set ********** -->
         
-        <wsdl:operation name="notification">
+        <wsdl:operation name="errorEvent">
             <wsdl:documentation>
                 An autonomous message issued from a Provider NSA to Requester
                 NSA.  The acknowledgment indicates that the Requester NSA has
                 accepted the notification request for processing. There are no
                 associated confirmed or failed messages.
             </wsdl:documentation>
-            <wsdl:input  name="notification"        message="interface:notification" />
-            <wsdl:output name="notificationACK"     message="interface:acknowledgment" />
+            <wsdl:input  name="errorEvent"        message="interface:errorEvent" />
+            <wsdl:output name="errorEventACK"     message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"  message="interface:serviceException" />
+        </wsdl:operation>
+        
+        <wsdl:operation name="reserveTimeout">
+            <wsdl:documentation>
+                An autonomous message issued from a Provider NSA to Requester
+                NSA.  The acknowledgment indicates that the Requester NSA has
+                accepted the notification request for processing. There are no
+                associated confirmed or failed messages.
+            </wsdl:documentation>
+            <wsdl:input  name="reserveTimeout"      message="interface:reserveTimeout" />
+            <wsdl:output name="reserveTimeoutACK"   message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
+
+        <wsdl:operation name="dataPlaneStateChange">
+            <wsdl:documentation>
+                An autonomous message issued from a Provider NSA to Requester
+                NSA.  The acknowledgment indicates that the Requester NSA has
+                accepted the notification request for processing. There are no
+                associated confirmed or failed messages.
+            </wsdl:documentation>
+            <wsdl:input  name="dataPlaneStateChange"     message="interface:dataPlaneStateChange" />
+            <wsdl:output name="dataPlaneStateChangeACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"         message="interface:serviceException" />
+        </wsdl:operation>
+ 
+        <wsdl:operation name="messageDeliveryTimeout">
+            <wsdl:documentation>
+                An autonomous message issued from a Provider NSA to Requester
+                NSA.  The acknowledgment indicates that the Requester NSA has
+                accepted the notification request for processing. There are no
+                associated confirmed or failed messages.
+            </wsdl:documentation>
+            <wsdl:input  name="messageDeliveryTimeout"     message="interface:messageDeliveryTimeout" />
+            <wsdl:output name="messageDeliveryTimeoutACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"           message="interface:serviceException" />
+        </wsdl:operation>        
     </wsdl:portType>
     
     <wsdl:binding name="ConnectionServiceRequesterSoapBinding" type="tns:ConnectionRequesterPort">
@@ -364,11 +326,11 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             </wsdl:fault>
         </wsdl:operation>
 
-        <!-- ********** Requester NSA modifyCheck operation set ********** -->
+        <!-- ********** Requester NSA reserveCommit operation set ********** -->
         
-        <wsdl:operation name="modifyCheckConfirmed">
+        <wsdl:operation name="reserveCommitConfirmed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modifyCheckConfirmed"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/reserveCommitConfirmed"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -383,45 +345,9 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             </wsdl:fault>
         </wsdl:operation>
         
-        <wsdl:operation name="modifyCheckFailed">
+        <wsdl:operation name="reserveCommitFailed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modifyCheckFailed"
-                style="document" />
-            <wsdl:input>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:input>
-            <wsdl:output>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:output>
-            <wsdl:fault name="serviceException">
-                <soap:fault name="serviceException" use="literal" />
-            </wsdl:fault>
-        </wsdl:operation>
-
-        <!-- ********** Requester NSA modify operation set ********** -->
-        
-        <wsdl:operation name="modifyConfirmed">
-            <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modifyConfirmed"
-                style="document" />
-            <wsdl:input>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:input>
-            <wsdl:output>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:output>
-            <wsdl:fault name="serviceException">
-                <soap:fault name="serviceException" use="literal" />
-            </wsdl:fault>
-        </wsdl:operation>
-        
-        <wsdl:operation name="modifyFailed">
-            <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modifyFailed"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/reserveCommitFailed"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -436,28 +362,11 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             </wsdl:fault>
         </wsdl:operation>
 
-        <!-- ********** Requester NSA modifyCancel operation set ********** -->
+        <!-- ********** Requester NSA reserveAbort operation set ********** -->
         
-        <wsdl:operation name="modifyCancelConfirmed">
+        <wsdl:operation name="reserveAbortConfirmed">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modifyCancelConfirmed"
-                style="document" />
-            <wsdl:input>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:input>
-            <wsdl:output>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:output>
-            <wsdl:fault name="serviceException">
-                <soap:fault name="serviceException" use="literal" />
-            </wsdl:fault>
-        </wsdl:operation>
-        
-        <wsdl:operation name="modifyCancelFailed">
-            <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modifyCancelFailed"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/reserveAbortConfirmed"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -491,23 +400,6 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             </wsdl:fault>
         </wsdl:operation>
 
-        <wsdl:operation name="provisionFailed">
-            <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/provisionFailed"
-                style="document" />
-            <wsdl:input>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:input>
-            <wsdl:output>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:output>
-            <wsdl:fault name="serviceException">
-                <soap:fault name="serviceException" use="literal" />
-            </wsdl:fault>
-        </wsdl:operation>
-
         <!-- ********** Requester NSA release operation set ********** -->
 
         <wsdl:operation name="releaseConfirmed">
@@ -527,45 +419,11 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             </wsdl:fault>
         </wsdl:operation>
 
-        <wsdl:operation name="releaseFailed">
-            <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/releaseFailed"
-                style="document" />
-            <wsdl:input>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:input>
-            <wsdl:output>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:output>
-            <wsdl:fault name="serviceException">
-                <soap:fault name="serviceException" use="literal" />
-            </wsdl:fault>
-        </wsdl:operation>
-
         <!-- ********** Requester NSA terminate reserve operation set ********** -->
 
         <wsdl:operation name="terminateConfirmed">
             <soap:operation
                 soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/terminateConfirmed"
-                style="document" />
-            <wsdl:input>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:input>
-            <wsdl:output>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:output>
-            <wsdl:fault name="serviceException">
-                <soap:fault name="serviceException" use="literal" />
-            </wsdl:fault>
-        </wsdl:operation>
-
-        <wsdl:operation name="terminateFailed">
-            <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/terminateFailed"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -705,11 +563,62 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
             </wsdl:fault>
         </wsdl:operation>
 
-        <!-- ********** Requester NSA ForcedEnd operation set ********** -->
+        <!-- ********** Requester NSA notification operation set ********** -->
 
-        <wsdl:operation name="notification">
+        <wsdl:operation name="errorEvent">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/notification"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/errorEvent"
+                style="document" />
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="serviceException">
+                <soap:fault name="serviceException" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        
+        <wsdl:operation name="dataPlaneStateChange">
+            <soap:operation
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/dataPlaneStateChange"
+                style="document" />
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="serviceException">
+                <soap:fault name="serviceException" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="reserveTimeout">
+            <soap:operation
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/reserveTimeout"
+                style="document" />
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="serviceException">
+                <soap:fault name="serviceException" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        
+        <wsdl:operation name="messageDeliveryTimeout">
+            <soap:operation
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/messageDeliveryTimeout"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>

@@ -38,65 +38,50 @@
         <wsdl:operation name="reserve">
             <wsdl:documentation>
                 The reserve message is sent from a Requester NSA to a Provider
-                NSA when a new reservation is being requested. The reserveACK
+                NSA when a new reservation is being requested, or a modification
+                to an existing reservation is required. The reserveResponse
                 indicates that the Provider NSA has accepted the reservation
-                request for processing. A reserveConfirmed or reserveFailed
-                message will be sent asynchronously to the Requester NSA
-                when reservation processing has completed.
+                request for processing and has assigned it the returned
+                connectionId. A reserveConfirmed or reserveFailed message will
+                be sent asynchronously to the Requester NSA when reserve 
+                operation has completed processing.
             </wsdl:documentation>
-            <wsdl:input  name="reserve"             message="interface:reserve" />
-            <wsdl:output name="reserveResponse"     message="interface:reserveResponse" />
+            <wsdl:input  name="reserve"           message="interface:reserve" />
+            <wsdl:output name="reserveResponse"   message="interface:reserveResponse" />
+            <wsdl:fault  name="serviceException"  message="interface:serviceException" />
+        </wsdl:operation>
+
+        <!-- ********** ReserveCommit operation set *********** -->
+        
+        <wsdl:operation name="reserveCommit">
+            <wsdl:documentation>
+                The reserveCommit message is sent from a Requester NSA to a
+                Provider NSA when a reservation or modification to an existing
+                reservation is being committed. The reserveCommitACK indicates
+                that the Provider NSA has accepted the modify request for
+                processing. A reserveCommitConfirmed or modifyFailed message
+                will be sent asynchronously to the Requester NSA when reserve
+                or modify processing has completed.
+            </wsdl:documentation>
+            <wsdl:input  name="reserveCommit"         message="interface:reserveCommit" />
+            <wsdl:output name="reserveCommitACK"      message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
 
-        <!-- ********** ModifyCheck operation set *********** -->
+        <!-- ********** ReserveAbort operation set *********** -->
         
-        <wsdl:operation name="modifyCheck">
+        <wsdl:operation name="reserveAbort">
             <wsdl:documentation>
-                The modifyCheck message is sent from a Requester NSA to a
-                Provider NSA when a modification to an existing reservation is
-                being requested. The modifyCheckACK indicates that the
-                Provider NSA has accepted the modifyCheck request for
-                processing. A modifyCheckConfirmed or modifyCheckFailed
-                message will be sent asynchronously to the Requester NSA
-                when modifyCheck processing has completed.
+                The reserveAbort message is sent from a Requester NSA to a
+                Provider NSA when a cancellation to an existing reserve or
+                modify operation is being requested. The reserveAbortACK
+                indicates that the Provider NSA has accepted the reserveAbort
+                request for processing. A reserveAbortConfirmed or
+                reserveAbortFailed message will be sent asynchronously to the
+                Requester NSA when reserveAbort processing has completed.
             </wsdl:documentation>
-            <wsdl:input  name="modifyCheck"         message="interface:modifyCheck" />
-            <wsdl:output name="modifyCheckACK"      message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
-        </wsdl:operation>
-
-        <!-- ********** Modify operation set *********** -->
-        
-        <wsdl:operation name="modify">
-            <wsdl:documentation>
-                The modify message is sent from a Requester NSA to a
-                Provider NSA when a modification to an existing reservation is
-                being committed. The modifyACK indicates that the Provider
-                NSA has accepted the modify request for processing. A
-                modifyConfirmed or modifyFailed message will be sent
-                asynchronously to the Requester NSA when modify processing has
-                completed.
-            </wsdl:documentation>
-            <wsdl:input  name="modify"              message="interface:modify" />
-            <wsdl:output name="modifyACK"           message="interface:acknowledgment" />
-            <wsdl:fault  name="serviceException"    message="interface:serviceException" />
-        </wsdl:operation>
-
-        <!-- ********** ModifyCancel operation set *********** -->
-        
-        <wsdl:operation name="modifyCancel">
-            <wsdl:documentation>
-                The modifyCancel message is sent from a Requester NSA to a
-                Provider NSA when a cancellation to an existing modify is
-                being requested. The modifyCancelACK indicates that the
-                Provider NSA has accepted the modifyCheck request for
-                processing. A modifyCancelConfirmed or modifyCancelFailed
-                message will be sent asynchronously to the Requester NSA
-                when modifyCancel processing has completed.
-            </wsdl:documentation>
-            <wsdl:input  name="modifyCancel"        message="interface:modifyCancel" />
-            <wsdl:output name="modifyCancelACK"     message="interface:acknowledgment" />
+            <wsdl:input  name="reserveAbort"        message="interface:reserveAbort" />
+            <wsdl:output name="reserveAbortACK"     message="interface:acknowledgment" />
             <wsdl:fault  name="serviceException"    message="interface:serviceException" />
         </wsdl:operation>
         
@@ -242,6 +227,25 @@
             <wsdl:input  name="querySummarySync"           message="interface:querySummarySync" />
             <wsdl:output name="querySummarySyncConfirmed"  message="interface:querySummarySyncConfirmed" />
             <wsdl:fault  name="querySummarySyncFailed"     message="interface:querySummarySyncFailed" />
+        </wsdl:operation>
+
+        <!-- ********** Message Delivery Retry operation set *********** -->
+        
+        <wsdl:operation name="messageDeliveryRetry">
+            <wsdl:documentation>
+                In the event of an MTL or Coordinator timeout, the Coordinator
+                will generate a message delivery failure notification and send
+                it up the workflow tree (towards the uRA).  This messageDeliveryRetry
+                message permits the uRA to request a resend of the the original
+                message. Thia message is sent from a Requester NSA to a Provider
+                NSA. Aggregator NSA receiving the request SHOULD only attempt
+                redelivery of the message to children that it did not receive an
+                acknowledgement for (i.e. MTL timeout) or reply to (i.e.
+                Coordinator timeout) the original message.
+            </wsdl:documentation>
+            <wsdl:input  name="messageDeliveryRetry"     message="interface:messageDeliveryRetry" />
+            <wsdl:output name="messageDeliveryRetryACK"  message="interface:acknowledgment" />
+            <wsdl:fault  name="serviceException"         message="interface:serviceException" />
         </wsdl:operation>       
     </wsdl:portType>
     
@@ -267,11 +271,11 @@
             </wsdl:fault>
         </wsdl:operation>
 
-        <!-- ********** ModifyCheck operation set ********** -->
+        <!-- ********** ReserveCommit operation set ********** -->
         
-        <wsdl:operation name="modifyCheck">
+        <wsdl:operation name="reserveCommit">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modifyCheck"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/reserveCommit"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -286,30 +290,11 @@
             </wsdl:fault>
         </wsdl:operation>
 
-        <!-- ********** Modify operation set ********** -->
+        <!-- ********** ReserveAbort operation set ********** -->
         
-        <wsdl:operation name="modify">
+        <wsdl:operation name="reserveAbort">
             <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modify"
-                style="document" />
-            <wsdl:input>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:input>
-            <wsdl:output>
-                <soap:header message="interface:header" part="header" use="literal"/>
-                <soap:body use="literal" />
-            </wsdl:output>
-            <wsdl:fault name="serviceException">
-                <soap:fault name="serviceException" use="literal" />
-            </wsdl:fault>
-        </wsdl:operation>
-
-        <!-- ********** ModifyCancel operation set ********** -->
-        
-        <wsdl:operation name="modifyCancel">
-            <soap:operation
-                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/modifyCancel"
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/reserveAbort"
                 style="document" />
             <wsdl:input>
                 <soap:header message="interface:header" part="header" use="literal"/>
@@ -503,6 +488,25 @@
             </wsdl:output>
             <wsdl:fault name="querySummarySyncFailed">
                 <soap:fault name="querySummarySyncFailed" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+        
+        <!-- ********** MessageDeliveryRetry operation set ********** -->
+        
+        <wsdl:operation name="messageDeliveryRetry">
+            <soap:operation
+                soapAction="http://schemas.ogf.org/nsi/2012/03/connection/service/messageDeliveryRetry"
+                style="document" />
+            <wsdl:input>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="interface:header" part="header" use="literal"/>
+                <soap:body use="literal" />
+            </wsdl:output>
+            <wsdl:fault name="serviceException">
+                <soap:fault name="serviceException" use="literal" />
             </wsdl:fault>
         </wsdl:operation>
     </wsdl:binding>
