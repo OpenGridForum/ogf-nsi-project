@@ -16,10 +16,10 @@
 
     Description: This is a draft version of the types schema for the reference web services implementation of the OGF NSI Connection Services Protocol v2.0. This can be considered the transport independent protocol representation.  Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
 -->
-<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2012/03/connection/types"
+<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/04/connection/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:ftypes="http://schemas.ogf.org/nsi/2012/03/framework/types"
-    xmlns:tns="http://schemas.ogf.org/nsi/2012/03/connection/types">
+    xmlns:ftypes="http://schemas.ogf.org/nsi/2013/04/framework/types"
+    xmlns:tns="http://schemas.ogf.org/nsi/2013/04/connection/types">
 
     <xsd:annotation>
         <xsd:documentation xml:lang="en">
@@ -73,14 +73,7 @@
             information.  This is a syncronous blocking operation and not
             asynchronous like QuerySummary and QueryRecursive.
             
-            In addition, there are three notification primatives:
-            
-            11. Notification - An autonomous message issued from a Provider NSA
-            to a Requester NSA when an existing reservation encounters an
-            autonomous condition such as being administratively terminated
-            before the reservation's scheduled end-time.  Connection activation
-            status within the data plane is also communicated using this
-            notification mechanism.
+            In addition, there are four notification primatives:
             
             1. errorEvent - An autonomous message issued from a Provider NSA to
             a Requester NSA when an existing reservation encounters an
@@ -94,6 +87,19 @@
             3. dataPlaneStateChange - An autonomous message issued from a Provider
             NSA to a Requester NSA when a data plane state change event has occured
             within the network.
+            
+            4. messageDeliveryTimeout - Notification message for a message
+            transport layer delivery timeout of an NSI CS request message.
+            In the event of an MTL or Coordinator timeout, the Coordinator
+            will generate this message delivery failure notification and
+            send it up the workflow tree (towards the uRA).
+            
+            If the uRA wants to request a resend of the the original message
+            it must issue the original operation again with the same
+            correlationId. Aggregators receiving the request SHOULD only
+            attempt redelivery of the message to children that it did not
+            receive an acknowledgement for (i.e. MTL timeout) or reply to
+            (i.e. Coordinator timeout) the original message.
             
             The Connection Service protocol is an asynchronous protocol where
             each primitive may consist of four operations:
@@ -119,7 +125,7 @@
     </xsd:annotation>
     
     <!-- Import the common NSI framework types. -->
-    <xsd:import namespace="http://schemas.ogf.org/nsi/2012/03/framework/types"
+    <xsd:import namespace="http://schemas.ogf.org/nsi/2013/04/framework/types"
         schemaLocation="ogf_nsi_framework_types_v2_0.xsd"/>
     
     <!-- ******************************************************************
@@ -167,9 +173,10 @@
     <xsd:element name="querySummarySyncFailed"     type="tns:QueryFailedType" />
     
     <!-- ********** Notification message elements ********** -->
-    <xsd:element name="errorEvent"           type="tns:ErrorEventType" />
-    <xsd:element name="reserveTimeout"       type="tns:ReserveTimeoutRequestType" />
-    <xsd:element name="dataPlaneStateChange" type="tns:DataPlaneStateChangeRequestType" />
+    <xsd:element name="errorEvent"             type="tns:ErrorEventType" />
+    <xsd:element name="reserveTimeout"         type="tns:ReserveTimeoutRequestType" />
+    <xsd:element name="dataPlaneStateChange"   type="tns:DataPlaneStateChangeRequestType" />
+    <xsd:element name="messageDeliveryTimeout" type="tns:messageDeliveryTimeoutRequestType" />
     
     <!-- ******************************************************************
         *                   NSI message types                            *
@@ -512,6 +519,30 @@
             <xsd:element name="connectionId"     type="tns:ConnectionIdType" />
             <xsd:element name="dataPlaneStatus"  type="tns:DataPlaneStatusType" />
             <xsd:element name="timeStamp"        type="ftypes:DateTimeType" />
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="messageDeliveryTimeoutRequestType">
+        <xsd:annotation>
+            <xsd:documentation  xml:lang="en">
+                Notification message for a message transport layer delivery
+                timeout of an NSI CS request message. In the event of an MTL
+                or Coordinator timeout, the Coordinator will generate this
+                message delivery failure notification and send it up the
+                workflow tree (towards the uRA).
+                
+                Elements:
+                
+                correlationId - This value indicates the correlationId of
+                the original message that the transport layer failed to
+                send.
+                
+                timeStamp - Time the event was generated.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="correlationId" type="ftypes:UuidType" />
+            <xsd:element name="timeStamp"     type="ftypes:DateTimeType" />
         </xsd:sequence>
     </xsd:complexType>
     
@@ -1107,8 +1138,7 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="Initial" />
-            <xsd:enumeration value="Scheduled" />
+            <xsd:enumeration value="Released" />
             <xsd:enumeration value="Provisioning" />
             <xsd:enumeration value="Provisioned" />
             <xsd:enumeration value="Releasing" />
