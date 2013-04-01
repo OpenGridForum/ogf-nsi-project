@@ -28,29 +28,27 @@ Description: This is a draft version of the WSDL common types and messages for t
 
     <!-- OGF NSI Connection Services Protocol 2.0 description -->
     <wsdl:documentation>
-        This is a web services message definition of OGF NSI Connection
-        Services protocol version 2.0 based on an HTTP/SOAP binding. The
-        Connection Service is message based request-response protocol
-        that operates between a Requester Network Service Agent (NSA)
-        and a Provider NSA. The protocol includes a set of defined
-        primitives that are intended to provide the control necessary to
-        manage Connections.
-    
-        There are five primitives supported in this version of the
+        This is an XML schema document describing the OGF NSI Connection
+        Services protocol version 2.0. The Connection Service is message
+        based command protocol that operates between a Requester
+        Network Service Agent (NSA) and a Provider NSA. The protocol includes
+        a set of defined primitives that are intended to provide the control
+        necessary to manage the lifecycle of a connection reservation.
+        
+        There are nine primitives supported in this version of the
         protocol:
         
         1. Reserve - Make a request to reserve network resources for a
         connection between two STP's constrained by a certain service
-        parameters.
+        parameters or request a modification of an existing reservation.
+        Any required resources will be pre-allocated and held until
+        the commit of this reserve is received.
         
-        2. ModifyCheck - Request a modification of an existing reservation.
-        Any required resources will be pre-allocated.
+        3. ReserveCommit - Commit a previously allocated reservation
+        or modification on a reservation.
         
-        3. Modify - Commit a previously allocated modification on a
-        reservation.
-        
-        4. ModifyCancel - Cancel a pending modification and release any
-        associated resources.
+        4. ReserveAbort - Cancel a pending reservation or modification
+        and release any associated resources.
         
         5. Provision - Provider NSA has been given permission to setup a
         reservation (associated with a previous reserve message) on
@@ -80,34 +78,51 @@ Description: This is a draft version of the WSDL common types and messages for t
         information.  This is a syncronous blocking operation and not
         asynchronous like QuerySummary and QueryRecursive.
         
+        In addition, there are three notification primatives:
+        
         11. Notification - An autonomous message issued from a Provider NSA
         to a Requester NSA when an existing reservation encounters an
         autonomous condition such as being administratively terminated
         before the reservation's scheduled end-time.  Connection activation
         status within the data plane is also communicated using this
         notification mechanism.
-    
+        
+        1. errorEvent - An autonomous message issued from a Provider NSA to
+        a Requester NSA when an existing reservation encounters an
+        autonomous error condition such as being administratively terminated
+        before the reservation's scheduled end-time.
+        
+        2. reserveTimeout -An autonomous message issued from a Provider NSA to
+        a Requester NSA when a timeout on an existing reserve request occurs
+        and uncommited resources have been freed.
+        
+        3. dataPlaneStateChange - An autonomous message issued from a Provider
+        NSA to a Requester NSA when a data plane state change event has occured
+        within the network.
+
         The Connection Service protocol is an asynchronous protocol where
         each primitive may consist of four operations:
-    
+        
         1. Request - A Requester NSA issues an operation request message
         such as "reserve" to the Provider NSA. The Requester NSA can
         expect an response to the request at some point in the future.
-
+        
         2. Response - A Provider NSA may issue an immediate response
         to the Requester NSA providing needed progress information.
         For example, a requester NSA issuing a "reserve" request can
         expect a "reserveResponse" message providing the connectionId
         needed for querying reservation progress.
-
+        
         3. Confirmed - A Provider NSA sends this positive operation
         response message (such as "reserveConfirmed") to the Requester
         NSA that issued the original request message ("reserveRequest").
-    
+        
         4. Failed - A Provider NSA sends this negative operation response
         message (such as "reserveFailed") to the Requester NSA that
         issued the original request message ("reserveRequest").
     
+        Transport Bindings
+        ------------------
         To fit this asynchronous NSI protocol into a synchronous SOAP
         over HTTP binding we require each of the Requester and Provider
         NSA to implement SOAP end points. Request messages are sent from
@@ -119,6 +134,26 @@ Description: This is a draft version of the WSDL common types and messages for t
         (error) messages as part of their WSDL definition. The output
         message, or response, for each operation is an element definition
         providing a simple acknowledgment with the request correlationId.
+        
+        In addition to the basic message flow described above, a simple
+        Message Transport Layer mechanism is added to allow for
+        notification of message delivery failures from lower down in the
+        request tree to the top level uRA.
+ 
+        messageDeliveryTimeout - Notification message for a message
+        transport layer delivery timeout of an NSI CS request message.
+        In the event of an MTL or Coordinator timeout, the Coordinator
+        will generate this message delivery failure notification and
+        send it up the workflow tree (towards the uRA).
+        
+        messageDeliveryRetry - In the event of an MTL or Coordinator
+        timeout, the Coordinator will generate a message delivery
+        failure notification and send it up the workflow tree (towards
+        the uRA).  This message type permits the uRA to request a resend
+        of the the original message. Aggregators receiving the request
+        SHOULD only attempt redelivery of the message to children that
+        it did not receive an acknowledgement for (i.e. MTL timeout) or
+        reply to (i.e. Coordinator timeout) the original message.
         
         Note on acknowledgment handling:
         Depending on NSA implementation and thread timing an acknowledgment to
@@ -146,7 +181,13 @@ Description: This is a draft version of the WSDL common types and messages for t
                     schemaLocation="ogf_nsi_connection_types_v2_0.xsd" />
 
             <!-- ********** Acknowledgment message element ********** -->
-            <xsd:element name="acknowledgment"   type="tns:GenericAcknowledgmentType" />
+            <xsd:element name="acknowledgment" type="tns:GenericAcknowledgmentType" />
+
+            <!-- ********** MessageDeliveryRetry message element ********** -->
+            <xsd:element name="messageDeliveryRetry" type="tns:messageDeliveryRetryRequestType" />
+            
+            <!-- ********** MessageDeliveryFailure message element ********** -->
+            <xsd:element name="messageDeliveryTimeout" type="tns:messageDeliveryTimeoutRequestType" />
             
             <!-- ********** Fault message element ********** -->
             <xsd:element name="serviceException" type="ftypes:ServiceExceptionType"/>
@@ -174,7 +215,55 @@ Description: This is a draft version of the WSDL common types and messages for t
                 </xsd:annotation>
                 <xsd:sequence />
             </xsd:complexType>
+
+            <!-- ********** MessageDeliveryRetry type definition ********** -->
+            <xsd:complexType name="messageDeliveryRetryRequestType">
+                <xsd:annotation>
+                    <xsd:documentation  xml:lang="en">
+                        In the event of an MTL or Coordinator timeout, the Coordinator
+                        will generate a message delivery failure notification and send
+                        it up the workflow tree (towards the uRA).  This message type
+                        permits the uRA to request a resend of the the original message.
+                        Aggregators receiving the request SHOULD only attempt redelivery
+                        of the message to children that it did not receive an
+                        acknowledgement for (i.e. MTL timeout) or reply to (i.e.
+                        Coordinator timeout) the original message.
+                        
+                        Elements:
+                        
+                        correlationId - Identifies the correclationId of the original
+                        message to be redelivered.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="correlationId" type="ftypes:UuidType" />
+                </xsd:sequence>
+            </xsd:complexType>
             
+            <!-- ********** MessageDeliveryFailure notification type definition ********** -->
+            <xsd:complexType name="messageDeliveryTimeoutRequestType">
+                <xsd:annotation>
+                    <xsd:documentation  xml:lang="en">
+                        Notification message for a message transport layer delivery
+                        timeout of an NSI CS request message. In the event of an MTL
+                        or Coordinator timeout, the Coordinator will generate this
+                        message delivery failure notification and send it up the
+                        workflow tree (towards the uRA).
+
+                        Elements:
+                        
+                        correlationId - This value indicates the correlationId of
+                        the original message that the transport layer failed to
+                        send.
+                        
+                        timeStamp - Time the event was generated.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="correlationId" type="ftypes:UuidType" />
+                    <xsd:element name="timeStamp"     type="ftypes:DateTimeType" />
+                </xsd:sequence>
+            </xsd:complexType>
         </xsd:schema>
     </wsdl:types>
 
@@ -204,43 +293,26 @@ Description: This is a draft version of the WSDL common types and messages for t
         <wsdl:part name="reserveFailed" element="types:reserveFailed" />
     </wsdl:message>
 
-    <!-- ********** ModifyCheck message set ********** -->
-    <wsdl:message name="modifyCheck">
-        <wsdl:part name="modifyCheck" element="types:modifyCheck" />
+    <!-- ********** ReserveCommit message set ********** -->
+    <wsdl:message name="reserveCommit">
+        <wsdl:part name="reserveCommit" element="types:reserveCommit" />
     </wsdl:message>
     
-    <wsdl:message name="modifyCheckConfirmed">
-        <wsdl:part name="modifyCheckConfirmed" element="types:modifyCheckConfirmed" />
+    <wsdl:message name="reserveCommitConfirmed">
+        <wsdl:part name="reserveCommitConfirmed" element="types:reserveCommitConfirmed" />
     </wsdl:message>
     
-    <wsdl:message name="modifyCheckFailed">
-        <wsdl:part name="modifyCheckFailed" element="types:modifyCheckFailed" />
+    <wsdl:message name="reserveCommitFailed">
+        <wsdl:part name="reserveCommitFailed" element="types:reserveCommitFailed" />
+    </wsdl:message>
+ 
+    <!-- ********** ReserveAbort message set ********** -->
+    <wsdl:message name="reserveAbort">
+        <wsdl:part name="reserveAbort" element="types:reserveAbort" />
     </wsdl:message>
     
-    <!-- ********** Modify message set ********** -->
-    <wsdl:message name="modify">
-        <wsdl:part name="modify" element="types:modify" />
-    </wsdl:message>
-    
-    <wsdl:message name="modifyConfirmed">
-        <wsdl:part name="modifyConfirmed" element="types:modifyConfirmed" />
-    </wsdl:message>
-    
-    <wsdl:message name="modifyFailed">
-        <wsdl:part name="modifyFailed" element="types:modifyFailed" />
-    </wsdl:message>
-
-    <!-- ********** ModifyCancel message set ********** -->
-    <wsdl:message name="modifyCancel">
-        <wsdl:part name="modifyCancel" element="types:modifyCancel" />
-    </wsdl:message>
-    
-    <wsdl:message name="modifyCancelConfirmed">
-        <wsdl:part name="modifyCancelConfirmed" element="types:modifyCancelConfirmed" />
-    </wsdl:message>
-    
-    <wsdl:message name="modifyCancelFailed">
-        <wsdl:part name="modifyCancelFailed" element="types:modifyCancelFailed" />
+    <wsdl:message name="reserveAbortConfirmed">
+        <wsdl:part name="reserveAbortConfirmed" element="types:reserveAbortConfirmed" />
     </wsdl:message>
     
     <!-- ********** Provision message set ********** -->
@@ -252,10 +324,6 @@ Description: This is a draft version of the WSDL common types and messages for t
         <wsdl:part name="provisionConfirmed" element="types:provisionConfirmed" />
     </wsdl:message>
 
-    <wsdl:message name="provisionFailed">
-        <wsdl:part name="provisionFailed" element="types:provisionFailed" />
-    </wsdl:message>
-
     <!-- ********** Release message set ********** -->
     <wsdl:message name="release">
         <wsdl:part name="release" element="types:release" />
@@ -265,10 +333,6 @@ Description: This is a draft version of the WSDL common types and messages for t
         <wsdl:part name="releaseConfirmed" element="types:releaseConfirmed" />
     </wsdl:message>
 
-    <wsdl:message name="releaseFailed">
-        <wsdl:part name="releaseFailed" element="types:releaseFailed" />
-    </wsdl:message>
-
     <!-- ********** Terminate message set ********** -->
     <wsdl:message name="terminate">
         <wsdl:part name="parameters" element="types:terminate" />
@@ -276,10 +340,6 @@ Description: This is a draft version of the WSDL common types and messages for t
 
     <wsdl:message name="terminateConfirmed">
         <wsdl:part name="parameters" element="types:terminateConfirmed" />
-    </wsdl:message>
-
-    <wsdl:message name="terminateFailed">
-        <wsdl:part name="parameters" element="types:terminateFailed" />
     </wsdl:message>
 
     <!-- ********** QuerySummary message set ********** -->
@@ -320,15 +380,33 @@ Description: This is a draft version of the WSDL common types and messages for t
     <wsdl:message name="querySummarySyncFailed">
         <wsdl:part name="querySummarySyncFailed" element="types:querySummarySyncFailed" />
     </wsdl:message>
-    
+
     <!-- ********** Notification message set ********** -->
-    <wsdl:message name="notification">
-        <wsdl:part name="notification" element="types:notification" />
+    <wsdl:message name="errorEvent">
+        <wsdl:part name="errorEvent" element="types:errorEvent" />
+    </wsdl:message>
+    
+    <wsdl:message name="reserveTimeout">
+        <wsdl:part name="reserveTimeout" element="types:reserveTimeout" />
+    </wsdl:message>
+
+    <wsdl:message name="dataPlaneStateChange">
+        <wsdl:part name="dataPlaneStateChange" element="types:dataPlaneStateChange" />
     </wsdl:message>
     
     <!-- ********** Acknowledgment message set ********** -->
     <wsdl:message name="acknowledgment">
         <wsdl:part name="acknowledgment" element="tns:acknowledgment" />
+    </wsdl:message>
+ 
+    <!-- ********** MessageDeliveryRetry request message set ********** -->
+    <wsdl:message name="messageDeliveryRetry">
+        <wsdl:part name="messageDeliveryRetry" element="tns:messageDeliveryRetry" />
+    </wsdl:message>
+    
+    <!-- ********** MessageDeliveryFailure notification message set ********** -->
+    <wsdl:message name="messageDeliveryTimeout">
+        <wsdl:part name="messageDeliveryTimeout" element="tns:messageDeliveryTimeout" />
     </wsdl:message>
     
     <!-- ********** Fault message set ********** -->
