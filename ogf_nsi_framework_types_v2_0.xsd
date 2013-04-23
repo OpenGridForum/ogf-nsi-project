@@ -48,7 +48,7 @@ Description: This is the NSI framework common types schema for the reference web
                 text - User friendly message text describing the error.
                 
                 variables - An  optional collection of type/value pairs providing
-                addition information relating to the error.
+                additional information relating to the error.
                 
                 childException - Hierarchical list of service exceptions
                 capturing failures within the request tree.
@@ -96,7 +96,7 @@ Description: This is the NSI framework common types schema for the reference web
             <xsd:documentation xml:lang="en">
                 Definition for a simple type and multi-value tuple.  Includes
                 simple string type and value, as well as more advanced
-                extensions if needed.  A targetNamespace attribute is include
+                extensions if needed.  A targetNamespace attribute is included
                 to provide context where needed.
                 
                 Elements:
