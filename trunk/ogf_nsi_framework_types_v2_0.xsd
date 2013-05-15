@@ -18,7 +18,6 @@ Description: This is the NSI framework common types schema for the reference web
 -->
 <xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/04/framework/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
     xmlns:tns="http://schemas.ogf.org/nsi/2013/04/framework/types">
 
     <xsd:annotation>
@@ -66,8 +65,12 @@ Description: This is the NSI framework common types schema for the reference web
     <xsd:complexType name="VariablesType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                A specific type definition providing a set of zero or more
-                variables associated with the ServiceException.
+                A type definition providing a set of zero or more type/value
+                variables used for modeling generic attributes.
+                
+                Elements:
+                
+                variable - The variable containing the type/values.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
