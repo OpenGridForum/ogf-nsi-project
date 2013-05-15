@@ -1180,6 +1180,7 @@
         </xsd:annotation>
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Initial" />
+            <xsd:enumeration value="Failed" />
             <xsd:enumeration value="Terminating" />
             <xsd:enumeration value="Terminated" />
             <xsd:enumeration value="Unknown" />
