@@ -14,7 +14,7 @@
 
     Open Grid Forum NSI Connection Services Protocol v2.0
 
-    Description: This is a draft version of the types schema for the reference web services implementation of the OGF NSI Connection Services Protocol v2.0. This can be considered the transport independent protocol representation.  Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
+    Description: This is the types schema for the reference web services implementation of the OGF NSI Connection Services Protocol v2.0. This can be considered the transport independent protocol representation.  Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
 -->
 <xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/04/connection/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -217,7 +217,7 @@
                 reservation is being modified.
                 
                 criteria - reservation request criteria including start and end
-                time, severice attributes, and requested path for the service.
+                time, service attributes, and requested path for the service.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
@@ -232,7 +232,7 @@
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 Type definition for the reserveResponse message. A Provider NSA
-                sends this reserveResponse message immediately after recieving
+                sends this reserveResponse message immediately after receiving
                 the reservation request to inform the Requester NSA of the
                 connectionId allocated to their reservation request.  This
                 connectionId can then be used to query reservation progress.
@@ -270,7 +270,7 @@
     <xsd:complexType name="QueryType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                Type definition for the queryRequest message providing a mechanism
+                Type definition for the querySummary message providing a mechanism
                 for either Requester or Provider NSA to query the other NSA for a
                 set of connection service reservation instances between the RA-PA
                 pair. This message can also be used as a status polling mechanism.
@@ -284,16 +284,16 @@
 
                 Elements:
 
-                connectionId - Return reservations containing this connectionId.
-                
                 globalReservationId - Return reservations containing this
                 globalReservationId.
+
+                connectionId - Return reservations containing this connectionId.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
             <xsd:choice>
-                <xsd:element name="connectionId"        type="tns:ConnectionIdType" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element name="connectionId"        type="tns:ConnectionIdType" minOccurs="0" maxOccurs="unbounded" />
             </xsd:choice>
         </xsd:sequence>
     </xsd:complexType>
@@ -389,16 +389,12 @@
 
                 Elements:
 
-                globalReservationId - An optional global reservation id that was
-                originally provided in the reserve request.
-
                 connectionId - The Provider NSA assigned connectionId for this
                 reservation request. This value will be unique within the context
                 of the Provider NSA.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="globalReservationId"    type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="connectionId"           type="tns:ConnectionIdType" />
         </xsd:sequence>
     </xsd:complexType>
@@ -679,7 +675,7 @@
             <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="description"         type="xsd:string" minOccurs="0" />
             <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
-            <xsd:element name="criteria"            type="tns:ReservationConfirmCriteriaType" minOccurs="1" maxOccurs="unbounded" />
+            <xsd:element name="criteria"            type="tns:ReservationConfirmCriteriaType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:group>
     
