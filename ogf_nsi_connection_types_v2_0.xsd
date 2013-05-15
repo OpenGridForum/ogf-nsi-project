@@ -412,9 +412,6 @@
                 reservation. This value will be unique within the context
                 of the Provider NSA.
 
-                globalReservationId - An optional global reservation id that was
-                originally provided in the reserve request.
-
                 connectionStates - Overall connection state for the reservation.
 
                 serviceException - Specific error condition - the reason for the
@@ -423,7 +420,6 @@
         </xsd:annotation>
         <xsd:sequence>
             <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
-            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="connectionStates"    type="tns:ConnectionStatesType" />
             <xsd:element name="serviceException"    type="ftypes:ServiceExceptionType" />
         </xsd:sequence>
@@ -445,9 +441,6 @@
                 of the Provider NSA.
                 
                 event - The type of event that generated this notification.
-                
-                globalReservationId - An optional global reservation id that was
-                originally provided in the reserve request.
 
                 connectionStates - Overall connection states for the reservation.
                 
@@ -463,7 +456,6 @@
         <xsd:sequence>
             <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
             <xsd:element name="event"               type="tns:EventEnumType" />
-            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="connectionStates"    type="tns:ConnectionStatesType" />
             <xsd:element name="timeStamp"           type="ftypes:DateTimeType" />
             <xsd:element name="additionalInfo"      type="ftypes:TypeValuePairListType" minOccurs="0" />
