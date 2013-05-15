@@ -203,6 +203,11 @@
 
                 Elements:
                 
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation. This value will be unique within the context of the
+                Provider NSA.  Provided in reserve request only when an existing
+                reservation is being modified.
+                
                 globalReservationId - An optional global reservation id that can be
                 used to correlate individual related service reservations through
                 the network. This must be populated with a Universally Unique
@@ -211,19 +216,14 @@
                 
                 description - An optional description for the service reservation.
                 
-                connectionId - The Provider NSA assigned connectionId for this
-                reservation. This value will be unique within the context of the
-                Provider NSA.  Provided in reserve request only when an existing
-                reservation is being modified.
-                
                 criteria - reservation request criteria including start and end
                 time, service attributes, and requested path for the service.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
+            <xsd:element name="connectionId"        type="tns:ConnectionIdType" minOccurs="0" />
             <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="description"         type="xsd:string" minOccurs="0" />
-            <xsd:element name="connectionId"        type="tns:ConnectionIdType" minOccurs="0" />
             <xsd:element name="criteria"            type="tns:ReservationRequestCriteriaType" />
         </xsd:sequence>
     </xsd:complexType>
@@ -408,12 +408,12 @@
 
                 Elements:
 
-                globalReservationId - An optional global reservation id that was
-                originally provided in the reserve request.
-
                 connectionId - The Provider NSA assigned connectionId for this
                 reservation. This value will be unique within the context
                 of the Provider NSA.
+
+                globalReservationId - An optional global reservation id that was
+                originally provided in the reserve request.
 
                 connectionStates - Overall connection state for the reservation.
 
@@ -422,8 +422,8 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
+            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="connectionStates"    type="tns:ConnectionStatesType" />
             <xsd:element name="serviceException"    type="ftypes:ServiceExceptionType" />
         </xsd:sequence>
@@ -440,15 +440,15 @@
                 
                 Elements:
                 
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation. This value will be unique within the context
+                of the Provider NSA.
+                
                 event - The type of event that generated this notification.
                 
                 globalReservationId - An optional global reservation id that was
                 originally provided in the reserve request.
-                
-                connectionId - The Provider NSA assigned connectionId for this
-                reservation. This value will be unique within the context
-                of the Provider NSA.
- 
+
                 connectionStates - Overall connection states for the reservation.
                 
                 timeStamp - Time the event was generated.
@@ -461,9 +461,9 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
+            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
             <xsd:element name="event"               type="tns:EventEnumType" />
             <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
-            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
             <xsd:element name="connectionStates"    type="tns:ConnectionStatesType" />
             <xsd:element name="timeStamp"           type="ftypes:DateTimeType" />
             <xsd:element name="additionalInfo"      type="ftypes:TypeValuePairListType" minOccurs="0" />
@@ -656,6 +656,10 @@
                 
                 Elements:
                 
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation. This value will be unique within the context
+                of the Provider NSA.
+                
                 globalReservationId - An optional global reservation id that can be
                 used to correlate individual related service reservations through
                 the network. This must be populated with a Universally Unique
@@ -664,17 +668,13 @@
                 
                 description - An optional description for the service reservation.
                 
-                connectionId - The Provider NSA assigned connectionId for this
-                reservation. This value will be unique within the context
-                of the Provider NSA.
-                
                 criteria - A set of versioned reservation criteria information.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
+            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
             <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="description"         type="xsd:string" minOccurs="0" />
-            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
             <xsd:element name="criteria"            type="tns:ReservationConfirmCriteriaType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:group>
@@ -737,20 +737,20 @@
                 order - Specification of ordered path elements.
                 
                 Elements:
+
+                connectionId - The connection identifier associated with the
+                reservation and path segment.
                 
                 providerNSA - The provider NSA holding the connection
                 information associated with this instance of data.
-                
-                connectionId - The connection identifier associated with the
-                reservation and path segment.
                 
                 path - The summary path information associated with the
                 connection reservation.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="providerNSA"     type="ftypes:NsaIdType" />
             <xsd:element name="connectionId"    type="tns:ConnectionIdType" />
+            <xsd:element name="providerNSA"     type="ftypes:NsaIdType" />
             <xsd:element name="path"            type="tns:PathType" minOccurs="0" />
         </xsd:sequence>
         <xsd:attribute name="order" type="xsd:int" use="required" />
@@ -819,12 +819,12 @@
                 order - Specification of ordered path elements.
                 
                 Elements:
-                 
-                providerNSA - The provider NSA holding the connection
-                information associated with this instance of data.
                 
                 connectionId - The connection identifier associated with the
                 reservation and path segment.
+                
+                providerNSA - The provider NSA holding the connection
+                information associated with this instance of data.
                 
                 connectionStates - This reservation's segments connection
                 states.
@@ -837,8 +837,8 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="providerNSA"        type="ftypes:NsaIdType" />
             <xsd:element name="connectionId"       type="tns:ConnectionIdType" />
+            <xsd:element name="providerNSA"        type="ftypes:NsaIdType" />
             <xsd:element name="connectionStates"   type="tns:ConnectionStatesType" />
             <xsd:element name="criteria"           type="tns:ReservationConfirmCriteriaType" minOccurs="1" maxOccurs="unbounded" />
             <xsd:element name="children"           type="tns:ChildRecursiveListType" minOccurs="0" />
