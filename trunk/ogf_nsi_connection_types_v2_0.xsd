@@ -284,16 +284,16 @@
 
                 Elements:
 
+                connectionId - Return reservations containing this connectionId.
+
                 globalReservationId - Return reservations containing this
                 globalReservationId.
-
-                connectionId - Return reservations containing this connectionId.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
             <xsd:choice>
-                <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" maxOccurs="unbounded" />
                 <xsd:element name="connectionId"        type="tns:ConnectionIdType" minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" maxOccurs="unbounded" />
             </xsd:choice>
         </xsd:sequence>
     </xsd:complexType>
@@ -990,12 +990,7 @@
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 Models the current connection reservation state.
-                
-                Attributes:
-                
-                version - Version of the connection reservation this entry is
-                modeling.
-                
+
                 Elements:
                 
                 state - The state of the connection reservation state machine.
@@ -1004,18 +999,12 @@
         <xsd:sequence>
             <xsd:element name="state"   type="tns:ReservationStateEnumType" />
         </xsd:sequence>
-        <xsd:attribute   name="version" type="xsd:int" />
     </xsd:complexType>
     
     <xsd:complexType name="ProvisionStateType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 Models the current connection lifecycle state.
-                
-                Attributes:
-                
-                version - Version of the connection reservation this entry is
-                modeling.
                 
                 Elements:
                 
@@ -1025,7 +1014,6 @@
         <xsd:sequence>
             <xsd:element name="state"   type="tns:ProvisionStateEnumType" />
         </xsd:sequence>
-        <xsd:attribute   name="version" type="xsd:int" />
     </xsd:complexType>
 
     <xsd:complexType name="LifecycleStateType">
@@ -1036,11 +1024,6 @@
                 state of the reservation, and therefore, if the the terminate
                 request has been received.
                 
-                Attributes:
-                
-                version - Version of the connection reservation this entry is
-                modeling.
-                
                 Elements:
                 
                 state - The termination state of the connection state machine.                
@@ -1049,7 +1032,6 @@
         <xsd:sequence>
             <xsd:element name="state"   type="tns:LifecycleStateEnumType" />
         </xsd:sequence>
-        <xsd:attribute   name="version" type="xsd:int" />
     </xsd:complexType>
     
     <xsd:complexType name="DataPlaneStatusType">
@@ -1057,17 +1039,15 @@
             <xsd:documentation xml:lang="en">
                 Models the current connection activation state within the
                 data plane.
-                
-                Attributes:
-                
-                version - Version of the connection reservation this entry is
-                modeling.
-                
+
                 Elements:
                 
                 active - True if the dataplane is active.  For an aggregator,
                 this flag is true when data plane is activated in all
                 participating children
+                
+                version - Version of the connection reservation this entry is
+                modeling.
                 
                 versionConsistent - Always true for uPA. For an aggregator,
                 if version numbers of all children are the same. This flag is
@@ -1076,9 +1056,9 @@
         </xsd:annotation>
         <xsd:sequence>
             <xsd:element name="active"            type="xsd:boolean" />
+            <xsd:element name="version"           type="xsd:int" />
             <xsd:element name="versionConsistent" type="xsd:boolean" />
         </xsd:sequence>
-        <xsd:attribute   name="version" type="xsd:int" />
     </xsd:complexType>
     
    <!-- ******************************************************************
