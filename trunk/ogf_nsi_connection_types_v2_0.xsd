@@ -257,12 +257,26 @@
 
                 Elements:
                 
-                ReservationInfoGroup - Element group containing the common
-                reservation elements for reservation confirmations.
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation. This value will be unique within the context
+                of the Provider NSA.
+                
+                globalReservationId - An optional global reservation id that can be
+                used to correlate individual related service reservations through
+                the network. This must be populated with a Universally Unique
+                Identifier (UUID) URN as per ITU-T Rec. X.667 | ISO/IEC 9834-8:2005
+                and IETF RFC 4122.
+                
+                description - An optional description for the service reservation.
+                
+                criteria - A set of versioned reservation criteria information.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:group   ref="tns:ReservationInfoGroup" />
+            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
+            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
+            <xsd:element name="description"         type="xsd:string" minOccurs="0" />
+            <xsd:element name="criteria"            type="tns:ReservationConfirmCriteriaType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
     
@@ -337,9 +351,7 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:choice>
-                <xsd:element name="reservation" type="tns:QueryRecursiveResultType" minOccurs="0" maxOccurs="unbounded" />
-            </xsd:choice>
+            <xsd:element name="reservation" type="tns:QueryRecursiveResultType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
     
@@ -656,37 +668,6 @@
         <xsd:attribute   name="version"             type="xsd:int" use="required" />
     </xsd:complexType>
     
-    <xsd:group name="ReservationInfoGroup">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                Element group containing the common reservation elements for both
-                reserve requests and confirmations.
-                
-                Elements:
-                
-                connectionId - The Provider NSA assigned connectionId for this
-                reservation. This value will be unique within the context
-                of the Provider NSA.
-                
-                globalReservationId - An optional global reservation id that can be
-                used to correlate individual related service reservations through
-                the network. This must be populated with a Universally Unique
-                Identifier (UUID) URN as per ITU-T Rec. X.667 | ISO/IEC 9834-8:2005
-                and IETF RFC 4122.
-                
-                description - An optional description for the service reservation.
-                
-                criteria - A set of versioned reservation criteria information.
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:sequence>
-            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
-            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
-            <xsd:element name="description"         type="xsd:string" minOccurs="0" />
-            <xsd:element name="criteria"            type="tns:ReservationConfirmCriteriaType" minOccurs="0" maxOccurs="unbounded" />
-        </xsd:sequence>
-    </xsd:group>
-    
     <xsd:complexType name="QuerySummaryResultType">
       <xsd:annotation>
          <xsd:documentation xml:lang="en">
@@ -694,25 +675,73 @@
             a "Summary" query result.
 
             Elements:
-
-            ReservationInfoGroup - Element group containing the common
-            reservation elements and path data.
+            
+            connectionId - The Provider NSA assigned connectionId for this
+            reservation. This value will be unique within the context
+            of the Provider NSA.
+            
+            globalReservationId - An optional global reservation id that can be
+            used to correlate individual related service reservations through
+            the network. This must be populated with a Universally Unique
+            Identifier (UUID) URN as per ITU-T Rec. X.667 | ISO/IEC 9834-8:2005
+            and IETF RFC 4122.
+            
+            description - An optional description for the service reservation.
+            
+            criteria - A set of versioned reservation criteria information.
             
             requesterNSA - The requester NSA associated with the reservation.
 
             connectionStates - The reservation's overall connection states.
-
-            children - If this connection reservation is aggregating child
-            connections then this element contains basic summary information
-            about the child connection segment.
          </xsd:documentation>
       </xsd:annotation>
         <xsd:sequence>
-            <xsd:group   ref="tns:ReservationInfoGroup" />
+            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
+            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
+            <xsd:element name="description"         type="xsd:string" minOccurs="0" />
+            <xsd:element name="criteria"            type="tns:QuerySummaryResultCriteriaType" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="requesterNSA"       type="ftypes:NsaIdType" />
             <xsd:element name="connectionStates"   type="tns:ConnectionStatesType" />
+        </xsd:sequence>
+    </xsd:complexType>
+  
+    <xsd:complexType name="QuerySummaryResultCriteriaType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Type definition for the query summary result containing
+                versioned reservation information and associated child
+                connection identifiers.
+                
+                Elements:
+                
+                schedule - Time parameters specifying the life of the service.
+                
+                bandwidth - Bandwidth of the service in Mb/s.
+                
+                serviceAttributes - Technology specific attributes relating to
+                the service.
+                
+                path - The source and destination end points of the service.
+                Can optionally provide additional path segments to guide path
+                computation.
+
+                children - If this connection reservation is aggregating child
+                connections then this element contains basic summary
+                information about the child connection segment.
+
+                Attributes:
+                
+                version - Version of the reservation instance.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="schedule"            type="tns:ScheduleType" />
+            <xsd:element name="bandwidth"           type="xsd:int" />
+            <xsd:element name="serviceAttributes"   type="ftypes:TypeValuePairListType" />
+            <xsd:element name="path"                type="tns:PathType" />
             <xsd:element name="children"           type="tns:ChildSummaryListType" minOccurs="0" />
         </xsd:sequence>
+        <xsd:attribute   name="version"             type="xsd:int" use="required" />
     </xsd:complexType>
     
     <xsd:complexType name="ChildSummaryListType">
@@ -772,26 +801,74 @@
                 
                 Elements:
                 
-                ReservationInfoGroup - The common reservation information
-                elements.
+                connectionId - The Provider NSA assigned connectionId for this
+                reservation. This value will be unique within the context
+                of the Provider NSA.
+                
+                globalReservationId - An optional global reservation id that can be
+                used to correlate individual related service reservations through
+                the network. This must be populated with a Universally Unique
+                Identifier (UUID) URN as per ITU-T Rec. X.667 | ISO/IEC 9834-8:2005
+                and IETF RFC 4122.
+                
+                description - An optional description for the service reservation.
+                
+                criteria - A set of versioned reservation criteria information.
 
                 requesterNSA - The requester NSA associated with the reservation.
 
                 connectionStates - The reservation's overall connection states.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="connectionId"        type="tns:ConnectionIdType" />
+            <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
+            <xsd:element name="description"         type="xsd:string" minOccurs="0" />
+            <xsd:element name="criteria"            type="tns:QueryRecursiveResultCriteriaType" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="requesterNSA"        type="ftypes:NsaIdType" />
+            <xsd:element name="connectionStates"    type="tns:ConnectionStatesType" />
+        </xsd:sequence>
+    </xsd:complexType>
 
+    <xsd:complexType name="QueryRecursiveResultCriteriaType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Type definition for the query recursive result containing
+                versioned reservation information and associated child
+                connection identifiers.
+                
+                Elements:
+                
+                schedule - Time parameters specifying the life of the service.
+                
+                bandwidth - Bandwidth of the service in Mb/s.
+                
+                serviceAttributes - Technology specific attributes relating to
+                the service.
+                
+                path - The source and destination end points of the service.
+                Can optionally provide additional path segments to guide path
+                computation.
+                
                 children - If this connection reservation is aggregating child
                 connections then this element contains detailed information
                 about the child connection segment.  The level of detail
                 include is left up to the individual NSA and their
                 authorization policies.
+                
+                Attributes:
+                
+                version - Version of the reservation instance.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:group   ref="tns:ReservationInfoGroup" />
-            <xsd:element name="requesterNSA"       type="ftypes:NsaIdType" />
-            <xsd:element name="connectionStates"   type="tns:ConnectionStatesType" />
+            <xsd:element name="schedule"            type="tns:ScheduleType" />
+            <xsd:element name="bandwidth"           type="xsd:int" />
+            <xsd:element name="serviceAttributes"   type="ftypes:TypeValuePairListType" />
+            <xsd:element name="path"                type="tns:PathType" />
             <xsd:element name="children"           type="tns:ChildRecursiveListType" minOccurs="0" />
         </xsd:sequence>
+        <xsd:attribute   name="version"             type="xsd:int" use="required" />
     </xsd:complexType>
     
     <xsd:complexType name="ChildRecursiveListType">
@@ -838,18 +915,13 @@
                 states.
                 
                 criteria - A set of versioned reservation criteria information.
-                
-                children - If provided this element will contain the list of 
-                connections in the context of all direct children NSA involved 
-                in the connection path.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
             <xsd:element name="connectionId"       type="tns:ConnectionIdType" />
             <xsd:element name="providerNSA"        type="ftypes:NsaIdType" />
             <xsd:element name="connectionStates"   type="tns:ConnectionStatesType" />
-            <xsd:element name="criteria"           type="tns:ReservationConfirmCriteriaType" minOccurs="1" maxOccurs="unbounded" />
-            <xsd:element name="children"           type="tns:ChildRecursiveListType" minOccurs="0" />
+            <xsd:element name="criteria"           type="tns:QueryRecursiveResultCriteriaType" minOccurs="1" maxOccurs="unbounded" />
         </xsd:sequence>
         <xsd:attribute name="order" type="xsd:int" use="required" />
     </xsd:complexType>
