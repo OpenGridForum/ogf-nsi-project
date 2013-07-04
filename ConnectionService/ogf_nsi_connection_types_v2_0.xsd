@@ -734,7 +734,7 @@
         <xsd:sequence>
             <xsd:element name="schedule"            type="tns:ScheduleType" minOccurs="0" />
             <xsd:element name="bandwidth"           type="xsd:int" minOccurs="0" />
-            <xsd:element name="serviceAttributes"   type="ftypes:TypeValuePairListType" minOccurs="0" />
+            <xsd:element name="serviceAttributes"   type="tns:ServiceAttributesType" minOccurs="0" />
             <xsd:element name="path"                type="tns:PathType" minOccurs="0" />
         </xsd:sequence>
         <xsd:attribute   name="version"             type="xsd:int" use="optional" />
@@ -767,7 +767,7 @@
         <xsd:sequence>
             <xsd:element name="schedule"            type="tns:ScheduleType" />
             <xsd:element name="bandwidth"           type="xsd:int" />
-            <xsd:element name="serviceAttributes"   type="ftypes:TypeValuePairListType" />
+            <xsd:element name="serviceAttributes"   type="tns:ServiceAttributesType" minOccurs="0" />
             <xsd:element name="path"                type="tns:PathType" />
         </xsd:sequence>
         <xsd:attribute   name="version"             type="xsd:int" use="required" />
@@ -848,7 +848,7 @@
         <xsd:sequence>
             <xsd:element name="schedule"            type="tns:ScheduleType" />
             <xsd:element name="bandwidth"           type="xsd:int" />
-            <xsd:element name="serviceAttributes"   type="ftypes:TypeValuePairListType" />
+            <xsd:element name="serviceAttributes"   type="tns:ServiceAttributesType" minOccurs="0" />
             <xsd:element name="path"                type="tns:PathType" />
             <xsd:element name="children"           type="tns:ChildSummaryListType" minOccurs="0" />
         </xsd:sequence>
@@ -981,7 +981,7 @@
         <xsd:sequence>
             <xsd:element name="schedule"            type="tns:ScheduleType" />
             <xsd:element name="bandwidth"           type="xsd:int" />
-            <xsd:element name="serviceAttributes"   type="ftypes:TypeValuePairListType" />
+            <xsd:element name="serviceAttributes"   type="tns:ServiceAttributesType" minOccurs="0" />
             <xsd:element name="path"                type="tns:PathType" />
             <xsd:element name="children"           type="tns:ChildRecursiveListType" minOccurs="0" />
         </xsd:sequence>
@@ -1064,6 +1064,36 @@
         </xsd:sequence>
     </xsd:complexType>
 
+    <xsd:complexType name="ServiceAttributesType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                A holder type for externally specified service elements.  Element
+                included in this type are based on the individual service definitions
+                not defined in the NSI CS core specification.
+                
+                Elements:
+                
+                any - Provides a flexible mechanism allowing additional service
+                elements to be provided relating to the requested service type.
+                Use of this element field is beyond the current scope of this
+                NSI CS specification, but will be specified in individual service
+                definitions.
+                
+                Attributes:
+                
+                anyAttribute - Provides a flexible mechanism allowing additional
+                attributes to be provided as needed for service specification.
+                Use of this attribute field is beyond the current scope of this
+                NSI CS specification, but will be specified in individual service
+                definitions.            
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:anyAttribute namespace="##other" processContents="lax" />
+    </xsd:complexType>
+    
     <xsd:complexType name="PathType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
