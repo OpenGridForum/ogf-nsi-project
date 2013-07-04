@@ -438,6 +438,8 @@
                 
                 reserveTimeout - Reserve timeout notification.
                 
+                dataPlaneStateChange - A data plane state change notification.
+                
                 messageDeliveryTimeout - Message delivery timeout notification.
             </xsd:documentation>
         </xsd:annotation>
@@ -445,6 +447,7 @@
             <xsd:choice minOccurs="0" maxOccurs="unbounded">
                 <xsd:element ref="tns:errorEvent" />
                 <xsd:element ref="tns:reserveTimeout" />
+                <xsd:element ref="tns:dataPlaneStateChange" />
                 <xsd:element ref="tns:messageDeliveryTimeout" />
             </xsd:choice>
         </xsd:sequence>
