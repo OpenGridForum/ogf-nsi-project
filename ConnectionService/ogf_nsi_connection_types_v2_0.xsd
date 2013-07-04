@@ -296,7 +296,7 @@
             <xsd:element name="connectionId"        type="ftypes:ConnectionIdType" />
             <xsd:element name="globalReservationId" type="tns:GlobalReservationIdType" minOccurs="0" />
             <xsd:element name="description"         type="xsd:string" minOccurs="0" />
-            <xsd:element name="criteria"            type="tns:ReservationConfirmCriteriaType" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="criteria"            type="tns:ReservationConfirmCriteriaType" />
         </xsd:sequence>
     </xsd:complexType>
     
@@ -403,7 +403,7 @@
                 
                 Elements compose a filter for specifying the notifications to
                 return in response to the query operation.  The filter query
-                provides a inclusive range of notification identifiers based
+                provides an inclusive range of notification identifiers based
                 on connectionId.
                 
                 Elements:
@@ -593,7 +593,7 @@
                 reservation.
                 
                 originatingConnectionId - The connectionId that triggered the
-                reverve timeout.
+                reserve timeout.
                 
                 originatingNSA - The NSA originating the timeout event.
             </xsd:documentation>
@@ -1171,7 +1171,7 @@
                 
                 provisionState - Models the current connection provisioning
                 state.  The provisionState is created for a reservation once
-                the reservation is commited.
+                the reservation is committed.
                 
                 lifecycleState - Models the current connection lifecycle state.
                 
@@ -1384,6 +1384,8 @@
                 
                 Failed – A steady state for the lifecycle state machine that is
                 reached if a forcedEnd error is received from a uPA.
+                
+                PassedEndTime - The reservation has exceeded scheduled end time.
                 
                 Terminating - A transient state modeling the act of terminating
                 the reservation.
