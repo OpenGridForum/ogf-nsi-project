@@ -19,14 +19,14 @@ Description: This is the NSI Connection Services Protocol 2.0 service definition
 This document is the SOAP endpoint definition for a requester NSA and holds definitions for messages the requester NSA will receive.  For the reserve, provision, release, and terminate message sets the requester will receive confirmed and failed messages only.  For the query operation a requester NSA must support request, confirmed, and failed messages due to the possibility that a child provider NSA may query the requester for a list of connection reservations.  The requester NSA may also receive the forcedEnd message.
 -->
 <wsdl:definitions name="ogf_nsi_connection_requester_v2_0"
-    targetNamespace="http://schemas.ogf.org/nsi/2013/04/connection/requester"
+    targetNamespace="http://schemas.ogf.org/nsi/2013/07/connection/requester"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:tns="http://schemas.ogf.org/nsi/2013/04/connection/requester"
-    xmlns:interface="http://schemas.ogf.org/nsi/2013/04/connection/interface">
+    xmlns:tns="http://schemas.ogf.org/nsi/2013/07/connection/requester"
+    xmlns:interface="http://schemas.ogf.org/nsi/2013/07/connection/interface">
 
-    <wsdl:import namespace="http://schemas.ogf.org/nsi/2013/04/connection/interface"
+    <wsdl:import namespace="http://schemas.ogf.org/nsi/2013/07/connection/interface"
         location="ogf_nsi_connection_interface_v2_0.wsdl" />
 
     <!-- WSDL operation definitions with associated input (request), output
