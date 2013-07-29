@@ -11,9 +11,11 @@ Q: What is NSI?
 A: NSI is the the Network Service Interface protocol that enables network service request to be sent in web-service form to a network provider.
 
 
+
 Q: Where can I find the latest NSI CS protocol?
 A: The draft NSI protocols documents are available in redmine: https://redmine.ogf.org/dmsf/nsi-wg?folder_id=6526
 Released NSI documents are available here: http://ogf.org/gf/docs/?final
+
 
 
 Q: who is implementing NSI?
