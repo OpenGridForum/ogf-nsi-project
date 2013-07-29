@@ -1,10 +1,11 @@
+= NSI FAQs =
 
-= Introduction =
+== Introduction ==
 
-This Wiki page has been created as a repository for Frequently asked Questions (FaQs) relating to the NSI protocol.
+This Wiki page has been created as a repository for Frequently Asked Questions (FAQs) relating to the NSI protocol.
 
 
-= Details =
+== Details ==
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
