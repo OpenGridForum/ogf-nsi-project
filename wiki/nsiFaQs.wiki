@@ -9,7 +9,7 @@ This Wiki page has been created as a repository for Frequently Asked Questions (
 
 *Q: What is NSI?*
 
-A: NSI is the the Network Service Interface protocol that enables network service request to be sent in web-service form to a network provider.
+A: NSI is the the Network Service Interface protocol that enables network service request to be sent to a network provider using web-services.
 
 *Q: Where can I find the latest NSI CS protocol?*
 
