@@ -1,4 +1,3 @@
-#This Wiki page is a repository for NSI related FaQs.
 
 = Introduction =
 
