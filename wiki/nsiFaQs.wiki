@@ -8,12 +8,10 @@ This Wiki page has been created as a repository for Frequently Asked Questions (
 == Questions ==
 
 Q: What is NSI?
-
 A: NSI is the the Network Service Interface protocol that enables network service request to be sent in web-service form to a network provider.
 
 
-Q: Where can I find the latest NSI CS protocol
-
+Q: Where can I find the latest NSI CS protocol?
 A: The draft NSI protocols documents are available in redmine: https://redmine.ogf.org/dmsf/nsi-wg?folder_id=6526
 Released NSI documents are available here: http://ogf.org/gf/docs/?final
 
@@ -22,7 +20,7 @@ Q: who is implementing NSI?
 
 A: ESnet, GEANT BoD project, Glambda, Surfnet and others
 
-Q: I am developing a middleware application that would like to make use of NSI, how can I integrate NSI into my application:
+Q: I am developing a middleware application that would like to make use of NSI, how can I integrate NSI into my application?
 
 A: An implementation of an NSI client  (ultimate Requester Agent) may be suitable for your application.  
 
