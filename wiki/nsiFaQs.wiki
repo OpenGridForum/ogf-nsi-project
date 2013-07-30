@@ -7,23 +7,64 @@ This Wiki page has been created as a repository for Frequently Asked Questions (
 
 == Questions ==
 
-*Q: What is NSI?*
+*Q1: What is NSI?*
 
-A: NSI is the the Network Service Interface protocol that enables network service request to be sent to a network provider using web-services.
+A1: NSI is the the Network Service Interface protocol that enables network service request to be sent to a network provider using web-services.
 
-*Q: Where can I find the latest NSI CS protocol?*
+*Q2: Where can I find the latest NSI CS protocol?*
 
-A: The draft NSI protocols documents are available in redmine: https://redmine.ogf.org/dmsf/nsi-wg?folder_id=6526
+A2: The draft NSI protocols documents are available in redmine: https://redmine.ogf.org/dmsf/nsi-wg?folder_id=6526
 Released NSI documents are available here: http://ogf.org/gf/docs/?final
 
-*Q: who is implementing NSI?*
+*Q3: who is implementing NSI?*
 
-A: ESnet, GEANT BoD project, Glambda, Surfnet and others
+A3: ESnet, GEANT BoD project, Glambda, Surfnet and others
 
-*Q: I am developing a middleware application that would like to make use of NSI, how can I integrate NSI into my application?*
+*Q4: I am developing a middleware application that would like to make use of NSI, how can I integrate NSI into my application?*
 
-A: An implementation of an NSI client  (ultimate Requester Agent) may be suitable for your application.  
+A4: An implementation of an NSI client  (ultimate Requester Agent) may be suitable for your application.  
 
-*Q: How can I contact the NSI working group?*
+*Q5: How can I contact the NSI working group?*
 
-A: please feel free to email one of the NSI co-chairs using the link available in the NSI redmine page: https://redmine.ogf.org/tab/show/nsi-wg
+A5: please feel free to email one of the NSI co-chairs using the link available in the NSI redmine page: https://redmine.ogf.org/tab/show/nsi-wg
+
+*Q6: In which message are the errors in the Appendix B of the NSI Connection Service v2.0 document used?
+
+A6:
+
+*Q7: To which NSA should notifications be sent? The replyTo specified in a reserve request? What if replyTo of reserve requests for the same connection are not the same?
+
+A7:
+
+*Q8: If replyTo is not specified in a reserve request, to whom should a notification message be sent?
+
+A8: If no replyTo has been specified, no notification messages should be sent. RA should issue query messages to get status. This is useful when RA is behind firewall/NAT.
+
+*Q9: How should a notificationID be decided?
+
+A9: The notificationId only need be unique in the context of a conectionId, since we are retrieving using the connectionId for additional context.
+
+*Q10:What correlationID should be used in notification messages?
+
+A10: PA creates a correlationID of a notification message. It should be different from the correlationID used in the original request message which was the cause of the notification message.
+
+*Q11: Can a provision/release request be issued when RSM is in states other than RESERVE_START?
+
+A11: Yes. PSM and RSM are independent, and provision/release requests can be issued anytime after a PSM is created.
+
+*Q12: Should a dataPlaneStatusChange notification be sent if the data plane is de-activated at the endTime?
+
+A12: Yes. 
+
+*Q13: Can a termination request be sent anytime? For example, can it be sent during making a reservation?
+
+A13: Yes. The implementation should de-activate data plane (if it has been activated) and clean-up state machines and related data structure whenever a termination request is received.
+
+*Q14: When an initial reservation request attempt fails, or held initial reservation is aborted, RSM is in the RESERVE_START. What version number should be set in this case? What should be returned to a query in this case?
+
+A14: 
+
+
+
+
+
