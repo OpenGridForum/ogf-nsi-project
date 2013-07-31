@@ -30,11 +30,11 @@ A5: please feel free to email one of the NSI co-chairs using the link available 
 
 *Q6: In which message are the errors in the Appendix B of the NSI Connection Service v2.0 document used?
 
-A6:
+A6: (Guy: issue has been raised to provide clarification)
 
 *Q7: To which NSA should notifications be sent? The replyTo specified in a reserve request? What if replyTo of reserve requests for the same connection are not the same?
 
-A7:
+A7: The ReplyTo field in the initial reservation request should be used as the destination for notificaitons
 
 *Q8: If replyTo is not specified in a reserve request, to whom should a notification message be sent?
 
@@ -63,8 +63,6 @@ A13: Yes. The implementation should de-activate data plane (if it has been activ
 *Q14: When an initial reservation request attempt fails, or held initial reservation is aborted, RSM is in the RESERVE_START. What version number should be set in this case? What should be returned to a query in this case?
 
 A14: 
-
-
 
 
 
