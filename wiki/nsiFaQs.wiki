@@ -62,4 +62,4 @@ A13: Yes. The implementation should de-activate data plane (if it has been activ
 
 *Q14: When an initial reservation request attempt fails, or held initial reservation is aborted, RSM is in the RESERVE_START. What version number should be set in this case? What should be returned to a query in this case?
 
-A14: 
+A14: There will be no version number as the criteria element is not returned.
