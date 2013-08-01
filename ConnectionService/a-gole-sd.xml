@@ -79,7 +79,7 @@
          This must not conflict with any default specified in the XML schema
          definition for the parameter.
     -->
-    <parameter name="capacity" units="bps" required="true" modifiable="true"
+    <parameter name="capacity" units="Mbps" required="true" modifiable="true"
         namespace="http://schemas.ogf.org/nsi/2013/07/services/point2point"
         type="{http://www.w3.org/2001/XMLSchema}int">
         <comment>
@@ -92,9 +92,8 @@
             may be applied in transit.
         </comment>
         <minInclusive>0</minInclusive>
-        <maxInclusive>100000000000</maxInclusive>
+        <maxInclusive>100000</maxInclusive>
         <increment>1</increment>
-        <default>0</default>
     </parameter>
 
     <!-- The service XML schema should fully define enumerated types, their
