@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nsi:NSA      xmlns:nml="http://schemas.ogf.org/nml/2013/05/base#" 
-              xmlns:nsi="http://schemas.ogf.org/nsi/2013/09/topology#" 
-              xmlns:vc="urn:ietf:params:xml:ns:vcard-4.0"
-              id="urn:ogf:network:example.org:2013:nsa"
-              version="2013-05-29T12:11:12">
+<nsi:NSA xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:nml="http://schemas.ogf.org/nml/2013/05/base#" 
+    xmlns:nsi="http://schemas.ogf.org/nsi/2013/09/topology#" 
+    xmlns:vc="urn:ietf:params:xml:ns:vcard-4.0"
+              
+    xsi:schemaLocation="http://schemas.ogf.org/nsi/2013/09/topology# file:nsi-ext.xsd http://schemas.ogf.org/nml/2013/05/base# file:nmlbase.xsd"
+              
+    id="urn:ogf:network:example.org:2013:nsa"
+    version="2013-05-29T12:11:12">
 
     <nml:Location id="urn:ogf:network:example.com:2013:location">
       <nml:lat>55.637</nml:lat>
@@ -29,7 +33,7 @@
         </nsi:Relation>
     </nsi:Service>
     
-    <nml:Relation type="http://schemas.ogf.org/nsi/2013/09/topology#adminContact">
+    <nsi:adminContact>
       <vc:vcard>
         <vc:fn><vc:text>Example Adminstrator</vc:text></vc:fn>
         <vc:n>
@@ -71,7 +75,7 @@
           <vc:uri>geo:52.357,4.953</vc:uri>
         </vc:geo>
       </vc:vcard>
-    </nml:Relation>    
+    </nsi:adminContact>    
     
     <nsi:Relation type="http://schemas.ogf.org/nsi/2013/09/topology#peersWith">
         <nsi:NSA id="urn:ogf:network:example.org:2013:nsa"/>
