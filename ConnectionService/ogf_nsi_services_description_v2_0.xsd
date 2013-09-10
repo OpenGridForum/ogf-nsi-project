@@ -129,7 +129,7 @@
                 restrictions.  The associated service XML schema is the
                 definitive source for and type and range definitions. If a
                 parameter of the service is not contained in this service
-                descrption then it is not supported for this profile.
+                description then it is not supported for this profile.
                 
                 Attributes:
                 
@@ -258,7 +258,7 @@
     <xsd:simpleType name="ModifiableType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                Indicates when in the shedule lifecycle of a reservation a
+                Indicates when in the schedule lifecycle of a reservation a
                 parameter can be modified.  There are four enumerated values
                 for modifiable:
                 
