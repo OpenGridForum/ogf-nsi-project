@@ -741,7 +741,9 @@
                 of supported service descriptions defined by the network
                 providers, and in turn, to the specific service elements
                 carried in this element (through the ANY definition) required
-                to specify the requested service.  
+                to specify the requested service.  The service type is
+                mandatory in the original reserve request, and optional in a
+                reserve issued to modify an existing reservation.
                 
                 any - Provides a flexible mechanism allowing additional elements
                 to be provided such as the service specific attributes specified
@@ -789,11 +791,11 @@
                 
                 serviceType - The specific service type of this reservation. 
                 This service type string maps into the list of supported service
-                descriptions defined by the network providers, and in turn, to
-                the specific service elements carried in the serviceAttributes
-                element required to specify the requested service.  This element
-                is mandatory in the reservation request but not required in the
-                modify request.
+                definitions defined by the network providers.  In turn, the
+                service type specifies the specific service elements carried in
+                in an instance of this type (through the ANY definition) that
+                are associated with the requested service.  This element is
+                mandatory.
                 
                 any - Provides a flexible mechanism allowing additional elements 
                 to be provided such as the service specific attributes specified 
@@ -815,7 +817,7 @@
         </xsd:annotation>
         <xsd:sequence>
             <xsd:element name="schedule"      type="tns:ScheduleType" />
-            <xsd:element name="serviceType"   type="xsd:string" minOccurs="0" />
+            <xsd:element name="serviceType"   type="xsd:string" />
             <xsd:any     namespace="##other"  processContents="lax" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
         <xsd:attribute    name="version"      type="xsd:int" use="required" />
@@ -878,9 +880,11 @@
                 
                 serviceType - The specific service type of this reservation. 
                 This service type string maps into the list of supported service
-                descriptions defined by the network providers, and in turn, to
-                the specific service elements carried in the serviceAttributes
-                element required to specify the requested service.  
+                definitions defined by the network providers.  In turn, the
+                service type specifies the specific service elements carried in
+                in an instance of this type (through the ANY definition) that
+                are associated with the requested service.  This element is
+                mandatory.
 
                 children - If this connection reservation is aggregating child
                 connections then this element contains basic summary
@@ -906,7 +910,7 @@
         </xsd:annotation>
         <xsd:sequence>
             <xsd:element name="schedule"      type="tns:ScheduleType" />
-            <xsd:element name="serviceType"   type="xsd:string" minOccurs="0" />
+            <xsd:element name="serviceType"   type="xsd:string" />
             <xsd:element name="children"      type="tns:ChildSummaryListType" minOccurs="0" />
             <xsd:any     namespace="##other"  processContents="lax" minOccurs="0" maxOccurs="unbounded" />            
         </xsd:sequence>
@@ -949,9 +953,11 @@
                 
                 serviceType - The specific service type of this reservation. 
                 This service type string maps into the list of supported service
-                descriptions defined by the network providers, and in turn, to
-                the specific service elements carried in the serviceAttributes
-                element required to specify the requested service.  
+                definitions defined by the network providers.  In turn, the
+                service type specifies the specific service elements carried in
+                in an instance of this type (through the ANY definition) that
+                are associated with the requested service.  This element is
+                mandatory.
 
                 any - Provides a flexible mechanism allowing additional elements 
                 to be provided such as the service specific attributes specified 
@@ -1044,9 +1050,11 @@
                 
                 serviceType - The specific service type of this reservation. 
                 This service type string maps into the list of supported service
-                descriptions defined by the network providers, and in turn, to
-                the specific service elements carried in the serviceAttributes
-                element required to specify the requested service.  
+                definitions defined by the network providers.  In turn, the
+                service type specifies the specific service elements carried in
+                in an instance of this type (through the ANY definition) that
+                are associated with the requested service.  This element is
+                mandatory.
                 
                 children - If this connection reservation is aggregating child
                 connections then this element contains detailed information
@@ -1074,7 +1082,7 @@
         </xsd:annotation>
         <xsd:sequence>
             <xsd:element  name="schedule"     type="tns:ScheduleType" />
-            <xsd:element  name="serviceType"  type="xsd:string" minOccurs="0" />
+            <xsd:element  name="serviceType"  type="xsd:string" />
             <xsd:element  name="children"     type="tns:ChildRecursiveListType" minOccurs="0" />
             <xsd:any      namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
