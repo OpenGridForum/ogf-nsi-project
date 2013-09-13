@@ -223,8 +223,8 @@ This document is the SOAP endpoint definition for a requester NSA and holds defi
         
         <wsdl:operation name="error">
             <wsdl:documentation>
-                This error message is sent from a Provider NSA to Requester
-                NSA as an indication of the occurance of an error condition.
+                The error message is sent from a Provider NSA to Requester
+                NSA as an indication of the occurence of an error condition.
                 This  is in response to an original request from the associated
                 Requester NSA.
             </wsdl:documentation>
