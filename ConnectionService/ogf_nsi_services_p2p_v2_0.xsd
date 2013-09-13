@@ -67,7 +67,7 @@
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 Type defining a generic point-to-point service specification.
-                At the moment this type supports a unidirectional or symmetric
+                At the moment this type supports a unidirectional or
                 bidirectional service.
                 
                 Elements:

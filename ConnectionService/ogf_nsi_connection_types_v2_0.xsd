@@ -535,8 +535,8 @@
                 
                 Elements:
                 
-                serviceException - Specific error condition - the reason for the
-                failure.
+                serviceException - Specific error condition indicating the
+                reason for the failure.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
@@ -765,6 +765,8 @@
                 Elements:
                 
                 schedule - Time parameters specifying the life of the service.
+                If not present then the service to start immediately and run
+                for an infinite time.
                 
                 serviceType - Specific service type being requested in the
                 reservation.  This service type string maps into the list
@@ -812,8 +814,10 @@
     <xsd:complexType name="ReservationConfirmCriteriaType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                Type definition for reservation confirmation information.
-                Includes the reservation version id.
+                A type definition for the reservation confirmation information
+                used by PA to return reservation information to an RA.
+                Includes the reservation version id to track version of the
+                reservation criteria.
                 
                 Elements:
                 
@@ -823,9 +827,8 @@
                 This service type string maps into the list of supported service
                 definitions defined by the network providers.  In turn, the
                 service type specifies the specific service elements carried in
-                in an instance of this type (through the ANY definition) that
-                are associated with the requested service.  This element is
-                mandatory.
+                an instance of this type (through the ANY definition) that
+                are associated with the requested service.
                 
                 any - Provides a flexible mechanism allowing additional elements 
                 to be provided such as the service specific attributes specified 
@@ -912,7 +915,7 @@
                 This service type string maps into the list of supported service
                 definitions defined by the network providers.  In turn, the
                 service type specifies the specific service elements carried in
-                in an instance of this type (through the ANY definition) that
+                an instance of this type (through the ANY definition) that
                 are associated with the requested service.  This element is
                 mandatory.
 
@@ -951,7 +954,7 @@
     <xsd:complexType name="ChildSummaryListType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                A holder element containing a list of children NSA and their
+                A holder element containing a list of child NSA and their
                 associated connection information. 
                 
                 Elements:
@@ -1072,19 +1075,11 @@
                 schedule - Time parameters specifying the life of the service.
                 
                 serviceType - The specific service type of this reservation. 
-                This service type string maps into the list of supported
-                service descriptions defined by the network providers, and in
-                turn, to the specific service elements carried in the
-                serviceAttributes element required to specify the requested
-                service.  
-                
-                serviceType - The specific service type of this reservation. 
                 This service type string maps into the list of supported service
                 definitions defined by the network providers.  In turn, the
                 service type specifies the specific service elements carried in
-                in an instance of this type (through the ANY definition) that
-                are associated with the requested service.  This element is
-                mandatory.
+                an instance of this type (through the ANY definition) that
+                are associated with the requested service.
                 
                 children - If this connection reservation is aggregating child
                 connections then this element contains detailed information
