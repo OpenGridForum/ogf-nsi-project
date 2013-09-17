@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- A service description must have a unique identifier within the network
-    sourcing the description. -->
-<sd:serviceDescription id="urn:ogf:network:netherlight.net:2012:service:EVTS.A-GOLE"
-    xmlns:sd="http://schemas.ogf.org/nsi/2013/07/services/description"
+<!-- A service definition must have a unique identifier within the network
+    sourcing the definition. -->
+<sd:serviceDefinition id="urn:ogf:network:netherlight.net:2012:service:EVTS.A-GOLE"
+    xmlns:sd="http://schemas.ogf.org/nsi/2013/07/services/definition"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://schemas.ogf.org/nsi/2013/07/services/description file:ogf_nsi_services_description_v2_0.xsd">
+    xsi:schemaLocation="http://schemas.ogf.org/nsi/2013/07/services/definition file:ogf_nsi_services_definition_v2_0.xsd">
     
     <!-- A comment describes the basic service offered in this service
-        description.  Any differences from the global service description
+        definition.  Any differences from the global service definition
         should be identified here. -->
     <comment>
         This is the Common Service Definition file that defines all parameters
         associated with the Ethernet Framed Transport Service as defined for
         the Automated GOLE network.
         
-        In this example service description document we define the Automated
+        In this example service definition document we define the Automated
         GOLE Ethernet VLAN Transport Service based on IEEE 802.1Q Trunking.
         In this service, all ports are considered E-NNI trunks, and there is
         no concept of a client UNI.
     </comment>
 
     <!-- This is the standard service type as defined in the associated global
-        service description. We allocate a standard namespace for each template
+        service definition. We allocate a standard namespace for each template
         so they are globally unique. -->
-    <serviceType>http://services.ogf.org/nsi/2013/07/descriptions/EVTS.A-GOLE</serviceType>
+    <serviceType>http://services.ogf.org/nsi/2013/07/definitions/EVTS.A-GOLE</serviceType>
     
     <!-- This is the schema elements specified in a reservation.  There can be
          multiple schema entries here for services if they require multiple
@@ -222,7 +222,7 @@
          annotating support hours would be useful as well.
      -->  
     <attribute name="monitored"
-        namespace="http://services.ogf.org/nsi/2013/07/descriptions/EVTS.A-GOLE">
+        namespace="http://services.ogf.org/nsi/2013/07/definitions/EVTS.A-GOLE">
         <comment> Indicates this service is monitored. </comment>
     </attribute>
     
@@ -230,7 +230,7 @@
         calcualted by (endTime - startTime).  Would this be considered policy?
     -->
     <attribute name="duration" units="seconds"
-        namespace="http://services.ogf.org/nsi/2013/07/descriptions/ETS.A-GOLE">
+        namespace="http://services.ogf.org/nsi/2013/07/definitions/ETS.A-GOLE">
         <comment>
             Indicates this service must not be shorter than 300 seconds nor
             longer that 18000 seconds.
@@ -288,4 +288,4 @@
             requested directionality.
         </comment>
     </error>
-</sd:serviceDescription>
+</sd:serviceDefinition>
