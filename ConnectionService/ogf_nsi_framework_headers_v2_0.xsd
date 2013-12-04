@@ -16,11 +16,8 @@ Open Grid Forum NSI Connection Services Protocol v2.0
 
 Description: This is the ftypes schema for the reference web services implementation of the OGF NSI Connection Services Protocol v2.0. Comments and questions can be directed to the mailing list group mailing list (nsi-wg@ogf.org).
 -->
-<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/07/framework/headers"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    xmlns:ftypes="http://schemas.ogf.org/nsi/2013/07/framework/types"
-    xmlns:tns="http://schemas.ogf.org/nsi/2013/07/framework/headers">
+<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/07/framework/headers" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+    xmlns:ftypes="http://schemas.ogf.org/nsi/2013/07/framework/types" xmlns:tns="http://schemas.ogf.org/nsi/2013/07/framework/headers">
 
     <xsd:annotation>
         <xsd:documentation xml:lang="en">
@@ -30,18 +27,16 @@ Description: This is the ftypes schema for the reference web services implementa
 
     <!-- Import SAML attribute definitions for our security attributes.  This
          is a local import of:  http://docs.oasis-open.org/security/saml/v2.0/saml-schema-assertion-2.0.xsd -->
-    <xsd:import namespace="urn:oasis:names:tc:SAML:2.0:assertion"
-                            schemaLocation="saml-schema-assertion-2.0.xsd"/>
-    
+    <xsd:import namespace="urn:oasis:names:tc:SAML:2.0:assertion" schemaLocation="saml-schema-assertion-2.0.xsd"/>
+
     <!-- Import the common NSI framework ftypes. -->
-    <xsd:import namespace="http://schemas.ogf.org/nsi/2013/07/framework/types"
-        schemaLocation="ogf_nsi_framework_types_v2_0.xsd"/>
+    <xsd:import namespace="http://schemas.ogf.org/nsi/2013/07/framework/types" schemaLocation="ogf_nsi_framework_types_v2_0.xsd"/>
 
     <!-- ******************************************************************
         *                  NSI protocol header                           *
         ****************************************************************** -->
-    <xsd:element name="nsiHeader" type="tns:CommonHeaderType" />
-    
+    <xsd:element name="nsiHeader" type="tns:CommonHeaderType"/>
+
     <xsd:complexType name="CommonHeaderType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
@@ -112,14 +107,27 @@ Description: This is the ftypes schema for the reference web services implementa
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="protocolVersion"     type="xsd:string" />
-            <xsd:element name="correlationId"       type="ftypes:UuidType" />
-            <xsd:element name="requesterNSA"        type="ftypes:NsaIdType" />
-            <xsd:element name="providerNSA"         type="ftypes:NsaIdType" />
-            <xsd:element name="replyTo"             type="xsd:anyURI" minOccurs="0" />
-            <xsd:element name="sessionSecurityAttr" type="saml:AttributeStatementType" minOccurs="0" />
-            <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="protocolVersion" type="xsd:string"/>
+            <xsd:element name="correlationId" type="ftypes:UuidType"/>
+            <xsd:element name="requesterNSA" type="ftypes:NsaIdType"/>
+            <xsd:element name="providerNSA" type="ftypes:NsaIdType"/>
+            <xsd:element name="replyTo" type="xsd:anyURI" minOccurs="0"/>
+            <xsd:element name="sessionSecurityAttr" type="tns:SessionSecurityAttrType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
-        <xsd:anyAttribute namespace="##other" processContents="lax" />
+        <xsd:anyAttribute namespace="##other" processContents="lax"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="SessionSecurityAttrType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="saml:AttributeStatementType">
+                <xsd:attribute name="type" type="xsd:string" use="optional"/>
+                <xsd:attribute name="name" type="xsd:string" use="optional"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 </xsd:schema>
