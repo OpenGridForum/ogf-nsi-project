@@ -73,9 +73,10 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
+            <xsd:element name="name"     type="xsd:string" minOccurs="0" />
             <xsd:element name="comment"     type="xsd:string" minOccurs="0" />
-            <xsd:element name="serviceType" type="xsd:string" />
-            <xsd:element name="schema"      type="tns:SchemaType" minOccurs="1" maxOccurs="unbounded" />
+            <xsd:element name="serviceType" type="xsd:string" minOccurs="0" />
+            <xsd:element name="schema"      type="tns:SchemaType" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="attribute"   type="tns:AttributeType" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="error"       type="tns:ErrorType" minOccurs="0" maxOccurs="unbounded" />
             <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
