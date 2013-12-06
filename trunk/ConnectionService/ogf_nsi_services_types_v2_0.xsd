@@ -14,10 +14,10 @@ The limited permissions granted above are perpetual and will not be revoked by t
 
 Open Grid Forum NSI Connection Services Protocol v2.0 - Service specific type schema.
 -->
-<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/07/services/types"
+<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/12/services/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:tns="http://schemas.ogf.org/nsi/2013/07/services/types">
-
+    xmlns:tns="http://schemas.ogf.org/nsi/2013/12/services/types">
+    
     <xsd:annotation>
         <xsd:documentation xml:lang="en">
             This is an XML schema document describing the OGF NSI service
@@ -43,13 +43,13 @@ Open Grid Forum NSI Connection Services Protocol v2.0 - Service specific type sc
             </xsd:documentation>
         </xsd:annotation>        
     </xsd:element>
-
+    
     <!-- Type definitions for services types. -->
     <xsd:complexType name="StpType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 The Service Termination Point (STP) type used for path selection.
-                 
+                
                 Elements:
                 
                 networkId - A globally unique identifier (URN) that identifies the
@@ -58,24 +58,13 @@ Open Grid Forum NSI Connection Services Protocol v2.0 - Service specific type sc
                 intermediate NSA to forward the message to the target Network
                 without needing to know about the STPs within that domain.
                 
-                localId - A locally unique identifier for the STP within the
-                associated network.
-                
-                labels - Technology specific attribute associated with the
-                Service Termination Point.
-                
-                labelGroup - Technology specific attributes associated with
-                the Service Termination Point.  Used to specify a range of
-                values instead of the label that provides a specific value.
+                stpId - A unique identifier for the STP within the associated
+                network.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="networkId"   type="xsd:string" />
-            <xsd:element name="localId"     type="xsd:string" />
-            <xsd:choice minOccurs="0">
-                <xsd:element name="label"       type="tns:TypeValueType" />
-                <xsd:element name="labelGroup"  type="tns:TypeValueType" maxOccurs="unbounded" />
-            </xsd:choice>
+            <xsd:element name="networkId"  type="xsd:string" />
+            <xsd:element name="stpId"     type="xsd:string" />
         </xsd:sequence>
     </xsd:complexType>
     
@@ -85,9 +74,9 @@ Open Grid Forum NSI Connection Services Protocol v2.0 - Service specific type sc
                 A simple ordered list type of Service Termination Point (STP). List
                 order is determined by the integer order attribute in the orderedSTP
                 element.
-    
+                
                 Elements:
-    
+                
                 orderedSTP - A list of STP ordered 0..n by their integer order attribute.
             </xsd:documentation>
         </xsd:annotation>
@@ -95,20 +84,20 @@ Open Grid Forum NSI Connection Services Protocol v2.0 - Service specific type sc
             <xsd:element name="orderedSTP" type="tns:OrderedStpType" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
     </xsd:complexType>
-
+    
     <xsd:complexType name="OrderedStpType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 A Service Termination Point (STP) that can be ordered in a list for
                 use in PathObject definition.
-    
+                
                 Attributes:
-    
+                
                 order - Order attribute is provided only when the STP is part of an
                 orderedStpList.
-    
+                
                 Elements:
-    
+                
                 stp - The Service Termination Point (STP).
             </xsd:documentation>
         </xsd:annotation>

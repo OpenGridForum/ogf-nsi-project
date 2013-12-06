@@ -14,9 +14,9 @@ The limited permissions granted above are perpetual and will not be revoked by t
 
 Open Grid Forum NSI Framework v2.0 - NSI framework common types schema.
 -->
-<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/07/framework/types"
+<xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2013/12/framework/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:tns="http://schemas.ogf.org/nsi/2013/07/framework/types">
+    xmlns:tns="http://schemas.ogf.org/nsi/2013/12/framework/types">
 
     <xsd:annotation>
         <xsd:documentation xml:lang="en">
