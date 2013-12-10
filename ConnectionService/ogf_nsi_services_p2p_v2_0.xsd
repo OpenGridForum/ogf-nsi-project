@@ -92,6 +92,8 @@
                 allowing for specification of parameters in the Service
                 Definition that are not defined directly in the service
                 specific schema.
+                
+                ##other - For future expansion and extensibility.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
