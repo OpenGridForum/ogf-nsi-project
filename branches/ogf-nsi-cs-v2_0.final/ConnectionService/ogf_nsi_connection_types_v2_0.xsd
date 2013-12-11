@@ -6,7 +6,7 @@
 
     This document and the information contained herein is provided on an "As Is" basis and the OGF disclaims all warranties, express or implied, including but not limited to any warranty that the use of the information herein will not infringe any rights or any implied warranties of merchantability or fitness for a particular purpose.
 
-    Copyright (C) Open Grid Forum (2009-2012). All Rights Reserved.
+    Copyright (C) Open Grid Forum (2009-2014). All Rights Reserved.
 
     This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to the OGF or other organizations, except as needed for the purpose of developing Grid Recommendations in which case the procedures for copyrights defined in the OGF Document process must be followed, or as required to translate it into languages other than English.
 
@@ -94,7 +94,7 @@
             connectionId will be returned.  This is a synchronous blocking
             operation.           
             
-            In addition, there are four notification primatives:
+            In addition, there are four notification primitives:
             
             1. errorEvent - An autonomous message issued from a Provider NSA to
             a Requester NSA when an existing reservation encounters an
@@ -106,7 +106,7 @@
             and uncommitted resources have been freed.
             
             3. dataPlaneStateChange - An autonomous message issued from a Provider
-            NSA to a Requester NSA when a data plane state change event has occured
+            NSA to a Requester NSA when a data plane state change event has occurred
             within the network.
             
             4. messageDeliveryTimeout - Notification message for a message
@@ -355,7 +355,7 @@
                 (both synchronous and asynchronous versions). An NSA sends this
                 positive querySummaryRequest response to the NSA that issued the
                 original request message.  There can be zero or more results
-                retuned in this confirmed message depending on the number of
+                returned in this confirmed message depending on the number of
                 matching reservation results.
 
                 Elements:
@@ -837,7 +837,7 @@
                 reservation request, the new reservation will default to one
                 for the first version, however, an initial request can specify
                 any positive integer except zero.  Each further reservation request
-                on an exisitng reservation (a modify operation), will be assigned a
+                on an existing reservation (a modify operation), will be assigned a
                 linear increasing number, either specified by the RA, or
                 assigned by the PA if not specified.
                 
@@ -876,21 +876,30 @@
                 an instance of this type (through the ANY definition) that
                 are associated with the requested service.
                 
-                any - Provides a flexible mechanism allowing additional elements 
-                to be provided such as the service specific attributes specified 
-                by serviceType.  Additional use of this element field is beyond 
-                the current scope of this NSI specification, but may be used in 
-                the future to extend the existing protocol without requiring a 
-                schema change. 
+                any - Provides a flexible mechanism allowing additional elements
+
+                to be provided such as the service specific attributes specified
+
+                by serviceType.  Additional use of this element field is beyond
+
+                the current scope of this NSI specification, but may be used in
+
+                the future to extend the existing protocol without requiring a
+
+                schema change.
+
                 
                 Attributes:
                 
                 version - Version of the reservation instance.
                 
-                anyAttribute - Provides a flexible mechanism allowing additional 
-                attributes to be provided as needed.  Use of this attribute field 
+                anyAttribute - Provides a flexible mechanism allowing additional
+
+                attributes to be provided as needed.  Use of this attribute field
+
                 is beyond the current scope of this NSI specification, but may be
-                used in the future to extend the existing protocol without 
+                used in the future to extend the existing protocol without
+
                 requiring a schema change.
             </xsd:documentation>
         </xsd:annotation>
@@ -975,21 +984,30 @@
                 connections then this element contains basic summary
                 information about the child connection segment.
 
-                any - Provides a flexible mechanism allowing additional elements 
-                to be provided such as the service specific attributes specified 
-                by serviceType.  Additional use of this element field is beyond 
-                the current scope of this NSI specification, but may be used in 
-                the future to extend the existing protocol without requiring a 
-                schema change. 
+                any - Provides a flexible mechanism allowing additional elements
+
+                to be provided such as the service specific attributes specified
+
+                by serviceType.  Additional use of this element field is beyond
+
+                the current scope of this NSI specification, but may be used in
+
+                the future to extend the existing protocol without requiring a
+
+                schema change.
+
 
                 Attributes:
                 
                 version - Version of the reservation instance.
                 
-                anyAttribute - Provides a flexible mechanism allowing additional 
-                attributes to be provided as needed.  Use of this attribute field 
+                anyAttribute - Provides a flexible mechanism allowing additional
+
+                attributes to be provided as needed.  Use of this attribute field
+
                 is beyond the current scope of this NSI specification, but may be
-                used in the future to extend the existing protocol without 
+                used in the future to extend the existing protocol without
+
                 requiring a schema change.
             </xsd:documentation>
         </xsd:annotation>
@@ -1044,21 +1062,30 @@
                 is associated with the requested service.  This element is
                 mandatory.
 
-                any - Provides a flexible mechanism allowing additional elements 
-                to be provided such as the service specific attributes specified 
-                by serviceType.  Additional use of this element field is beyond 
-                the current scope of this NSI specification, but may be used in 
-                the future to extend the existing protocol without requiring a 
-                schema change. 
+                any - Provides a flexible mechanism allowing additional elements
+
+                to be provided such as the service specific attributes specified
+
+                by serviceType.  Additional use of this element field is beyond
+
+                the current scope of this NSI specification, but may be used in
+
+                the future to extend the existing protocol without requiring a
+
+                schema change.
+
                 
                 Attributes:
                 
                 order - Specification of ordered path elements.
                 
-                anyAttribute - Provides a flexible mechanism allowing additional 
-                attributes to be provided as needed.  Use of this attribute field 
+                anyAttribute - Provides a flexible mechanism allowing additional
+
+                attributes to be provided as needed.  Use of this attribute field
+
                 is beyond the current scope of this NSI specification, but may be
-                used in the future to extend the existing protocol without 
+                used in the future to extend the existing protocol without
+
                 requiring a schema change.
             </xsd:documentation>
         </xsd:annotation>
@@ -1145,21 +1172,30 @@
                 include is left up to the individual NSA and their
                 authorization policies.
 
-                any - Provides a flexible mechanism allowing additional elements 
-                to be provided such as the service specific attributes specified 
-                by serviceType.  Additional use of this element field is beyond 
-                the current scope of this NSI specification, but may be used in 
-                the future to extend the existing protocol without requiring a 
-                schema change. 
+                any - Provides a flexible mechanism allowing additional elements
+
+                to be provided such as the service specific attributes specified
+
+                by serviceType.  Additional use of this element field is beyond
+
+                the current scope of this NSI specification, but may be used in
+
+                the future to extend the existing protocol without requiring a
+
+                schema change.
+
 
                 Attributes:
                 
                 version - Version of the reservation instance.
                 
-                anyAttribute - Provides a flexible mechanism allowing additional 
-                attributes to be provided as needed.  Use of this attribute field 
+                anyAttribute - Provides a flexible mechanism allowing additional
+
+                attributes to be provided as needed.  Use of this attribute field
+
                 is beyond the current scope of this NSI specification, but may be
-                used in the future to extend the existing protocol without 
+                used in the future to extend the existing protocol without
+
                 requiring a schema change.
             </xsd:documentation>
         </xsd:annotation>
@@ -1195,10 +1231,13 @@
     <xsd:complexType name="ChildRecursiveType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                This type is used to model a connection reservation's detailed 
-                path information.  The structure is recursive so it is 
+                This type is used to model a connection reservation's detailed
+
+                path information.  The structure is recursive so it is
+
                 possible to model both an ordered list of connection segments,
-                as well as the hierarchical connection segments created on 
+                as well as the hierarchical connection segments created on
+
                 child NSA in either a tree and chain configuration.
                 
                 Attributes:
@@ -1289,7 +1328,7 @@
     <xsd:complexType name="ScheduleType">
       <xsd:annotation>
          <xsd:documentation xml:lang="en">
-             A type definition modeling the reservation schedule start and end
+             A type definition modelling the reservation schedule start and end
              time parameters.
 
             Elements:
@@ -1344,12 +1383,12 @@
 
                 Elements:
                 
-                active - True if the dataplane is active.  For an aggregator,
+                active - True if the data plane is active.  For an aggregator,
                 this flag is true when data plane is activated in all
                 participating children.
                 
                 version - Version of the connection reservation this entry is
-                modeling.
+                modelling.
                 
                 versionConsistent - Always true for uPA. For an aggregator,
                 if version numbers of all children are the same. This flag is
@@ -1439,7 +1478,7 @@
                 of the first reservation request this state represents the
                 initial reservation shell has been committed to database.
                 
-                ReserveChecking – A transient state modeling the act of checking
+                ReserveChecking – A transient state modelling the act of checking
                 the feasibility of a new reservation request, or a request to
                 modify an existing reservation.
                 
@@ -1447,7 +1486,7 @@
                 in which the initial reservation or a subsequent modification
                 request has failed.
                 
-                ReserveAborting - A transient state modeling the act of aborting a
+                ReserveAborting - A transient state modelling the act of aborting a
                 pending reservation modify request.
                 
                 ReserveHeld - A steady state for the reservation state machine in
@@ -1455,7 +1494,7 @@
                 has successfully had the request resources reserved, but has not
                 yet been committed.
                 
-                ReserveCommitting - A transient state modeling the act of committing
+                ReserveCommitting - A transient state modelling the act of committing
                 a held set of reservation resources.
                 
                 ReserveTimeout - A steady state for the reservation state machine in
@@ -1477,7 +1516,7 @@
     <xsd:simpleType name="ProvisionStateEnumType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                Connection provisioning state values for modeling the connection
+                Connection provisioning state values for modelling the connection
                 services provision state machine.
                 
                 The Provision State Machine (PSM) is a simple state machine that
@@ -1496,7 +1535,7 @@
                 plane resources for this reservation are in a released state, resulting
                 in an inactive data plane.
                 
-                Provisioning - A transient state modeling the act of provisioning the
+                Provisioning - A transient state modelling the act of provisioning the
                 reservation’s associated data plane resources.
                 
                 Provisioned - A steady state for the provision state machine in which
@@ -1505,7 +1544,7 @@
                 does indicate that a uPA can active the data plane resources if
                 current_time is between startTime and endTime.
                 
-                Releasing - A transient state modeling the act of releasing the
+                Releasing - A transient state modelling the act of releasing the
                 reservation’s associated data plane resources.
             </xsd:documentation>
         </xsd:annotation>
@@ -1532,7 +1571,7 @@
                 
                 PassedEndTime - The reservation has exceeded scheduled end time.
                 
-                Terminating - A transient state modeling the act of terminating
+                Terminating - A transient state modelling the act of terminating
                 the reservation.
                 
                 Terminated - A steady state for the lifecycle state machine that
