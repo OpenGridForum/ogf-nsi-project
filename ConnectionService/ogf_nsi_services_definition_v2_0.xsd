@@ -6,7 +6,7 @@
     
     This document and the information contained herein is provided on an "As Is" basis and the OGF disclaims all warranties, express or implied, including but not limited to any warranty that the use of the information herein will not infringe any rights or any implied warranties of merchantability or fitness for a particular purpose.
     
-    Copyright (C) Open Grid Forum (2009-2012). All Rights Reserved.
+    Copyright (C) Open Grid Forum (2009-2014). All Rights Reserved.
     
     This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to the OGF or other organizations, except as needed for the purpose of developing Grid Recommendations in which case the procedures for copyrights defined in the OGF Document process must be followed, or as required to translate it into languages other than English.
     
@@ -146,7 +146,7 @@
                 required - Is this element required in the reserve criteria or
                 is it optional.
                 
-                namespace - The qualified namesapce of the XML schema defining
+                namespace - The qualified namespace of the XML schema defining
                 the element.
                 
                 type - The XML schema type of the element.
@@ -183,14 +183,14 @@
                 name - The name of the parameter within the XML schema for the
                 service.
                 
-                units - (Optinal) The unit of measurement for this parameter.
+                units - (Optional) The unit of measurement for this parameter.
                 
                 required - Indicates if the parameter is mandatory or optional.
                 
                 modifiable - Indicates if this parameter be modified after the
                 initial reservation has been created.
                 
-                namespace - The qualified namesapce of the XML schema defining
+                namespace - The qualified namespace of the XML schema defining
                 the parameter.
                 
                 type - The fully qualified XML schema type of the parameter.
@@ -239,9 +239,9 @@
                 
                 name - The name of the attribute within the service definition.
                 
-                units - (Optinal) The unit of measurement for this attribute.
+                units - (Optional) The unit of measurement for this attribute.
                 
-                namespace - The qualified namesapce of the XML schema defining
+                namespace - The qualified namespace of the XML schema defining
                 the attribute.  Will typically be the namespace of the service
                 specific definition.
                 
