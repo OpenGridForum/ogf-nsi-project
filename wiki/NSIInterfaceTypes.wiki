@@ -1,7 +1,5 @@
 #summary Handy overview of the services types.
 
-=== Handy overview of the services types. ===
-
 || application/vnd.ogf.nsi.discovery.v1+xml        || Not sure about this. Is this the current discovery service from nsi-imp? ||
 || application/vnd.ogf.nsi.cs.v2.provider+soap     || NSI CSv2 Provider     ||
 || application/vnd.ogf.nsi.cs.v2.requester+soap    || NSI CSv2 Requester    ||
