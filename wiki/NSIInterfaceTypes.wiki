@@ -1,4 +1,4 @@
-# Handy overview of the services types.
+#summary Handy overview of the services types.
 
 === Handy overview of the services types. ===
 
