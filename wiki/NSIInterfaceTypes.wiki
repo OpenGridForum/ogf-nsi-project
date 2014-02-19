@@ -3,6 +3,6 @@
 || application/vnd.ogf.nsi.discovery.v1+xml        || Not sure about this. Is this the current discovery service from nsi-imp? ||
 || application/vnd.ogf.nsi.cs.v2.provider+soap     || NSI CSv2 Provider     ||
 || application/vnd.ogf.nsi.cs.v2.requester+soap    || NSI CSv2 Requester    ||
-|| application/vnd.ogf.nsi.topology.v0+xml         || Old NSI topology. DEPRECATED. ||
-|| application/vnd.ogf.nsi.topology.v1+xml         || NSI:nsa document with nml:Topology nested in it (wsdl r99 style). DEPRECATED. ||
+|| application/vnd.ogf.nsi.topology.v0+xml         || Old NSI topology. *DEPRECATED*. ||
+|| application/vnd.ogf.nsi.topology.v1+xml         || NSI:nsa document with nml:Topology nested in it (wsdl r99 style). *DEPRECATED*. ||
 || application/vnd.ogf.nsi.topology.v2+xml         || NML document (nml:Toplogy element at the top). Current mechanism for NSI CSv2. ||
