@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:documents xmlns:tns="http://schemas.ogf.org/nsi/2014/02/discovery/types"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://schemas.ogf.org/nsi/2014/02/discovery/types file:ogf_nsi_discovery_protocol_v1_0.xsd">
+    <tns:document id="urn:ogf:network:example.com:2013:network:candycaneforest" version="2014-02-10T22:20:58Z" expires="2014-02-11T22:20:58Z">
+        <nsa>urn:ogf:network:example.com:2013:nsa:vixen</nsa>
+        <type>application/vnd.ogf.nsi.topology.v2+xml</type>
+        <content>
+            <Topology xmlns="http://schemas.ogf.org/nml/2013/05/base#"
+                id="urn:ogf:network:example.com:2013:network:candycaneforest">
+                <name>Candy Cane Forest backbone</name>
+            </Topology>
+        </content>
+    </tns:document>
+    <tns:document id="urn:ogf:network:example.com:2013:network:lincolntunnel" version="2014-02-10T22:15:10Z" expires="2014-02-11T22:15:10Z">
+        <nsa>urn:ogf:network:example.com:2013:nsa:prancer</nsa>
+        <type>application/vnd.ogf.nsi.topology.v2+xml</type>
+        <content>
+            <Topology xmlns="http://schemas.ogf.org/nml/2013/05/base#"
+                id="urn:ogf:network:example.com:2013:network:lincolntunnel">
+                <name>Lincoln Tunnel Testbed</name>
+            </Topology>
+        </content>
+    </tns:document>
+</tns:documents>

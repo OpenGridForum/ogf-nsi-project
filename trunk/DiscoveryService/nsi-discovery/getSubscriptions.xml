@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:subscriptions xmlns:tns="http://schemas.ogf.org/nsi/2014/02/discovery/types"
+        xmlns:sig="http://www.w3.org/2000/09/xmldsig#"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://schemas.ogf.org/nsi/2014/02/discovery/types file:ogf_nsi_discovery_protocol_v1_0.xsd">
+    <tns:subscription id="9e223d413578" href="/discovery/subscriptions/9e223d413578" version="2014-02-11T22:20:58Z">
+        <requesterId>urn:ogf:network:example.com:2013:nsa:dasher</requesterId>
+        <callback>http://dasher.example.com/discovery/callback</callback>
+        <filter>
+            <include>
+                <event>All</event>
+            </include>
+        </filter>
+    </tns:subscription>
+</tns:subscriptions>
