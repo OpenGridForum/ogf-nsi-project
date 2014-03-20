@@ -27,22 +27,21 @@
             <xcard:email><xcard:text>santa.claus@theworkshop.example.com</xcard:text></xcard:email>
         </xcard:vcard>
     </adminContact>
-    <kml:kml xmlns="http://www.opengis.net/kml/2.2">
-        <Document>
-            <Placemark>
-                <name>Santa's Workshop</name>
-                <address>The North Pole</address>
-                <description>Location of NSA Vixen</description>
-                <Model>
-                    <Location>
-                        <longitude>0.0000</longitude>
-                        <latitude>90.0000</latitude>
-                        <altitude>10</altitude>
-                    </Location>
-                </Model>
-            </Placemark>
-        </Document>
-    </kml:kml>
+    <location>
+        <name>Santa's Workshop</name>
+        <longitude>0.0000</longitude>
+        <latitude>90.0000</latitude>
+        <altitude>10</altitude>       
+        <address>
+            <xcard:pobox></xcard:pobox>
+            <xcard:ext></xcard:ext>
+            <xcard:street>1 Top of the world boulevard</xcard:street>
+            <xcard:locality>Polar Ice Flows</xcard:locality>
+            <xcard:region>The North Pole</xcard:region>
+            <xcard:code>CA</xcard:code>
+            <xcard:country>Canada</xcard:country>
+        </address>
+    </location>
     <networkId>urn:ogf:network:example.com:2013:network:theworkshop</networkId>
     <networkId>urn:ogf:network:example.com:2013:network:candycaneforest</networkId>
     <interface>
