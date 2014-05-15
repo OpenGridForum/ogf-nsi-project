@@ -1,5 +1,10 @@
 #summary Living list of NSI error codes for standardization.
 
+= DEPRECATED = 
+
+== Consult the NSI specification draft until someone gets around to updating this page ==
+
+
 = Introduction =
 
 The NSI ServiceException structure is designed to return detailed error information in the event of an operation failure.  This structure can be returned as a SOAP fault in response to the initial request message, or in the message contents of the operation's Failed response.
