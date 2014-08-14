@@ -48,7 +48,6 @@ Comments and questions can be directed to the mailing list group mailing list
 <xsd:schema targetNamespace="http://schemas.ogf.org/nsi/2014/02/discovery/types"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:tns="http://schemas.ogf.org/nsi/2014/02/discovery/types"
-    xmlns:sig="http://www.w3.org/2000/09/xmldsig#"
     version="1.0">
     
     <xsd:annotation>
@@ -58,9 +57,6 @@ Comments and questions can be directed to the mailing list group mailing list
             Service Protocol v1.0.
         </xsd:documentation>
     </xsd:annotation>
-    
-    <!-- Import additional standard name spaces. -->
-    <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
 
     <!-- Collection for root resource definition. -->
     <xsd:element name="collection" type="tns:CollectionType">
@@ -1036,17 +1032,18 @@ Comments and questions can be directed to the mailing list group mailing list
         <xsd:sequence>
             <xsd:element name="nsa"       type="xsd:anyURI" />
             <xsd:element name="type"      type="xsd:string" />
-            <xsd:element name="signature" type="tns:HolderType" minOccurs="0" />
-            <xsd:element name="content"   type="tns:HolderType" minOccurs="0" />
+            <xsd:element name="signature" type="tns:AnyType" minOccurs="0" />
+            <xsd:element name="content"   type="tns:AnyType" minOccurs="0" />
             <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
         <xsd:attribute name="id" use="required" type="xsd:string" />
+        <xsd:attribute name="href" use="optional" type="xsd:anyURI" />
         <xsd:attribute name="version" use="required" type="xsd:dateTime" />
         <xsd:attribute name="expires" use="required" type="xsd:dateTime" />
         <xsd:anyAttribute namespace="##other" processContents="lax" />
     </xsd:complexType>
     
-    <xsd:complexType name="HolderType">
+    <xsd:complexType name="AnyType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
                 This type is used to hold a document or signature within the
