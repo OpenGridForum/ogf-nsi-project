@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tns:nsa xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xcard="urn:ietf:params:xml:ns:vcard-4.0"
-  xmlns:kml="http://www.opengis.net/kml/2.2"
   xmlns:tns="http://schemas.ogf.org/nsi/2014/02/discovery/nsa"
   xsi:schemaLocation="http://schemas.ogf.org/nsi/2014/02/discovery/nsa file:ogf_nsi_discovery_nsa_v1_0.xsd"
   
