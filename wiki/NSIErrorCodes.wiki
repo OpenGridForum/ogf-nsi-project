@@ -1,17 +1,16 @@
 #summary Living list of NSI error codes for standardization.
 
-= DEPRECATED = 
-
-== Consult the NSI specification draft until someone gets around to updating this page ==
-
-
 = Introduction =
 
-The NSI ServiceException structure is designed to return detailed error information in the event of an operation failure.  This structure can be returned as a SOAP fault in response to the initial request message, or in the message contents of the operation's Failed response.
+The NSI CS protocol commonly utilizes the ServiceExceptionType structure to convey error information associated with SOAP faults, failed messages, and error messages. The structure is extremely flexible and able to handle both simple high-level error information, as well as detailed errors down to the individual attribute value causing a problem.
 
 The following elements are defined as members of the ServiceException:
 
  * nsaId - NSA that generated the service exception.
+
+ * connectionId - The connectionId associated with the reservation impacted by this error.
+
+ * serviceType - The service type identifying the applicable service definition within the context of the NSA generating the error.
 
  * errorId - Error identifier uniquely identifying each known fault within the protocol.
 
@@ -23,7 +22,7 @@ The following elements are defined as members of the ServiceException:
 
 = Error Codes =
 
-NSI uses a hierarchal error code structure to group related error codes together under a common parent error code value.  For example, the following table demonstrates the generic SECURITY_ERROR parent code and two more specific children security related error codes.
+The NSI CS protocol uses a hierarchal error code structure to group related error codes together under a common parent error code value. A service-specific parent error code SERVICE_ERROR(00700) has been defined for use by individual service specification. As new services are offered, and existing ones modified, these service-specific errors can be modified as needed with no impact on the core NSI CS protocol.
 
 || text || errorId ||
 || SECURITY_ERROR || 00300 ||
@@ -50,12 +49,17 @@ The following are a list of standardized error codes to be supported within Serv
 || AUTHENTICATION_FAILURE || 00301 ||  || ||
 || UNAUTHORIZED || 00302 || || ||
 || TOPOLOGY_ERROR || 00400 || || ||
-|| UNKNOWN_STP || 00401 || Could not find STP in topology database. || Include the unknown STP. ||
-|| STP_RESOLUTION_ERROR || 00402 || Could not resolve STP to a managing NSA. || Include the STP that could not be resolved. ||
 || NO_PATH_FOUND || 00403 || Path computation failed to resolve route for reservation. || ||
-|| VLANID_INTERCANGE_NOT_SUPPORTED || 00404 || VlanId interchange not supported for requested path. || ||
 || INTERNAL_ERROR || 00500 || An internal error has caused a message processing failure. || ||
-|| INTERNAL_NRM_ERROR || 00501 || An internal NRM error has caused a message processing failure. || Include information describing the specific NRM error. ||
+|| INTERNAL_NRM_ERROR || 00501 || An internal NRM error has caused a message processing failure. || Include information describing the specific NRM error. || ||
 || RESOURCE_UNAVAILABLE || 00600 || || ||
-|| STP_UNAVALABLE || 00601 || Specified STP already in use. || ||
-|| BANDWIDTH_UNAVAILABLE || 00602 || Insufficent bandwidth available for reservation. || ||
+
+Context for these service-specific errors is provided by the serviceType element included in the ServiceExceptionType structure returned when an NSA generates a service-specific error. This serviceType element maps into the service definition used for the service request1 on this failed segment and, in turn, to a detailed description of the service-specific error. Table 105 shows the service-specific errors defined for the basic point-to-point service.
+
+|| text || errorId || description || variables ||
+|| SERVICE_ERROR || 00700 || Reserved for service specific errors as defined by serviceType and the corresponding service definition. || ||
+|| UNKNOWN_STP || 00701 || Could not find STP in topology database. || ||
+￼|| STP_RESOLUTION_ERROR || 00702 ||  Could not resolve STP to a managing NSA. || ||
+￼|| VLANID_INTERCANGE_NOT_SUPPORTED || 00703 || VLAN interchange not supported for requested path. || ||
+￼|| STP_UNAVALABLE || 00704 || Specified STP already in use. || ||
+￼|| CAPACITY_UNAVAILABLE || 00705 || Insufficient capacity available for reservation. || ||
