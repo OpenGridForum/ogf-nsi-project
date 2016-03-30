@@ -1333,16 +1333,40 @@
 
             Elements:
 
-            startTime - Reservation start time. If not specified then immediate
-            reservation.
+            startTime - The start time of the reservation.
 
-            endTime - Reservation end time.  If endTime is not specified then
-            the schedule end is indefinite.
+            A start time of "now" is represented by a nil value in the
+            startTime element.  For backwards compatibility an absent
+            startTime element in the initial reserve message also represents
+            a start time of "now".
+
+            An absent startTime element in a modification operation indicates
+            there is no change to startTime.  A startTime element with a nil
+            value within a modify request represents a modification of
+            startTime to "now".
+
+            If a reserve request has a startTime in the past it should be
+            considered as a start time of "now".
+
+            endTime - The end time of the reservation.
+
+            An "indefinite" end time is represented by a nil value in the
+            endTime element.  For backwards compatibility an absent endTime
+            element in the inital reserve message also represents an
+            "indefinite" end time.
+
+            An absent endTime element in a modification operation indicates
+            there is no change to endTime.  An endTime element with a nil value
+            within a modify request represents a modification of endTime to
+            "indefinite".
+
+            If a reserve request has a endTime in the past it should be
+            considered as an invalid reservation request.
          </xsd:documentation>
       </xsd:annotation>
         <xsd:sequence>
-            <xsd:element name="startTime" type="ftypes:DateTimeType" minOccurs="0" />
-            <xsd:element name="endTime"   type="ftypes:DateTimeType" minOccurs="0" />
+            <xsd:element name="startTime" type="ftypes:DateTimeType" nillable="true" minOccurs="0" />
+            <xsd:element name="endTime"   type="ftypes:DateTimeType" nillable="true" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
     
