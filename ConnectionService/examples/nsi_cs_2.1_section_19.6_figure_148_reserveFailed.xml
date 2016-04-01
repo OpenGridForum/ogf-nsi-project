@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:headers="http://schemas.ogf.org/nsi/2013/12/framework/headers" 
+    xmlns:p2p="http://schemas.ogf.org/nsi/2013/12/services/point2point" 
+    xmlns:nsi="http://schemas.ogf.org/nsi/2013/12/connection/types"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xsi:schemaLocation="
+    http://schemas.xmlsoap.org/soap/envelope/ file:../envelope.xsd
+    http://schemas.ogf.org/nsi/2013/12/connection/types file:../ogf_nsi_connection_types_v2_0.xsd
+    http://schemas.ogf.org/nsi/2013/12/framework/types file:../ogf_nsi_framework_types_v2_0.xsd">
+    <soapenv:Header>
+        <headers:nsiHeader>
+            <protocolVersion>application/vnd.ogf.nsi.cs.v2.provider+soap</protocolVersion>
+            <correlationId>urn:uuid:390be79e-5b49-4688-9280-e49b139595e2</correlationId>
+            <requesterNSA>urn:ogf:network:es.net:2013:nsa:nsi-requester</requesterNSA>
+            <providerNSA>urn:ogf:network:es.net:2013:nsa:nsi-aggr-west</providerNSA>
+        </headers:nsiHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <nsi:reserveFailed>
+            <connectionId>urn:uuid:4b4a71d0-3c71-47cf-a646-beacb14a4c72</connectionId>
+            <connectionStates>
+                <reservationState>ReserveFailed</reservationState>
+                <provisionState>Released</provisionState>
+                <lifecycleState>Created</lifecycleState>
+                <dataPlaneStatus>
+                    <active>false</active>
+                    <version>0</version>
+                    <versionConsistent>false</versionConsistent>
+                </dataPlaneStatus>
+            </connectionStates>
+            <serviceException>
+                <nsaId>urn:ogf:network:icair.org:2013:nsa</nsaId>
+                <connectionId>urn:uuid:92d54ff8-dec2-4be8-ae9e-3c0244f2c82b</connectionId>
+                <serviceType>http://services.ogf.org/nsi/2013/12/descriptions/EVTS.A-GOLE</serviceType>
+                <errorId>00704</errorId>
+                <text>STP_UNAVALABLE: Specified STP already in use (urn:ogf:network:icair.org:2013:topology:netherlight?vlan=1782).</text>
+                <variables>
+                    <variable namespace="http://schemas.ogf.org/nsi/2013/12/services/point2point" type="sourceSTP">
+                        <value>urn:ogf:network:icair.org:2013:topology:netherlight?vlan=1782</value>
+                        <feedback xsi:type="xsd:anyURI">urn:ogf:network:icair.org:2013:topology:netherlight?vlan=1785-1790</feedback>
+                    </variable>
+                </variables>
+            </serviceException>
+        </nsi:reserveFailed>
+    </soapenv:Body>
+</soapenv:Envelope>
