@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:headers="http://schemas.ogf.org/nsi/2013/12/framework/headers" 
+    xmlns:p2p="http://schemas.ogf.org/nsi/2013/12/services/point2point" 
+    xmlns:nsi="http://schemas.ogf.org/nsi/2013/12/connection/types"
+    xmlns:types="http://schemas.ogf.org/nsi/2013/12/services/types"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+    http://schemas.xmlsoap.org/soap/envelope/ file:../envelope.xsd
+    http://schemas.ogf.org/nsi/2013/12/connection/types file:../ogf_nsi_connection_types_v2_0.xsd
+    http://schemas.ogf.org/nsi/2013/12/services/types file:../ogf_nsi_services_types_v2_0.xsd
+    http://schemas.ogf.org/nsi/2013/12/services/point2point file:../ogf_nsi_services_p2p_v2_0.xsd
+    http://schemas.ogf.org/nsi/2013/12/framework/types file:../ogf_nsi_framework_types_v2_0.xsd">
+    <soapenv:Header>
+        <headers:nsiHeader>
+            <protocolVersion>application/vnd.ogf.nsi.cs.v2.provider+soap</protocolVersion>
+            <correlationId>urn:uuid:390be79e-5b49-4688-9280-e49b139595e2</correlationId>
+            <requesterNSA>urn:ogf:network:es.net:2013:nsa:nsi-requester</requesterNSA>
+            <providerNSA>urn:ogf:network:es.net:2013:nsa:nsi-aggr-west</providerNSA>
+            <replyTo>https://nsi-aggr-west.es.net/requester/reply</replyTo>
+        </headers:nsiHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <nsi:reserve>
+            <globalReservationId>urn:uuid:83fe4f36-5b38-41b6-bc46-a362a06a54ee</globalReservationId>
+            <description>My example reservation using NSI CS 2.1.</description>
+            <criteria version="1">
+                <schedule>
+                    <startTime>2015-08-15T09:30:10Z</startTime>
+                    <endTime>2015-08-15T10:30:10Z</endTime>
+                </schedule>
+                <serviceType>http://services.ogf.org/nsi/2013/12/descriptions/EVTS.A-GOLE</serviceType>
+                <p2p:p2ps>
+                    <capacity>10000</capacity>
+                    <directionality>Bidirectional</directionality>
+                    <symmetricPath>true</symmetricPath>
+                    <sourceSTP>urn:ogf:network:kddilabs.jp:2013:topology:bi-ps?vlan=1780-1782</sourceSTP>
+                    <destSTP>urn:ogf:network:uvalight.net:2013:topology:ps?vlan=1780-1782</destSTP>
+                    <inclusion type="http://schemas.ogf.org/nsi/2013/12/services/point2point#stpId">
+                        <eq xsi:type="types:StpIdType">urn:ogf:network:es.net:2013:</eq>
+                        <eq xsi:type="types:StpIdType">urn:ogf:network:icair.org:2013:topology</eq>
+                        <eq xsi:type="types:StpIdType">urn:ogf:network:manlan.internet2.edu:2013:</eq>
+                        <eq xsi:type="types:StpIdType">urn:ogf:network:netherlight.net:2013:production7</eq>                   
+                    </inclusion>
+                    <exclusion type="http://services.ogf.org/nsi/2013/12/definitions/EVTS.A-GOLE#sdpCapacity">
+                        <lt xsi:type="xsd:long">10000</lt>
+                        <gt xsi:type="xsd:long">10000</gt>
+                    </exclusion> 
+                </p2p:p2ps>
+            </criteria>
+        </nsi:reserve>
+    </soapenv:Body>
+</soapenv:Envelope>

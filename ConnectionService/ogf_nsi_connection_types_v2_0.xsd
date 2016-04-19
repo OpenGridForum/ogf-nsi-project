@@ -381,7 +381,8 @@
                 element is included even if the request did not include an
                 ifModifiedSince element, and if the response does not contain any
                 reservation results.  This lastModified value can be used in the next
-                query for this filter.
+                query for this filter.  The lastModified element will only be absent
+                if the NSA does not support the ifModifiedSince capability.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
